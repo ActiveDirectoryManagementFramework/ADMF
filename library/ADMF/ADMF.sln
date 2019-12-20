@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{DE531953-A405-4C22-B008-4DC0B0CA4C3D}") = "ADMF", "ADMF\ADMF.csproj", "{269912E3-9131-491F-B777-E4418E51660D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{269912E3-9131-491F-B777-E4418E51660D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269912E3-9131-491F-B777-E4418E51660D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269912E3-9131-491F-B777-E4418E51660D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269912E3-9131-491F-B777-E4418E51660D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7BB47E3-B591-44A9-9F5D-EE2D9C634AF4}
+	EndGlobalSection
+EndGlobal
