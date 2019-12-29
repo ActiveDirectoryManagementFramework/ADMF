@@ -1,0 +1,11 @@
+﻿TOPIC
+	about_ADMF_Context
+	
+SHORT DESCRIPTION
+	Explains how the context system of ADMF works.
+	
+LONG DESCRIPTION
+	<Insert Content here>
+
+KEYWORDS
+	ADMF Context

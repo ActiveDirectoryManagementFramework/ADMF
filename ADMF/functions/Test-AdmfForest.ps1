@@ -22,7 +22,6 @@
 
 			Test the current forest for baseline compliance.
 	#>
-	
 	[CmdletBinding()]
 	Param (
 		[PSFComputer]
@@ -31,7 +30,7 @@
 		[PSCredential]
 		$Credential,
 
-		[UpdateForestOptions[]]
+		[ADMF.UpdateForestOptions[]]
 		$Options = 'All'
 	)
 	
@@ -41,35 +40,56 @@
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
 		catch { throw }
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		[UpdateForestOptions]$newOptions = $Options
+		[ADMF.UpdateForestOptions]$newOptions = $Options
 	}
 	process
 	{
 		try
 		{
 			if ($newOptions -band [UpdateForestOptions]::Sites) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Sites', $parameters.Server
-				Test-FMSite @parameters
+				if (Get-FMSite)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Sites', $parameters.Server
+					Test-FMSite @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Sites' }
 			}
 			if ($newOptions -band [UpdateForestOptions]::SiteLinks) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Sitelinks', $parameters.Server
-				Test-FMSiteLink @parameters
+				if (Get-FMSiteLink)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Sitelinks', $parameters.Server
+					Test-FMSiteLink @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Sitelinks' }
 			}
 			if ($newOptions -band [UpdateForestOptions]::Subnets) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Subnets', $parameters.Server
-				Test-FMSubnet @parameters
+				if (Get-FMSubnet)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Subnets', $parameters.Server
+					Test-FMSubnet @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Subnets' }
 			}
 			if ($newOptions -band [UpdateForestOptions]::ServerRelocate) {
+				# Requires no configuration, so no check for configuration existence required
 				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Server Site Assignment', $parameters.Server
 				Test-FMServer @parameters
 			}
 			if ($newOptions -band [UpdateForestOptions]::Schema) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema (Custom)', $parameters.Server
-				Test-FMSchema @parameters
+				if (Get-FMSchema)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema (Custom)', $parameters.Server
+					Test-FMSchema @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Custom)' }
 			}
 			if ($newOptions -band [UpdateForestOptions]::SchemaLdif) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema (Ldif)', $parameters.Server
-				Test-FMSchemaLdif @parameters
+				if (Get-FMSchemaLdif)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema (Ldif)', $parameters.Server
+					Test-FMSchemaLdif @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Ldif)' }
 			}
 		}
 		catch { throw }

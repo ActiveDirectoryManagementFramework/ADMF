@@ -17,5 +17,12 @@ Set-PSFScriptblock -Name 'ADMF.Validate.Type.Gpo' -Scriptblock {
     $true
 }
 Set-PSFScriptblock -Name 'ADMF.Validate.Path' -Scriptblock {
-    Test-Path -Path $_
+	Test-Path -Path $_
+}
+Set-PSFScriptblock -Name 'ADMF.Validate.Path.Folder' -Scriptblock {
+	$resolvedPath = Resolve-PSFPath -Provider FileSystem -Path $OutPath -SingleItem
+	Test-Path -Path $resolvedPath -PathType Container
+}
+Set-PSFScriptblock -Name 'ADMF.Validate.ContextStore.ExistsNot' -Scriptblock {
+	$_ -notin (Get-AdmfContextStore).Name
 }

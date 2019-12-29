@@ -17,10 +17,14 @@ Set-PSFConfig -Module 'ADMF' -Name 'Import.IndividualFiles' -Value $false -Initi
 Set-PSFConfig -Module 'ADMF' -Name 'DCSelectionMode' -Value 'PDCEmulator' -Initialize -Validation 'string' -Description 'When executing commands, specifying the domain name will cause the module to resolve to a single DC to work against. This setting governs the algorythm that determines the DC to work against. Either "PDCEmulator" or "Random" are valid choices.'
 
 Set-PSFConfig -Module 'ADMF' -Name 'VerboseExecution' -Value $true -Initialize -Validation bool -Handler {
-    if ($args[0]) {
-        $null = New-PSFMessageLevelModifier -Name ADMF_Verbose -Modifier 0 -IncludeModuleName ADMF
-    }
-    else {
-        $null = New-PSFMessageLevelModifier -Name ADMF_Verbose -Modifier 3 -IncludeModuleName ADMF
-    }
+	if ($args[0])
+	{
+		$null = New-PSFMessageLevelModifier -Name ADMF_Verbose -Modifier 0 -IncludeModuleName ADMF
+	}
+	else
+	{
+		$null = New-PSFMessageLevelModifier -Name ADMF_Verbose -Modifier 3 -IncludeModuleName ADMF
+	}
 } -Description 'Enabling this will cause the ADMF module to be more verbose by default'
+
+Set-PSFConfig -Module 'ADMF' -Name 'Context.Store.Default' -Value "$(Get-PSFPath -Name AppData)\ADMF\Contexts" -Initialize -Validation string -Description 'The default path in which ADMF will look for configuration contexts. Add additional such paths by declaring additional settings labeled "ADMF.Context.Store.*"'

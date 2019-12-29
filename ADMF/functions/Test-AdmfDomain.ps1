@@ -32,7 +32,7 @@
 		[PSCredential]
 		$Credential,
 
-		[UpdateDomainOptions[]]
+		[ADMF.UpdateDomainOptions[]]
 		$Options = 'All'
 	)
 	
@@ -42,47 +42,83 @@
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
 		catch { throw }
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		[UpdateDomainOptions]$newOptions = $Options
+		[ADMF.UpdateDomainOptions]$newOptions = $Options
 	}
 	process
 	{
 		try
 		{
 			if (($newOptions -band [UpdateDomainOptions]::OUSoft) -or ($newOptions -band [UpdateDomainOptions]::OUHard)) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'OrganizationalUnits', $parameters.Server
-				Test-DMOrganizationalUnit @parameters
+				if (Get-DMOrganizationalUnit)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'OrganizationalUnits', $parameters.Server
+					Test-DMOrganizationalUnit @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'OrganizationalUnits' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::Group) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Groups', $parameters.Server
-				Test-DMGroup @parameters
+				if (Get-DMGroup)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Groups', $parameters.Server
+					Test-DMGroup @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Groups' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::User) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Users', $parameters.Server
-				Test-DMUser @parameters
+				if (Get-DMUser)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Users', $parameters.Server
+					Test-DMUser @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Users' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::GroupMembership) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupMembership', $parameters.Server
-				Test-DMGroupMembership @parameters
+				if (Get-DMGroupMembership)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupMembership', $parameters.Server
+					Test-DMGroupMembership @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupMembership' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::Acl) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Acls', $parameters.Server
-				Test-DMAcl @parameters
+				if (Get-DMAcl)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Acls', $parameters.Server
+					Test-DMAcl @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Acls' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::AccessRule) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'AccessRules', $parameters.Server
-				Test-DMAccessRule @parameters
+				if (Get-DMAccessRule)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'AccessRules', $parameters.Server
+					Test-DMAccessRule @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::PSO) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'PasswordPolicies', $parameters.Server
-				Test-DMPasswordPolicy @parameters
+				if (Get-DMPasswordPolicy)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'PasswordPolicies', $parameters.Server
+					Test-DMPasswordPolicy @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'PasswordPolicies' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::Object) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Object', $parameters.Server
-				Test-DMObject @parameters
+				if (Get-DMObject)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Object', $parameters.Server
+					Test-DMObject @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Object' }
 			}
 			if (($newOptions -band [UpdateDomainOptions]::GroupPolicy) -or ($newOptions -band [UpdateDomainOptions]::GroupPolicyDelete)) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicies', $parameters.Server
-				Test-DMGroupPolicy @parameters
+				if (Get-DMGroupPolicy)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicies', $parameters.Server
+					Test-DMGroupPolicy @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::GPPermission) {
 				Write-PSFMessage -Level Host -Message "Not implemented yet: <c='em'>Group Policy Permissions</c>"
@@ -90,8 +126,12 @@
 				# Test-DMGPPermission @parameters
 			}
 			if (($newOptions -band [UpdateDomainOptions]::GPLink) -or ($newOptions -band [UpdateDomainOptions]::GPLinkDisable)) {
-				Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicyLinks', $parameters.Server
-				Test-DMGPLink @parameters
+				if (Get-DMGPLink)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicyLinks', $parameters.Server
+					Test-DMGPLink @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks' }
 			}
 		}
 		catch { throw }
