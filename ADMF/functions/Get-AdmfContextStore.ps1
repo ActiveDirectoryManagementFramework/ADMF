@@ -1,5 +1,20 @@
 ﻿function Get-AdmfContextStore
 {
+<#
+	.SYNOPSIS
+		Returns the list of available context stores.
+	
+	.DESCRIPTION
+		Returns the list of available context stores.
+	
+	.PARAMETER Name
+		The name to filter by.
+	
+	.EXAMPLE
+		PS C:\> Get-AdmfContextStore
+	
+		Returns all available context stores.
+#>
 	[CmdletBinding()]
 	param (
 		[string]

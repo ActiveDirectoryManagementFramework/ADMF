@@ -1,19 +1,52 @@
 ﻿function Get-AdmfContext
 {
-	[CmdletBinding()]
+<#
+	.SYNOPSIS
+		Return available contexts.
+	
+	.DESCRIPTION
+		Return available contexts.
+		By default, only the latest version of any given context will be returned.
+	
+	.PARAMETER Name
+		The name of the context to filter by.
+	
+	.PARAMETER Store
+		The context stores to look in.
+	
+	.PARAMETER All
+		Return all versions of any given context, rather than just the latest version.
+	
+	.EXAMPLE
+		PS C:\> Get-AdmfContext
+	
+		Returns the latest version of all available contexts.
+#>
+	[CmdletBinding(DefaultParameterSetName = 'Search')]
 	param (
+		[Parameter(ParameterSetName = 'Search')]
 		[string]
 		$Name = '*',
 		
+		[Parameter(ParameterSetName = 'Search')]
 		[string]
 		$Store = '*',
 		
+		[Parameter(ParameterSetName = 'Search')]
 		[switch]
-		$All
+		$All,
+		
+		[Parameter(ParameterSetName = 'Current')]
+		[switch]
+		$Current
 	)
 	
 	process
 	{
+		if ($Current)
+		{
+			return $script:loadedContexts
+		}
 		$contextStores = Get-AdmfContextStore -Name $Store
 		$allContextData = foreach ($contextStore in $contextStores)
 		{
