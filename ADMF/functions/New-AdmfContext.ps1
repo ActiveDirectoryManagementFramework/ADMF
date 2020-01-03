@@ -169,7 +169,12 @@
 		if ($IncludeTemplate) { Copy-Item -Path "$script:ModuleRoot\internal\data\contextTemplate\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse }
 		else { Copy-Item -Path "$script:ModuleRoot\internal\data\context\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse }
 		
-		#TODO: Implement Default Access Rules
+		#region Default Access Rules
+		if ($DefaultAccessRules){
+			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
+			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\objectCategories\*.psd1" -Destination "$($contextVersionFolder.FullName)\domain\objectcategories\"
+		}
+		#endregion Default Access Rules
 		
 		$contextJson = [pscustomobject]@{
 			Version	      = '1.0.0'

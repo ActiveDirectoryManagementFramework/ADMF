@@ -20,7 +20,7 @@ Set-PSFScriptblock -Name 'ADMF.Validate.Path' -Scriptblock {
 	Test-Path -Path $_
 }
 Set-PSFScriptblock -Name 'ADMF.Validate.Path.Folder' -Scriptblock {
-	$resolvedPath = Resolve-PSFPath -Provider FileSystem -Path $OutPath -SingleItem
+	$resolvedPath = Resolve-PSFPath -Provider FileSystem -Path $_ -SingleItem
 	Test-Path -Path $resolvedPath -PathType Container
 }
 Set-PSFScriptblock -Name 'ADMF.Validate.ContextStore.ExistsNot' -Scriptblock {

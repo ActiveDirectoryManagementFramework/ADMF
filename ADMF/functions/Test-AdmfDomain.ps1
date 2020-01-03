@@ -32,7 +32,7 @@
 		[PSCredential]
 		$Credential,
 
-		[ADMF.UpdateDomainOptions[]]
+		[UpdateDomainOptions[]]
 		$Options = 'All'
 	)
 	
@@ -42,7 +42,7 @@
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
 		catch { throw }
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		[ADMF.UpdateDomainOptions]$newOptions = $Options
+		[UpdateDomainOptions]$newOptions = $Options
 	}
 	process
 	{

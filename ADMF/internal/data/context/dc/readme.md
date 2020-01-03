@@ -17,9 +17,9 @@ Example configuration file content:
 {
 	"NoDNS":  false,
 	"NoReboot":  false,
-	"LogPath":  "C:\Windows\NTDS",
-	"SysvolPath":  "C:\Windows\SYSVOL",
-	"DatabasePath":  "C:\Windows\NTDS"
+	"LogPath":  "C:\\Windows\\NTDS",
+	"SysvolPath":  "C:\\Windows\\SYSVOL",
+	"DatabasePath":  "C:\\Windows\\NTDS"
 }
 ```
 

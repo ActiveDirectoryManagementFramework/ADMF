@@ -104,7 +104,7 @@
 			#region PreImport
 			if (Test-Path "$($ContextObject.Path)\preImport.ps1")
 			{
-				try { & "$($ContextObject.Path)\preImport.ps1" @parameters }
+				try { $null = & "$($ContextObject.Path)\preImport.ps1" @parameters }
 				catch
 				{
 					Clear-DMConfiguration
@@ -132,7 +132,7 @@
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try
 					{
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $forestFields[$key].Parameters.Keys))
+						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($forestFields[$key].Parameters.Keys)))
 						{
 							& $forestFields[$key] @dataSet -ErrorAction Stop
 						}
@@ -149,7 +149,7 @@
 			
 			if (Test-Path "$($ContextObject.Path)\forest\schemaldif")
 			{
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.ldif"))
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.ldf"))
 				{
 					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ErrorAction Stop }
 					catch
@@ -171,9 +171,7 @@
 				'gplinks'	  = (Get-Command Register-DMGPLink)
 				'groups'	  = (Get-Command Register-DMGroup)
 				'groupmemberships' = (Get-Command Register-DMGroupMembership)
-				'grouppolicies' = (Get-Command Register-DMGroupPolicy)
 				'names'	      = (Get-Command Register-DMNameMapping)
-				'objectcategories' = (Get-Command Register-DMObjectCategory)
 				'objects'	  = (Get-Command Register-DMObject)
 				'organizationalunits' = (Get-Command Register-DMOrganizationalUnit)
 				'psos'	      = (Get-Command Register-DMPasswordPolicy)
@@ -189,7 +187,7 @@
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try
 					{
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $domainFields[$key].Parameters.Keys))
+						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($domainFields[$key].Parameters.Keys)))
 						{
 							& $domainFields[$key] @dataSet -ErrorAction Stop
 						}
@@ -201,6 +199,39 @@
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
 					}
+				}
+			}
+
+			# Group Policy
+			if (Test-Path "$($ContextObject.Path)\domain\grouppolicies\exportData.json")
+			{
+				$file = Get-Item "$($ContextObject.Path)\domain\grouppolicies\exportData.json"
+				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName
+				try {
+					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID
+					foreach ($policyEntry in $dataSet){
+						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($dataSet.ID)"
+					}
+				}
+				catch {
+					Clear-DMConfiguration
+					Clear-FMConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+
+			# Object Categories
+			foreach ($file in (Get-ChildItem "$($ContextObject.Path)\domain\objectcategories" -Filter '*.psd1')){
+				try {
+					$dataSet = Import-PSFPowerShellDataFile -Path $file.FullName
+					Register-DMObjectCategory @dataSet
+				}
+				catch {
+					Clear-DMConfiguration
+					Clear-FMConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Object Categories', $file.FullName -ErrorRecord $_
+					return
 				}
 			}
 			
@@ -236,7 +267,7 @@
 				{
 					Clear-DMConfiguration
 					Clear-FMConfiguration
-					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName -ErrorRecord $_
 					return
 				}
 			}
@@ -258,14 +289,14 @@
 				if ($null -ne $dcData.NoReboot) { Set-PSFConfig -FullName 'DCManagement.Defaults.NoReboot' -Value $dcData.NoReboot }
 				if ($dcData.DatabasePath) { Set-PSFConfig -FullName 'DCManagement.Defaults.DatabasePath' -Value $dcData.DatabasePath }
 				if ($dcData.LogPath) { Set-PSFConfig -FullName 'DCManagement.Defaults.LogPath' -Value $dcData.LogPath }
-				if ($dcData.SysvolPath) { Set-PSFConfig -FullName 'DCManagement.Defaults.NoDNS' -Value $dcData.SysvolPath }
+				if ($dcData.SysvolPath) { Set-PSFConfig -FullName 'DCManagement.Defaults.SysvolPath' -Value $dcData.SysvolPath }
 			}
 			#endregion DC
 			
 			#region PostImport
 			if (Test-Path "$($ContextObject.Path)\postImport.ps1")
 			{
-				try { & "$($ContextObject.Path)\postImport.ps1" @parameters }
+				try { $null = & "$($ContextObject.Path)\postImport.ps1" @parameters }
 				catch
 				{
 					Clear-DMConfiguration
@@ -369,6 +400,7 @@
 		{
 			if (Test-PSFFunctionInterrupt) { return }
 			Set-Context @parameters -ContextObject $contextObject -Cmdlet $PSCmdlet -EnableException $EnableException
+			if (Test-PSFFunctionInterrupt) { return }
 		}
 		$script:assignedContexts["$Server"] = $selectedContexts.Values | Sort-Object Weight
 		$script:loadedContexts = @($selectedContexts.Values | Sort-Object Weight)

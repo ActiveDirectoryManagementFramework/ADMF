@@ -46,6 +46,7 @@ Unused properties are optional.
 
 Example content:
 
+```json
 {
 	"Mode":  "Constrained",
 	"Include":  [],
@@ -56,3 +57,4 @@ Example content:
 	],
 	"UserExcludePattern":  []
 }
+```

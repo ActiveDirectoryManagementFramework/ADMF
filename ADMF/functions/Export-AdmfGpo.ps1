@@ -18,10 +18,6 @@
 	.PARAMETER Domain
 		The domain to export from.
 	
-	.PARAMETER Context
-		The context to export for.
-		Defaults to "default"
-	
 	.EXAMPLE
 		PS C:\> Get-GPO -All | Where-Object DisplayName -like 'AD-D-SEC-T0*' | Export-AdmfGpo -Path .
 
@@ -39,10 +35,7 @@
 		$GpoObject,
 
 		[string]
-		$Domain = $env:USERDNSDOMAIN,
-
-		[string]
-		$Context = 'default'
+		$Domain = $env:USERDNSDOMAIN
 	)
 	
 	begin
@@ -63,7 +56,6 @@
 				DisplayName = $gpoItem.DisplayName
 				Description = $gpoItem.Description
 				ID = "{$($exportData.ID.ToString().ToUpper())}"
-				Path = "%moduleroot%\internal\groupPolicyObject\$Context\{$($exportData.ID.ToString().ToUpper())}"
 				ExportID = $exportID
 			}
 			$null = $gpoData.Add($data)

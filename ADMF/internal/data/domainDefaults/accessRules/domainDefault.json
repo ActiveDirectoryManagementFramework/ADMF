@@ -1,0 +1,218 @@
+﻿[
+    {
+        "Path":  "OU=Domain Controllers,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=LostAndFound,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Managed Service Accounts,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Managed Service Accounts,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=Managed Service Accounts,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=Managed Service Accounts,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "ce206244-5827-4a86-ba1c-1c0c386c1b64",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Account Operators"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "bf967aa8-0de6-11d0-a285-00aa003049e2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Print Operators"
+    },
+    {
+        "Path":  "CN=Policies,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=Policies,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Group Policy Creator Owners"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "CREATOR OWNER"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Admins"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Group Policy Creator Owners"
+    }
+]

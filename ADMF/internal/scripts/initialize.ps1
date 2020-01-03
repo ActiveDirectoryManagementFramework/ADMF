@@ -20,3 +20,8 @@
 }
 Register-DMCallback -Name ADMF -ScriptBlock $callbackScript
 Register-FMCallback -Name ADMF -ScriptBlock $callbackScript
+
+Set-PSFTypeAlias -Mapping @{
+	'UpdateDomainOptions' = 'ADMF.UpdateDomainOptions'
+	'UpdateForestOptions' = 'ADMF.UpdateForestOptions'
+}

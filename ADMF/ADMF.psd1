@@ -33,7 +33,10 @@
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	RequiredAssemblies = @('bin\ADMF.dll')
+	RequiredAssemblies = @(
+		'bin\ADMF.dll'
+		'System.Windows.Forms'
+	)
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\ADMF.Types.ps1xml')

@@ -58,7 +58,7 @@
 	process
 	{
 		$resolvedPath = Resolve-PSFPath -Path $Path -Provider FileSystem -SingleItem
-		Set-PSFConfig -FullName "ADMF.Context.Store.$Name" -Value $Path
+		Set-PSFConfig -FullName "ADMF.Context.Store.$Name" -Value $resolvedPath
 		Register-PSFConfig -FullName "ADMF.Context.Store.$Name" -Scope $Scope -EnableException:$EnableException
 	}
 }

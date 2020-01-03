@@ -1,14 +1,12 @@
-# grouppolicies
+# Group Policy Objects
 
 ## Synopsis
 
-Add configuration data to manage grouppolicies
+Define group policy objects to be applied.
 
-Place any number of json files in this folder.
-Each file should contain an array of objects.
-What properties to place on each object depends on the parameters present on the relevant 'Register-*'-Command.
-For a full description of the supported properties, see the parameter descriptions:
+Use Export-AdmfGpo to create an export of group policies to apply.
+These should be copied in their entirety, including the generated exportData.json.
+The system uses this exportData.json file to register the correct metadata, so getting that right kind of matters.
+If you later want to update only a single gpo, export just that GPO into a new file, replace the GPO folder and _update_ the ExportID in exportData.json to the new value from the new export.
 
-  Get-Help Register-DMGroupPolicy -Detailed
-
-> Note: You do not need to specify the 'Path' property, as that is handled automatically by the context system.
+It is using that ExportID that the system will recognize the need to update a GPO!

@@ -30,7 +30,7 @@
 		[PSCredential]
 		$Credential,
 
-		[ADMF.UpdateForestOptions[]]
+		[UpdateForestOptions[]]
 		$Options = 'All'
 	)
 	
@@ -40,7 +40,7 @@
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
 		catch { throw }
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		[ADMF.UpdateForestOptions]$newOptions = $Options
+		[UpdateForestOptions]$newOptions = $Options
 	}
 	process
 	{
