@@ -8,9 +8,9 @@
 		Creates a new configuration context for ADMF.
 		Contexts are a set of configuration settings.
 		You can combine multiple contexts at the same time, merging the settings they contain.
-	
+		
 		For more details on how contexts work, see:
-	
+		
 			Get-Help about_ADMF_Context
 	
 	.PARAMETER Name
@@ -37,6 +37,18 @@
 	.PARAMETER Author
 		The author of the context (for documentation purposes only)
 	
+	.PARAMETER Group
+		The group to assign the context to.
+		By default, will be part of the "Default" group.
+		Groups are only relevant fpr the itneractive context selection menu, where they govern the visual display style / grouping.
+	
+	.PARAMETER Prerequisite
+		Contexts the current context depends on / requires.
+	
+	.PARAMETER MutuallyExclusive
+		Contexts that are mutually exclusive with each other.
+		E.g.: Where the user has to select between one of several environments.
+	
 	.PARAMETER DefaultAccessRules
 		A new Active Directory environment comes with more deployed security delegations than defined in the schema.
 		Several containers - especially the BuiltIn container - have a lot of extra access rules.
@@ -57,12 +69,12 @@
 	
 	.EXAMPLE
 		PS C:\> New-AdmfContext -Name 'newContext'
-	
+		
 		Creates a new context named "newContext"
 	
 	.EXAMPLE
 		PS C:\> New-AdmfContext -Name 'Contoso_Baseline' -Store Company -Weight 10 -Author "Sad Joey" -DefaultccessRules -Description "Default baseline for contoso company forests"
-	
+		
 		Creates a new context ...
 		- Named "Contoso_Baseline"
 		- In the context store "Company"
@@ -96,6 +108,15 @@
 		
 		[string]
 		$Author = "<Insert your name here>",
+		
+		[string]
+		$Group = 'Default',
+		
+		[string[]]
+		$Prerequisite = @(),
+		
+		[string[]]
+		$MutuallyExclusive = @(),
 		
 		[switch]
 		$DefaultAccessRules,
@@ -155,9 +176,9 @@
 			Weight	      = $Weight
 			Description   = $Description
 			Author	      = $Author
-			Prerequisites = @()
-			MutuallyExclusive = @()
-			Group		  = "Default"
+			Prerequisites = $Prerequisite
+			MutuallyExclusive = $MutuallyExclusive
+			Group		  = $Group
 		}
 		$contextJson | ConvertTo-Json | Set-Content -Path "$($contextVersionFolder.FullName)\context.json"
 		

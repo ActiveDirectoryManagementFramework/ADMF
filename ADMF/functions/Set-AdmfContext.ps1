@@ -16,9 +16,14 @@
 		This is designed for greater convenience when managing many forests.
 		The system automatically uses Set-AdmfContext with this parameter when directly testing or invoking against a new domain without first selecting a context to apply.
 	
+	.PARAMETER ReUse
+		ADMF remembers the last contexts assigned to a specific server/domain.
+		By setting this parameter, it will re-use those contexts, rather than show the prompt again.
+		This parameter is used by the system to prevent prompting automatically on each call.
+	
 	.PARAMETER Server
 		The server / domain to work with.
-		
+	
 	.PARAMETER Credential
 		The credentials to use for this operation.
 	
@@ -28,17 +33,17 @@
 	
 	.EXAMPLE
 		PS C:\> Set-AdmfContext -Interactive
-	
+		
 		Interactively pick to select the contexts to apply to the user's own domain.
 	
 	.EXAMPLE
 		PS C:\> Set-AdmfContext -Interactive -Server contoso.com
-	
+		
 		Interactively pick to select the contexts to apply to the contoso.com domain.
 	
 	.EXAMPLE
 		PS C:\> Set-AdmfContext -Context Default, Production, Europe -Server eu.contoso.com
-	
+		
 		Configures the contexts Default, Production and Europe to be applied to eu.contoso.com.
 #>
 	[CmdletBinding(DefaultParameterSetName = 'name')]
@@ -51,6 +56,9 @@
 		[Parameter(ParameterSetName = 'interactive')]
 		[switch]
 		$Interactive,
+		
+		[switch]
+		$ReUse,
 		
 		[string]
 		$Server = $env:USERDNSDOMAIN,
@@ -77,7 +85,7 @@
 				[System.Management.Automation.PSCredential]
 				$Credential,
 				
-				[System.Management.Automation.PSScriptCmdlet]
+				[System.Management.Automation.PSCmdlet]
 				$Cmdlet,
 				
 				[bool]
@@ -303,15 +311,33 @@
 		#region Interactively chosen contexts
 		if ($Interactive)
 		{
-			foreach ($contextObjects in (Invoke-CallbackMenu -Server $Server))
+			if ($ReUse -and $script:assignedContexts["$Server"])
 			{
-				$selectedContexts[$contextObject.Name] = $contextObject
+				foreach ($contextObject in $script:assignedContexts["$Server"])
+				{
+					$selectedContexts[$contextObject.Name] = $contextObject
+				}
+				return
+			}
+			try
+			{
+				foreach ($contextObject in (Invoke-CallbackMenu -Server $Server))
+				{
+					$selectedContexts[$contextObject.Name] = $contextObject
+				}
+			}
+			catch
+			{
+				Stop-PSFFunction -String 'Set-AdmfContext.Interactive.Cancel' -EnableException $EnableException -ErrorRecord $_
+				return
 			}
 		}
 		#endregion Interactively chosen contexts
 	}
 	end
 	{
+		if (Test-PSFFunctionInterrupt) { return }
+		
 		#region Handle errors in selection
 		$missingPrerequisites = $selectedContexts.Values.Prerequisites | Where-Object { $_ -notin $selectedContexts.Values.Name }
 		if ($missingPrerequisites)
@@ -322,21 +348,29 @@
 		$conflictingContexts = $selectedContexts.Values.MutuallyExclusive | Where-Object { $_ -in $selectedContexts.Values.Name }
 		if ($conflictingContexts)
 		{
-			Stop-PSFFunction -String 'Set-AdmfContext.Resolution.ExclusionConflict' -StringValues ($selectedContexts.Values.Name -join ", ") -EnableException $EnableException -Category InvalidData
+			Stop-PSFFunction -String 'Set-AdmfContext.Resolution.ExclusionConflict' -StringValues ($conflictingContexts.Name -join ", ") -EnableException $EnableException -Category InvalidData
 			return
 		}
 		#endregion Handle errors in selection
 		
+		# Do nothing if the currently loaded contexts are equal to the selected ones
+		if (
+			$script:loadedContexts.Name -and
+			$selectedContexts.Values.Name -and
+			-not (Compare-Object -ReferenceObject $selectedContexts.Values.Name -DifferenceObject $script:loadedContexts.Name)
+		) { return }
+		
 		# Kill previous configuration
+		$script:loadedContexts = @()
 		Clear-DMConfiguration
 		Clear-FMConfiguration
 		
 		foreach ($contextObject in ($selectedContexts.Values | Sort-Object Weight))
 		{
 			if (Test-PSFFunctionInterrupt) { return }
-			Set-Context @parameters -ContextObject $contextObject
+			Set-Context @parameters -ContextObject $contextObject -Cmdlet $PSCmdlet -EnableException $EnableException
 		}
-		$script:assignedContexts[$Server] = $selectedContexts.Values | Sort-Object Weight
+		$script:assignedContexts["$Server"] = $selectedContexts.Values | Sort-Object Weight
 		$script:loadedContexts = @($selectedContexts.Values | Sort-Object Weight)
 	}
 }

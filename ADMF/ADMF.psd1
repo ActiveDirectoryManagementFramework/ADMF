@@ -50,6 +50,7 @@
 		'Invoke-AdmfForest'
 		'New-AdmfContext'
 		'New-AdmfContextStore'
+		'Set-AdmfContext'
 		'Test-AdmfDomain'
 		'Test-AdmfForest'
 	)

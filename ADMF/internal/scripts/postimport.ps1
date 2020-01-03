@@ -23,3 +23,6 @@ foreach ($file in (Get-ChildItem "$($script:ModuleRoot)\internal\tepp\*.tepp.ps1
 
 # Load Variables
 . Import-ModuleFile -Path "$($script:ModuleRoot)\internal\scripts\variables.ps1"
+
+# Initialize some content
+. Import-ModuleFile -Path "$($script:ModuleRoot)\internal\scripts\initialize.ps1"
