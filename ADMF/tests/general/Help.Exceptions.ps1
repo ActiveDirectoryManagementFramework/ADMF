@@ -12,6 +12,8 @@ $global:FunctionHelpTestExceptions = @(
 $global:HelpTestEnumeratedArrays = @(
   "UpdateDomainOptions[]"
   "UpdateForestOptions[]"
+  "ADMF.UpdateDomainOptions[]"
+  "ADMF.UpdateForestOptions[]"
 )
 
 <#
