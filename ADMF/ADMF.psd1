@@ -26,20 +26,37 @@
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules = @(
-		@{ ModuleName='PSFramework'; ModuleVersion='1.1.59' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
+		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.0.4' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.0.11' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.0.5' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
-	# RequiredAssemblies = @('bin\ADMF.dll')
+	RequiredAssemblies = @(
+		'bin\ADMF.dll'
+		'System.Windows.Forms'
+	)
 	
 	# Type files (.ps1xml) to be loaded when importing this module
 	# TypesToProcess = @('xml\ADMF.Types.ps1xml')
 	
 	# Format files (.ps1xml) to be loaded when importing this module
-	# FormatsToProcess = @('xml\ADMF.Format.ps1xml')
+	FormatsToProcess = @('xml\ADMF.Format.ps1xml')
 	
 	# Functions to export from this module
-	FunctionsToExport = ''
+	FunctionsToExport  = @(
+		'Export-AdmfGpo'
+		'Get-AdmfContext'
+		'Get-AdmfContextStore'
+		'Invoke-AdmfDomain'
+		'Invoke-AdmfForest'
+		'New-AdmfContext'
+		'New-AdmfContextStore'
+		'Set-AdmfContext'
+		'Test-AdmfDomain'
+		'Test-AdmfForest'
+	)
 	
 	# Cmdlets to export from this module
 	CmdletsToExport = ''

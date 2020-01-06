@@ -10,7 +10,10 @@ $global:FunctionHelpTestExceptions = @(
   "Sqlcollaborative.Dbatools.Connection.ManagementConnectionType[]"
 #>
 $global:HelpTestEnumeratedArrays = @(
-	
+  "UpdateDomainOptions[]"
+  "UpdateForestOptions[]"
+  "ADMF.UpdateDomainOptions[]"
+  "ADMF.UpdateForestOptions[]"
 )
 
 <#

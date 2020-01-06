@@ -1,0 +1,72 @@
+﻿[
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Controllers",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Admins",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Key Admins",
+        "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Key Admins",
+        "Optional":  true
+    }
+]
