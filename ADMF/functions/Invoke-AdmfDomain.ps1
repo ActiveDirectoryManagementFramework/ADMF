@@ -45,6 +45,12 @@
 						  This is needed in order to detect undesired GPOs to delete:
 						  Those linked when they shouldn't be!
     	- GroupPolicyDelete : Deploy, update and delete Group Policy objects.
+
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
 	
 	.EXAMPLE
 		PS C:\> Invoke-AdmfDomain

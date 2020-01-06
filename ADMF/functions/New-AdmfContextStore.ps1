@@ -35,6 +35,7 @@
 	
 		Creates a new context named 'company', pointing at '\\contoso\system\ad\contexts'
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true)]

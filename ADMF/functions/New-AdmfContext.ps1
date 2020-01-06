@@ -83,6 +83,7 @@
 		- that contains the default access rules
 		- has a useful description of what it is for
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 	[CmdletBinding(DefaultParameterSetName = 'Store')]
 	param (
 		[Parameter(Mandatory = $true)]

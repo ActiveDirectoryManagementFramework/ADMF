@@ -46,6 +46,7 @@
 		
 		Configures the contexts Default, Production and Europe to be applied to eu.contoso.com.
 #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
 	[CmdletBinding(DefaultParameterSetName = 'name')]
 	param (
 		[Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'name')]

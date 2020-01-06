@@ -16,6 +16,9 @@
 	
 	.PARAMETER All
 		Return all versions of any given context, rather than just the latest version.
+
+	.PARAMETER Current
+		Displays the currently active contexts.
 	
 	.EXAMPLE
 		PS C:\> Get-AdmfContext

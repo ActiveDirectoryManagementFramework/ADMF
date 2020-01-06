@@ -24,6 +24,12 @@
 		- Schema (applies core schema updates)
 		- SchemaLdif (applies product Ldif files, such as SkypeForBusiness)
 		To update everything, use "All".
+
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
 	
 	.EXAMPLE
 		PS C:\> Invoke-AdmfForest -Server contoso.com -Options All
