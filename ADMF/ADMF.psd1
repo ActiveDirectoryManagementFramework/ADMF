@@ -28,8 +28,8 @@
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.0.5' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.0.13' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.0.7' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.0.22' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.0.6' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module

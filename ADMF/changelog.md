@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 1.0.6 (2020-02-18)
+## 1.0.6 (2020-02-24)
 
 - Upd: Get-AdmfContext - New parameter `-Importing` for use within a context's scriptblock.
 - Fix: Set-AdmfContext - No longer re-prompts for context when switching to a new domain with same contexts as previous one.
