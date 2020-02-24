@@ -42,6 +42,7 @@
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
 		catch { throw }
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
+		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 		[UpdateDomainOptions]$newOptions = $Options
 	}
 	process

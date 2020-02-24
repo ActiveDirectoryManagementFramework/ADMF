@@ -150,9 +150,56 @@
 			
 			if (Test-Path "$($ContextObject.Path)\forest\schemaldif")
 			{
+				$filesProcessed = @()
+
+				#region Process Ldif Configuration
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.json"))
+				{
+					$jsonData = Get-Content $file.FullName | ConvertFrom-Json
+					foreach ($jsonEntry in $jsonData)
+					{
+						$targetPath = Join-Path "$($ContextObject.Path)\forest\schemaldif" $jsonEntry.Path
+						if ($filesProcessed -contains $targetPath) { continue }
+
+						try { $ldifItem = Get-Item -Path $targetPath -ErrorAction Stop -Force }
+						catch
+						{
+							Clear-DMConfiguration
+							Clear-FMConfiguration
+							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Schema (ldif)', $file.FullName -ErrorRecord $_
+							return
+						}
+
+						$ldifParam = @{
+							Path = $ldifItem.FullName
+							Name = $ldifItem.BaseName
+							ContextName = $ContextObject.Name
+						}
+						if ($jsonEntry.Name) {  $ldifParam.Name = $jsonEntry.Name }
+						if ($jsonEntry.Weight) { $ldifParam['Weight'] = $jsonEntry.Weight }
+						if ($jsonEntry.MissingObjectExemption) { $ldifParam['MissingObjectExemption'] = $jsonEntry.MissingObjectExemption }
+						try {
+							Register-FMSchemaLdif @ldifParam -ErrorAction Stop
+							$filesProcessed += $ldifItem.FullName
+						}
+						catch
+						{
+							Clear-DMConfiguration
+							Clear-FMConfiguration
+							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
+							return
+						}
+					}
+				}
+				#endregion Process Ldif Configuration
+
+				#region Process Ldif Files without configuration
 				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.ldf"))
 				{
-					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ErrorAction Stop }
+					# Skip files already defined in json
+					if ($filesProcessed -contains $file.FullName) { continue }
+					
+					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ContextName $ContextObject.Name -ErrorAction Stop }
 					catch
 					{
 						Clear-DMConfiguration
@@ -161,13 +208,14 @@
 						return
 					}
 				}
+				#endregion Process Ldif Files without configuration
 			}
 			#endregion Forest
 			
 			#region Domain
 			$domainFields = @{
 				'accessrules' = (Get-Command Register-DMAccessRule)
-				'acl'		  = (Get-Command Register-DMAcl)
+				'acls'		  = (Get-Command Register-DMAcl)
 				'builtinsids' = (Get-Command Register-DMBuiltInSID)
 				'gplinks'	  = (Get-Command Register-DMGPLink)
 				'groups'	  = (Get-Command Register-DMGroup)
@@ -211,7 +259,7 @@
 				try {
 					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID
 					foreach ($policyEntry in $dataSet){
-						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($dataSet.ID)"
+						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)"
 					}
 				}
 				catch {
@@ -390,12 +438,20 @@
 			$script:loadedContexts.Name -and
 			$selectedContexts.Values.Name -and
 			-not (Compare-Object -ReferenceObject $selectedContexts.Values.Name -DifferenceObject $script:loadedContexts.Name)
-		) { return }
+		)
+		{
+			# When switching from one domain to a new one, make sure that the selection is cached, even if it is the same selection.
+			# Otherwise, the second domain will keep reprompting for contexts
+			if (-not $script:assignedContexts["$Server"]) { $script:assignedContexts["$Server"] = $selectedContexts.Values }
+			return
+		}
 		
 		# Kill previous configuration
 		$script:loadedContexts = @()
 		Clear-DMConfiguration
 		Clear-FMConfiguration
+		
+		Set-PSFTaskEngineCache -Module ADMF -Name currentlyImportingContexts -Value $selectedContexts.Values
 		
 		foreach ($contextObject in ($selectedContexts.Values | Sort-Object Weight))
 		{
@@ -405,5 +461,6 @@
 		}
 		$script:assignedContexts["$Server"] = $selectedContexts.Values | Sort-Object Weight
 		$script:loadedContexts = @($selectedContexts.Values | Sort-Object Weight)
+		Set-PSFTaskEngineCache -Module ADMF -Name currentlyImportingContexts -Value @()
 	}
 }

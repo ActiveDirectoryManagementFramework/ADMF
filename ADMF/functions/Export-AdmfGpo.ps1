@@ -65,5 +65,10 @@
 	{
 		$backupGPO.End()
 		$gpoData | ConvertTo-Json | Set-Content "$resolvedPath\exportData.json"
+
+		# Remove hidden attribute, top prevent issues with copy over WinRM
+		foreach ($fsItem in (Get-ChildItem -Path $resolvedPath -Recurse -Force)) {
+			$fsItem.Attributes = $fsItem.Attributes -band [System.IO.FileAttributes]::Directory
+		}
 	}
 }
