@@ -55,6 +55,7 @@
 		catch { throw }
 		$parameters.Server = $dcServer
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
+		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential, WhatIf, Confirm, Verbose, Debug
 		$parameters.Server = $dcServer
 		[ADMF.UpdateForestOptions]$newOptions = $Options

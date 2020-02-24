@@ -19,6 +19,11 @@
 
 	.PARAMETER Current
 		Displays the currently active contexts.
+
+	.PARAMETER Importing
+		Return the contexts that are currently being imported.
+		Use this to react from within your context's scriptblocks to any other context that is selected.
+		This parameter only has meaning when used within a context's scriptblocks.
 	
 	.EXAMPLE
 		PS C:\> Get-AdmfContext
@@ -41,7 +46,11 @@
 		
 		[Parameter(ParameterSetName = 'Current')]
 		[switch]
-		$Current
+		$Current,
+
+		[Parameter(ParameterSetName = 'Importing')]
+		[switch]
+		$Importing
 	)
 	
 	process
@@ -49,6 +58,10 @@
 		if ($Current)
 		{
 			return $script:loadedContexts
+		}
+		if ($Importing)
+		{
+			return (Get-PSFTaskEngineCache -Module ADMF -Name currentlyImportingContexts)
 		}
 		$contextStores = Get-AdmfContextStore -Name $Store
 		$allContextData = foreach ($contextStore in $contextStores)
