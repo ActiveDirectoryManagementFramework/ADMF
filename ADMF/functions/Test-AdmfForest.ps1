@@ -16,12 +16,17 @@
 		.PARAMETER Options
 			What tests to execute.
 			Defaults to all tests.
+
+		.PARAMETER CredentialProvider
+			The credential provider to use to resolve the input credentials.
+			See help on Register-AdmfCredentialProvider for details.
 		
 		.EXAMPLE
 			PS C:\> Test-AdmfForest
 
 			Test the current forest for baseline compliance.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding()]
 	Param (
 		[PSFComputer]
@@ -31,14 +36,21 @@
 		$Credential,
 
 		[UpdateForestOptions[]]
-		$Options = 'All'
+		$Options = 'All',
+
+		[string]
+		$CredentialProvider = 'default'
 	)
 	
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
-		catch { throw }
+		catch {
+			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
+			throw
+		}
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
 		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 		[UpdateForestOptions]$newOptions = $Options
@@ -94,5 +106,6 @@
 			}
 		}
 		catch { throw }
+		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 	}
 }

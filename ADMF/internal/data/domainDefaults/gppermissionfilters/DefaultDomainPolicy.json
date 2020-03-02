@@ -1,0 +1,7 @@
+﻿[
+    {
+        "Name":  "DefaultDomainPolicy",
+        "GPName":  "^Default Domain Policy$|^Default Domain Controllers Policy$",
+        "GPNameMode":  "Regex"
+    }
+]

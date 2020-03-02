@@ -25,3 +25,10 @@ Set-PSFTypeAlias -Mapping @{
 	'UpdateDomainOptions' = 'ADMF.UpdateDomainOptions'
 	'UpdateForestOptions' = 'ADMF.UpdateForestOptions'
 }
+
+Register-AdmfCredentialProvider -Name default -PreScript {
+	param (
+		$Data
+	)
+	$Data.Credential
+}
