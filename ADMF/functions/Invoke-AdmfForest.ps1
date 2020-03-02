@@ -25,6 +25,10 @@
 		- SchemaLdif (applies product Ldif files, such as SkypeForBusiness)
 		To update everything, use "All".
 
+	.PARAMETER CredentialProvider
+		The credential provider to use to resolve the input credentials.
+		See help on Register-AdmfCredentialProvider for details.
+
 	.PARAMETER Confirm
 		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
 	
@@ -36,6 +40,7 @@
 
 		Applies the full forest configuration to the contoso.com domain.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding(SupportsShouldProcess = $true)]
 	Param (
 		[PSFComputer]
@@ -45,18 +50,25 @@
 		$Credential,
 
 		[ADMF.UpdateForestOptions[]]
-		$Options = 'Default'
+		$Options = 'Default',
+
+		[string]
+		$CredentialProvider = 'default'
 	)
 	
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $dcServer = Resolve-DomainController @parameters }
-		catch { throw }
+		catch {
+			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
+			throw
+		}
 		$parameters.Server = $dcServer
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
 		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
-		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential, WhatIf, Confirm, Verbose, Debug
+		$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
 		$parameters.Server = $dcServer
 		[ADMF.UpdateForestOptions]$newOptions = $Options
 	}
@@ -116,5 +128,6 @@
 			}
 		}
 		catch { throw }
+		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 	}
 }

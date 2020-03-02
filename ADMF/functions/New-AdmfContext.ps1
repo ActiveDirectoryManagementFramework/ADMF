@@ -174,6 +174,8 @@
 		if ($DefaultAccessRules){
 			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
 			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\objectCategories\*.psd1" -Destination "$($contextVersionFolder.FullName)\domain\objectcategories\"
+			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\gppermissions\*.json" -Destination "$($contextVersionFolder.FullName)\domain\gppermissions\"
+			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\gppermissionfilters\*.json" -Destination "$($contextVersionFolder.FullName)\domain\gppermissionfilters\"
 		}
 		#endregion Default Access Rules
 		
