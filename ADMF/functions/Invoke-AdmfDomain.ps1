@@ -46,6 +46,10 @@
 						  Those linked when they shouldn't be!
     	- GroupPolicyDelete : Deploy, update and delete Group Policy objects.
 
+	.PARAMETER CredentialProvider
+		The credential provider to use to resolve the input credentials.
+		See help on Register-AdmfCredentialProvider for details.
+
 	.PARAMETER Confirm
 		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
 	
@@ -66,18 +70,25 @@
 		$Credential,
 
 		[ADMF.UpdateDomainOptions[]]
-		$Options = 'Default'
+		$Options = 'Default',
+
+		[string]
+		$CredentialProvider = 'default'
 	)
 	
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $dcServer = Resolve-DomainController @parameters }
-		catch { throw }
+		catch { 
+			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
+			throw
+		}
 		$parameters.Server = $dcServer
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
 		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
-		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential, WhatIf, Confirm, Verbose, Debug
+		$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
 		$parameters.Server = $dcServer
 		[ADMF.UpdateDomainOptions]$newOptions = $Options
 	}
@@ -141,9 +152,12 @@
 			}
 			if ($newOptions -band [UpdateDomainOptions]::GPPermission)
 			{
-				Write-PSFMessage -Level Host -Message "Not implemented yet: <c='em'>Group Policy Permissions</c>"
-				# Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyPermissions', $parameters.Server
-				# Invoke-DMGPPermission @parameters
+				if (Get-DMGPPermission)
+				{
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyPermissions', $parameters.Server
+					Invoke-DMGPPermission @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyPermissions' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::GPLinkDisable)
 			{
@@ -210,5 +224,6 @@
 			}
 		}
 		catch { throw }
+		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 	}
 }

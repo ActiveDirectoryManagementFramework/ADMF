@@ -18,6 +18,10 @@
 	.PARAMETER Options
 		Which scan to execute.
 		By default, all tests are run, but it is possibly to selectively choose which to run.
+
+	.PARAMETER CredentialProvider
+		The credential provider to use to resolve the input credentials.
+		See help on Register-AdmfCredentialProvider for details.
 	
 	.EXAMPLE
 		PS C:\> Test-AdmfDomain -Server corp.fabrikam.com
@@ -33,14 +37,21 @@
 		$Credential,
 
 		[UpdateDomainOptions[]]
-		$Options = 'All'
+		$Options = 'All',
+
+		[string]
+		$CredentialProvider = 'default'
 	)
 	
 	begin
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
-		catch { throw }
+		catch { 
+			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
+			throw
+		}
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
 		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 		[UpdateDomainOptions]$newOptions = $Options
@@ -122,9 +133,12 @@
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::GPPermission) {
-				Write-PSFMessage -Level Host -Message "Not implemented yet: <c='em'>Group Policy Permissions</c>"
-				# Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicyPermissions', $parameters.Server
-				# Test-DMGPPermission @parameters
+				if (Get-DMGPPermission)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicyPermissions', $parameters.Server
+					Test-DMGPPermission @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyPermissions' }
 			}
 			if (($newOptions -band [UpdateDomainOptions]::GPLink) -or ($newOptions -band [UpdateDomainOptions]::GPLinkDisable)) {
 				if (Get-DMGPLink)
@@ -136,5 +150,6 @@
 			}
 		}
 		catch { throw }
+		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 	}
 }

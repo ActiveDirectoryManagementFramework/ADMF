@@ -61,7 +61,7 @@
 		[switch]
 		$ReUse,
 		
-		[string]
+		[PSFComputer]
 		$Server = $env:USERDNSDOMAIN,
 		
 		[System.Management.Automation.PSCredential]
@@ -218,6 +218,8 @@
 				'acls'		  = (Get-Command Register-DMAcl)
 				'builtinsids' = (Get-Command Register-DMBuiltInSID)
 				'gplinks'	  = (Get-Command Register-DMGPLink)
+				'gppermissions' = (Get-Command Register-DMGPPermission)
+				'gppermissionfilters' = (Get-Command Register-DMGPPermissionFilter)
 				'groups'	  = (Get-Command Register-DMGroup)
 				'groupmemberships' = (Get-Command Register-DMGroupMembership)
 				'names'	      = (Get-Command Register-DMNameMapping)
@@ -238,6 +240,9 @@
 					{
 						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($domainFields[$key].Parameters.Keys)))
 						{
+							if ($domainFields[$key].Parameters.Keys -contains 'ContextName') {
+								$dataSet['ContextName'] = $ContextObject.Name
+							}
 							& $domainFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
@@ -401,7 +406,7 @@
 			}
 			try
 			{
-				foreach ($contextObject in (Invoke-CallbackMenu -Server $Server))
+				foreach ($contextObject in (Invoke-CallbackMenu @parameters))
 				{
 					$selectedContexts[$contextObject.Name] = $contextObject
 				}

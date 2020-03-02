@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.0.6'
+	ModuleVersion = '1.1.14'
 	
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -28,8 +28,8 @@
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.0.5' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.0.22' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.0.6' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.1.26' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.0.11' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
@@ -53,6 +53,7 @@
 		'Invoke-AdmfForest'
 		'New-AdmfContext'
 		'New-AdmfContextStore'
+		'Register-AdmfCredentialProvider'
 		'Set-AdmfContext'
 		'Test-AdmfDomain'
 		'Test-AdmfForest'
@@ -80,19 +81,19 @@
 		PSData = @{
 			
 			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+			Tags = @('activedirectory','configuration','admf', 'management')
 			
 			# A URL to the license for this module.
-			# LicenseUri = ''
+			LicenseUri = 'https://github.com/ActiveDirectoryManagementFramework/ADMF/blob/master/LICENSE'
 			
 			# A URL to the main website for this project.
-			# ProjectUri = ''
+			ProjectUri = 'https://admf.one'
 			
 			# A URL to an icon representing this module.
 			# IconUri = ''
 			
 			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+			ReleaseNotes = 'https://github.com/ActiveDirectoryManagementFramework/ADMF/blob/master/ADMF/changelog.md'
 			
 		} # End of PSData hashtable
 		
