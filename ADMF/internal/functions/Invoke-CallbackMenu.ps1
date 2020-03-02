@@ -29,7 +29,7 @@
 	param (
 		[Parameter(Mandatory = $true)]
 		[string]
-		$Server = $env:USERDNSNAME,
+		$Server,
 		
 		[pscredential]
 		$Credential

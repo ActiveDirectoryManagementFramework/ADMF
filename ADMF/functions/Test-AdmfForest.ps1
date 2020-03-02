@@ -26,6 +26,7 @@
 
 			Test the current forest for baseline compliance.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding()]
 	Param (
 		[PSFComputer]
@@ -46,7 +47,7 @@
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop }
-		catch { 
+		catch {
 			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
 			throw
 		}
