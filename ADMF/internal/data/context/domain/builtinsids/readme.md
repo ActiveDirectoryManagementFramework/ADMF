@@ -10,4 +10,3 @@ What properties to place on each object depends on the parameters present on the
 For a full description of the supported properties, see the parameter descriptions:
 
   Get-Help Register-DMBuiltInSID -Detailed
-

@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: New-AdmfContext - support for Domain Data and Group Policy Registry Settings added
+- Upd: Set-AdmfContext - support for Domain Data and Group Policy Registry Settings added
+- Fix: Set-AdmfContext - Importing Object Category would import a nested scriptblock that is always $true
+
 ## 1.1.14 (2020-03-02)
 
 - New: Component to customize credentials used. The Credential Providers allow dynamic credential resolution (e.g.: Accessing Key Vaults) as part of all ADMF workflows.
