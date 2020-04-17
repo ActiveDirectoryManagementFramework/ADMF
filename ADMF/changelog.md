@@ -8,6 +8,7 @@
 - Upd: Test-AdmfForest - added step to test NTAuthStore Component
 - Upd: Invoke-AdmfForest - added step to update NTAuthStore Component
 - Upd: Added warning message on screen when credential provider cannot be resolved
+- Upd: Default Permission sets - adding access rules for domain root
 - Fix: Set-AdmfContext - Importing Object Category would import a nested scriptblock that is always $true
 
 ## 1.1.14 (2020-03-02)

@@ -1,0 +1,29 @@
+﻿[
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "DS-Clone-Domain-Controller",
+        "InheritedObjectType":  "\u003cAll\u003e",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Cloneable Domain Controllers"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-DS-Key-Credential-Link",
+        "InheritedObjectType":  "\u003cAll\u003e",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Key Admins"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-DS-Key-Credential-Link",
+        "InheritedObjectType":  "\u003cAll\u003e",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Key Admins"
+    }
+]
