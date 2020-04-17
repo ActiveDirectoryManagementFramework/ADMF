@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.1.23 (2020-04-17)
 
 - Upd: New-AdmfContext - support for Domain Data and Group Policy Registry Settings added
 - Upd: Set-AdmfContext - support for Domain Data and Group Policy Registry Settings added
