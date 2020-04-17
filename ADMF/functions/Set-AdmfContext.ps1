@@ -193,6 +193,53 @@
 				}
 				#endregion Process Ldif Files without configuration
 			}
+			
+			#region NTAuthStore
+			if (Test-Path "$($ContextObject.Path)\forest\ntAuthStore")
+			{
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\ntAuthStore" -Recurse -File))
+				{
+					switch ($file.Extension)
+					{
+						'.json'
+						{
+							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName
+							try
+							{
+								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
+								if ($jsonData.PSObject.Properties.Name -eq 'Authorative')
+								{
+									Register-FMNTAuthStore -Authorative:$jsonData.Authorative
+								}
+							}
+							catch
+							{
+								Clear-DMConfiguration
+								Clear-FMConfiguration
+								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
+								return
+							}
+						}
+						'.cer'
+						{
+							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName
+							try
+							{
+								$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::CreateFromCertFile($file.FullName)
+								Register-FMNTAuthStore -Certificate $cert
+							}
+							catch
+							{
+								Clear-DMConfiguration
+								Clear-FMConfiguration
+								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
+								return
+							}
+						}
+					}
+				}
+			}
+			#endregion NTAuthStore
 			#endregion Forest
 			
 			#region Domain

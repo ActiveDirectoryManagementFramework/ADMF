@@ -4,6 +4,9 @@
 
 - Upd: New-AdmfContext - support for Domain Data and Group Policy Registry Settings added
 - Upd: Set-AdmfContext - support for Domain Data and Group Policy Registry Settings added
+- Upd: Set-AdmfContext - support for NTAuthStore added
+- Upd: Test-AdmfForest - added step to test NTAuthStore Component
+- Upd: Invoke-AdmfForest - added step to update NTAuthStore Component
 - Fix: Set-AdmfContext - Importing Object Category would import a nested scriptblock that is always $true
 
 ## 1.1.14 (2020-03-02)
