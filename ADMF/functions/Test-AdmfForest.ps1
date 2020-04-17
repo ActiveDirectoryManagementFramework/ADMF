@@ -104,6 +104,15 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Ldif)' }
 			}
+			if ($newOptions -band [UpdateForestOptions]::NTAuthStore)
+			{
+				if (Get-FMNTAuthStore)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'NTAuthStore', $parameters.Server
+					Test-FMNTAuthStore @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'NTAuthStore' }
+			}
 		}
 		catch { throw }
 		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }

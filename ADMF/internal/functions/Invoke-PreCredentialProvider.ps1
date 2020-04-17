@@ -46,8 +46,10 @@
         [System.Management.Automation.PSCmdlet]
         $Cmdlet
     )
-
-    if (-not $script:credentialProviders[$ProviderName]) {
+	
+	if (-not $script:credentialProviders[$ProviderName])
+	{
+		Write-PSFMessage -Level Warning -String 'Invoke-PreCredentialProvider.Provider.NotFound' -StringValues $ProviderName
         Stop-PSFFunction -String 'Invoke-PreCredentialProvider.Provider.NotFound' -StringValues $ProviderName -EnableException $true -Cmdlet $Cmdlet
     }
 
@@ -57,7 +59,9 @@
     }
 
     try { $results = $script:credentialProviders[$ProviderName].PreScript.Invoke($argument) | Where-Object { $_ -is [PSCredential] } | Select-Object -First 1 }
-    catch {
+	catch
+	{
+		Write-PSFMessage -Level Warning -String 'Invoke-PreCredentialProvider.Provider.ExecutionError' -StringValues $ProviderName -ErrorRecord $_
         Stop-PSFFunction -String 'Invoke-PreCredentialProvider.Provider.ExecutionError' -StringValues $ProviderName -EnableException $true -ErrorRecord $_ -Cmdlet $Cmdlet
     }
 
