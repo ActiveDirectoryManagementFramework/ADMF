@@ -11,9 +11,10 @@ namespace ADMF
         ServerRelocate = 8,
         Schema = 16,
         SchemaLdif = 32,
+        NTAuthStore = 64,
 
-        Default = Sites | Subnets | SiteLinks,
-        All = Sites | Subnets | SiteLinks | ServerRelocate | Schema | SchemaLdif,
+        Default = Sites | Subnets | SiteLinks | NTAuthStore,
+        All = Sites | Subnets | SiteLinks | ServerRelocate | Schema | SchemaLdif | NTAuthStore,
         Topology = Sites | Subnets | SiteLinks,
         AllSchema = Schema | SchemaLdif
     }
