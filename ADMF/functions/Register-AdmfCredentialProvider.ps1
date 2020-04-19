@@ -34,7 +34,7 @@
         You can use this optional script to perform any cleanup actions if necessary.
     
     .EXAMPLE
-        PS C:\> Register-AdmfCredentialProvider -Name AZKeyVault -ScriptBlock $keyVaultScript
+        PS C:\> Register-AdmfCredentialProvider -Name AZKeyVault -PreScript $keyVaultScript
 
         Registers the scriptblock defined in $keyVaultScript as "AZKeyVault" provider.
     #>
