@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Set-AdmfContext - added Context name insertion for forest Components that support it.
+
 ## 1.1.23 (2020-04-17)
 
 - Upd: New-AdmfContext - support for Domain Data and Group Policy Registry Settings added

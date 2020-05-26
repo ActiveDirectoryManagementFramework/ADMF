@@ -126,6 +126,9 @@
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try {
 						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($forestFields[$key].Parameters.Keys))) {
+							if ($forestFields[$key].Parameters.Keys -contains 'ContextName') {
+								$dataSet['ContextName'] = $ContextObject.Name
+							}
 							& $forestFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
