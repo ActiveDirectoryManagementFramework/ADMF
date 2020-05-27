@@ -248,6 +248,7 @@
 			#region Domain
 			$domainFields = @{
 				'accessrules'         = (Get-Command Register-DMAccessRule)
+				'accessrulemodes'     = (Get-Command Register-DMAccessRuleMode)
 				'acls'                = (Get-Command Register-DMAcl)
 				'builtinsids'         = (Get-Command Register-DMBuiltInSID)
 				'gplinks'             = (Get-Command Register-DMGPLink)
