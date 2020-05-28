@@ -97,3 +97,4 @@ The AccessRule Processing Mode to apply:
 
 + Constrained: Any non-defined AccessRule will be removed
 + Additive: Any non-defined AccessRule will be ignored
++ Defined: Any non-defined [AccessRule](accessrules.html) will be ignored, _unless_ it affects an identity for which a non-matching definition exists.
