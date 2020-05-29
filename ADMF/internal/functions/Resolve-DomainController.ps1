@@ -45,7 +45,7 @@
 	{
 		$target = $Server
 		if (-not $target) { $target = $env:USERDNSNAME }
-		Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $target -Target $target -ScriptBlock {
+		$null = Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $target -Target $target -ScriptBlock {
 			$domainController = Get-ADDomainController @parameters -ErrorAction Stop
 		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2
 		
