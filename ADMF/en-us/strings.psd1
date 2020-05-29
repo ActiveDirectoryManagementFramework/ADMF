@@ -18,7 +18,7 @@
 	'New-AdmfContext.Context.AlreadyExists' = 'The context {1} already exists in the desginated path {0}. Use -Force to overwrite it, deleting all previous content.' # $resolvedPath, $Name
 	'New-AdmfContext.Context.AlreadyExists2' = 'The context {1} already exists in the desginated context store "{0}". Use -Force to overwrite it, deleting all previous content.' # $Store, $Name
 	
-	'Resolve-DomainController.Connect.Failed' = 'Failed to connect to {0}' # $Server
+	'Resolve-DomainController.Connecting' = 'Resolving domain controller to use for connecting to {0}' # $target
 	'Resolve-DomainController.Resolved' = 'Resolved domain controller to use. Operating against {0}' # $domainController.HostName
 	
 	'Set-AdmfContext.Context.Ambiguous' = 'Ambiguous context resolution for {0}. The following contexts would match: {1}' # $contextObject, ($foundContext.Name -join ", ")

@@ -43,10 +43,12 @@
 	}
 	process
 	{
-		try { $domainController = Get-ADDomainController @parameters -ErrorAction Stop }
-		catch {
-			Stop-PSFFunction -String 'Resolve-DomainController.Connect.Failed' -StringValues $Server -EnableException $true -ErrorRecord $_ -Exception $_.Exception.GetBaseException() -Cmdlet $PSCmdlet
-		}
+		$target = $Server
+		if (-not $target) { $target = $env:USERDNSNAME }
+		Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $target -Target $target -ScriptBlock {
+			$domainController = Get-ADDomainController @parameters -ErrorAction Stop
+		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2
+		
 		if ($domainController.HostName -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName
 			return $domainController.HostName
