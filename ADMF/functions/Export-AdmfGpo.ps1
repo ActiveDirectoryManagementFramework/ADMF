@@ -23,6 +23,7 @@
 
 		Exports all GPOs named like 'AD-D-SEC-T0*' to the current path
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSReviewUnusedParameter", "")]
 	[CmdletBinding()]
 	Param (
 		[PsfValidateScript('ADMF.Validate.Path', ErrorString = 'ADMF.Validate.Path')]

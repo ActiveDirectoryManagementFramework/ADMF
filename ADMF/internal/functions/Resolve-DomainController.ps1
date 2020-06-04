@@ -22,6 +22,7 @@
 
 		Picks the server to work against.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
 	[OutputType([string])]
 	[CmdletBinding()]
 	param (
