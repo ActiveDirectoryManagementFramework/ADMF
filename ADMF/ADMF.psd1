@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.1.23'
+	ModuleVersion = '1.1.25'
 	
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -28,8 +28,8 @@
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.0.5' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.62' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.1.12' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.69' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.1.15' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
