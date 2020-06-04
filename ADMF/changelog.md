@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.1.25 (2020-06-04)
+
+- Upd: Set-AdmfContext - added Context name insertion for forest Components that support it.
+- Fix: Fails to resolve a domain controller using a credential provider due to timing issues.
+
 ## 1.1.23 (2020-04-17)
 
 - Upd: New-AdmfContext - support for Domain Data and Group Policy Registry Settings added

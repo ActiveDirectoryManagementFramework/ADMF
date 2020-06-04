@@ -22,6 +22,7 @@
 
 		Picks the server to work against.
 	#>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
 	[OutputType([string])]
 	[CmdletBinding()]
 	param (
@@ -43,10 +44,12 @@
 	}
 	process
 	{
-		try { $domainController = Get-ADDomainController @parameters -ErrorAction Stop }
-		catch {
-			Stop-PSFFunction -String 'Resolve-DomainController.Connect.Failed' -StringValues $Server -EnableException $true -ErrorRecord $_ -Exception $_.Exception.GetBaseException() -Cmdlet $PSCmdlet
-		}
+		$targetString = $Server
+		if (-not $targetString) { $targetString = $env:USERDNSNAME }
+		$null = Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $targetString -Target $targetString -ScriptBlock {
+			$domainController = Get-ADDomainController @parameters -ErrorAction Stop
+		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2
+		
 		if ($domainController.HostName -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName
 			return $domainController.HostName

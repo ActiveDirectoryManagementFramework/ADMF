@@ -126,6 +126,9 @@
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try {
 						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($forestFields[$key].Parameters.Keys))) {
+							if ($forestFields[$key].Parameters.Keys -contains 'ContextName') {
+								$dataSet['ContextName'] = $ContextObject.Name
+							}
 							& $forestFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
@@ -245,6 +248,7 @@
 			#region Domain
 			$domainFields = @{
 				'accessrules'         = (Get-Command Register-DMAccessRule)
+				'accessrulemodes'     = (Get-Command Register-DMAccessRuleMode)
 				'acls'                = (Get-Command Register-DMAcl)
 				'builtinsids'         = (Get-Command Register-DMBuiltInSID)
 				'gplinks'             = (Get-Command Register-DMGPLink)
