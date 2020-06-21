@@ -102,7 +102,9 @@
 			#region PreImport
 			if (Test-Path "$($ContextObject.Path)\preImport.ps1") {
 				try { $null = & "$($ContextObject.Path)\preImport.ps1" @parameters }
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PreImport' -StringValues $ContextObject.Name -ErrorRecord $_
@@ -113,10 +115,10 @@
 			
 			#region Forest
 			$forestFields = @{
-				'schema'    = (Get-Command Register-FMSchema)
-				'sitelinks' = (Get-Command Register-FMSiteLink)
-				'sites'     = (Get-Command Register-FMSite)
-				'subnets'   = (Get-Command Register-FMSubnet)
+				'schema'    = Get-Command Register-FMSchema
+				'sitelinks' = Get-Command Register-FMSiteLink
+				'sites'     = Get-Command Register-FMSite
+				'subnets'   = Get-Command Register-FMSubnet
 			}
 			
 			foreach ($key in $forestFields.Keys) {
@@ -132,7 +134,9 @@
 							& $forestFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
-					catch {
+					catch
+					{
+						Clear-DCConfiguration
 						Clear-DMConfiguration
 						Clear-FMConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
@@ -152,7 +156,9 @@
 						if ($filesProcessed -contains $targetPath) { continue }
 
 						try { $ldifItem = Get-Item -Path $targetPath -ErrorAction Stop -Force }
-						catch {
+						catch
+						{
+							Clear-DCConfiguration
 							Clear-DMConfiguration
 							Clear-FMConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Schema (ldif)', $file.FullName -ErrorRecord $_
@@ -171,7 +177,9 @@
 							Register-FMSchemaLdif @ldifParam -ErrorAction Stop
 							$filesProcessed += $ldifItem.FullName
 						}
-						catch {
+						catch
+						{
+							Clear-DCConfiguration
 							Clear-DMConfiguration
 							Clear-FMConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
@@ -187,7 +195,9 @@
 					if ($filesProcessed -contains $file.FullName) { continue }
 					
 					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ContextName $ContextObject.Name -ErrorAction Stop }
-					catch {
+					catch
+					{
+						Clear-DCConfiguration
 						Clear-DMConfiguration
 						Clear-FMConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
@@ -217,6 +227,7 @@
 							}
 							catch
 							{
+								Clear-DCConfiguration
 								Clear-DMConfiguration
 								Clear-FMConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
@@ -233,6 +244,7 @@
 							}
 							catch
 							{
+								Clear-DCConfiguration
 								Clear-DMConfiguration
 								Clear-FMConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
@@ -277,7 +289,9 @@
 							& $domainFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
-					catch {
+					catch
+					{
+						Clear-DCConfiguration
 						Clear-DMConfiguration
 						Clear-FMConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
@@ -296,7 +310,9 @@
 						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)"
 					}
 				}
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName -ErrorRecord $_
@@ -311,7 +327,9 @@
 					$dataSet.TestScript = $dataSet.TestScript.Invoke() | Write-Output # Remove automatic scriptblock nesting
 					Register-DMObjectCategory @dataSet
 				}
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Object Categories', $file.FullName -ErrorRecord $_
@@ -326,7 +344,9 @@
 					$dataSet.Scriptblock = $dataSet.Scriptblock.Invoke() | Write-Output # Remove automatic scriptblock nesting
 					Register-DMDomainData @dataSet
 				}
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Domain Data', $file.FullName -ErrorRecord $_
@@ -357,7 +377,9 @@
 						Set-DMContentMode -UserExcludePattern $userExcludePatterns
 					}
 				}
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName -ErrorRecord $_
@@ -369,7 +391,9 @@
 			#region DC
 			if (Test-Path "$($ContextObject.Path)\dc\dc_config.json") {
 				try { $dcData = Get-Content "$($ContextObject.Path)\dc\dc_config.json" -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop }
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DCConfig' -StringValues $ContextObject.Name -ErrorRecord $_
@@ -382,12 +406,47 @@
 				if ($dcData.LogPath) { Set-PSFConfig -FullName 'DCManagement.Defaults.LogPath' -Value $dcData.LogPath }
 				if ($dcData.SysvolPath) { Set-PSFConfig -FullName 'DCManagement.Defaults.SysvolPath' -Value $dcData.SysvolPath }
 			}
+			
+			$dcFields = @{
+				'shares' = Get-Command Register-DCShare
+			}
+			
+			foreach ($key in $dcFields.Keys)
+			{
+				if (-not (Test-Path "$($ContextObject.Path)\dc\$key")) { continue }
+				
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\dc\$key\" -Recurse -Filter "*.json"))
+				{
+					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
+					try
+					{
+						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($dcFields[$key].Parameters.Keys)))
+						{
+							if ($dcFields[$key].Parameters.Keys -contains 'ContextName')
+							{
+								$dataSet['ContextName'] = $ContextObject.Name
+							}
+							& $dcFields[$key] @dataSet -ErrorAction Stop
+						}
+					}
+					catch
+					{
+						Clear-DCConfiguration
+						Clear-DMConfiguration
+						Clear-FMConfiguration
+						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
+						return
+					}
+				}
+			}
 			#endregion DC
 			
 			#region PostImport
 			if (Test-Path "$($ContextObject.Path)\postImport.ps1") {
 				try { $null = & "$($ContextObject.Path)\postImport.ps1" @parameters }
-				catch {
+				catch
+				{
+					Clear-DCConfiguration
 					Clear-DMConfiguration
 					Clear-FMConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PostImport' -StringValues $ContextObject.Name -ErrorRecord $_
@@ -474,6 +533,7 @@
 		
 		# Kill previous configuration
 		$script:loadedContexts = @()
+		Clear-DCConfiguration
 		Clear-DMConfiguration
 		Clear-FMConfiguration
 		

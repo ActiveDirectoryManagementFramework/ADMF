@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.1.27 (2020-06-21)
+
+- Upd: Set-AdmfContext - added Component: DC > Shares
+- Upd: New-AdmfContext - added folder and readme for adding DC Shares to the Context
+
 ## 1.1.25 (2020-06-04)
 
 - Upd: Set-AdmfContext - added Context name insertion for forest Components that support it.
