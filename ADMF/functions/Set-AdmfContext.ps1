@@ -465,8 +465,20 @@
 			EnableException = $EnableException
 			Continue        = $true
 		}
+		
+		$adParameters = $parameters.Clone()
+		if (-not $adParameters.Credential) { $adParameters.Remove('Credential') }
+		try { $domain = Get-ADDomain @adParameters -ErrorAction Stop }
+		catch
+		{
+			Stop-PSFFunction -String 'Set-AdmfContext.Domain.AccessError' -StringValues $Server -EnableException $EnableException -ErrorRecord $_
+			return
+		}
 	}
-	process {
+	process
+	{
+		if (Test-PSFFunctionInterrupt) { return }
+		
 		#region Explicitly specified contexts
 		foreach ($contextObject in $Context) {
 			if ($contextObject -is [string]) {
@@ -485,8 +497,8 @@
 		#endregion Explicitly specified contexts
 		#region Interactively chosen contexts
 		if ($Interactive) {
-			if ($ReUse -and $script:assignedContexts["$Server"]) {
-				foreach ($contextObject in $script:assignedContexts["$Server"]) {
+			if ($ReUse -and $script:assignedContexts["$($domain.DNSRoot)"]) {
+				foreach ($contextObject in $script:assignedContexts["$($domain.DNSRoot)"]) {
 					$selectedContexts[$contextObject.Name] = $contextObject
 				}
 				return
@@ -527,7 +539,7 @@
 		) {
 			# When switching from one domain to a new one, make sure that the selection is cached, even if it is the same selection.
 			# Otherwise, the second domain will keep reprompting for contexts
-			if (-not $script:assignedContexts["$Server"]) { $script:assignedContexts["$Server"] = $selectedContexts.Values }
+			if (-not $script:assignedContexts["$($domain.DNSRoot)"]) { $script:assignedContexts["$($domain.DNSRoot)"] = $selectedContexts.Values }
 			return
 		}
 		
@@ -544,7 +556,7 @@
 			Set-Context @parameters -ContextObject $contextObject -Cmdlet $PSCmdlet -EnableException $EnableException
 			if (Test-PSFFunctionInterrupt) { return }
 		}
-		$script:assignedContexts["$Server"] = $selectedContexts.Values | Sort-Object Weight
+		$script:assignedContexts["$($domain.DNSRoot)"] = $selectedContexts.Values | Sort-Object Weight
 		$script:loadedContexts = @($selectedContexts.Values | Sort-Object Weight)
 		Set-PSFTaskEngineCache -Module ADMF -Name currentlyImportingContexts -Value @()
 	}

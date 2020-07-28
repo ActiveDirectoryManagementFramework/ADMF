@@ -4,6 +4,8 @@
 
 - Upd: Invoke-AdmfDomain - added confirm-impact high
 - Upd: Invoke-AdmfForest - added confirm-impact high
+- Upd: Get-AdmfContext - added -DomainTable switch parameter to get a list of which server/domain has what Contexts assigned.
+- Upd: Set-AdmfContext - storing Context selection per domain, not per server.
 
 ## 1.1.27 (2020-06-21)
 
