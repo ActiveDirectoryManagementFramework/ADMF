@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Invoke-AdmfDomain - added confirm-impact high
+- Upd: Invoke-AdmfForest - added confirm-impact high
+
 ## 1.1.27 (2020-06-21)
 
 - Upd: Set-AdmfContext - added Component: DC > Shares

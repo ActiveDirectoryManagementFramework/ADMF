@@ -41,7 +41,7 @@
 		Applies the full forest configuration to the contoso.com domain.
 	#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
-	[CmdletBinding(SupportsShouldProcess = $true)]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
 	Param (
 		[PSFComputer]
 		$Server,

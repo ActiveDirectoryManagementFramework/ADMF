@@ -62,7 +62,7 @@
 		Brings the current domain into compliance with the desired state.
 	#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
-	[CmdletBinding(SupportsShouldProcess = $true)]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
 	Param (
 		[PSFComputer]
 		$Server,
