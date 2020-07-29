@@ -48,7 +48,7 @@
 		if (-not $targetString) { $targetString = $env:USERDNSNAME }
 		$null = Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $targetString -Target $targetString -ScriptBlock {
 			$domainController = Get-ADDomainController @parameters -ErrorAction Stop
-		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2
+		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2 -Confirm:$false
 		
 		if ($domainController.HostName -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName
