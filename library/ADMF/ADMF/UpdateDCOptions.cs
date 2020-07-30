@@ -9,8 +9,8 @@ namespace ADMF
     [Flags]
     public enum UpdateDCOptions
     {
-        Share,
-        FSAccessRule,
+        Share = 1,
+        FSAccessRule = 2,
 
         Default = Share | FSAccessRule,
         All = Share | FSAccessRule

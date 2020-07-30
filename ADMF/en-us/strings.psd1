@@ -1,6 +1,9 @@
 ﻿# This is where the strings go, that are written by
 # Write-PSFMessage, Stop-PSFFunction or the PSFramework validation scriptblocks
 @{
+	'Invoke-AdmfDC.Executing.Invoke'					    = 'Performing updates to <c="em">{0}</c> against <c="sub">{1}</c>' # 'Sites', $parameters.Server
+	'Invoke-AdmfDC.Skipping.Test.NoConfiguration'		    = 'Skipping updates to <c="em">{0}</c> as there is no configuration data available' # 'Sites'
+	
 	'Invoke-AdmfDomain.Executing.Invoke'				    = 'Performing updates to <c="em">{0}</c> against <c="sub">{1}</c>' # 'OrganizationalUnits - Create & Modify', $parameters.Server
 	'Invoke-AdmfDomain.Skipping.Test.NoConfiguration'	    = 'Skipping updates to <c="em">{0}</c> as there is no configuration data available' # 'OrganizationalUnits - Create & Modify'
 	
@@ -34,6 +37,9 @@
 	'Set-AdmfContext.Interactive.Cancel'				    = 'Interactive prompt cancelled by user' # 
 	'Set-AdmfContext.Resolution.ExclusionConflict'		    = 'Unable to process contexts, as a conflict between contexts has been detected: {0}' # ($conflictingContexts.Name -join ", ")
 	'Set-AdmfContext.Resolution.MissingPrerequisites'	    = 'Unable to process contexts, as a required prerequisite is missing: {0}' # ($missingPrerequisites -join ", ")
+	
+	'Test-AdmfDC.Executing.Test'						    = 'Executing tests to verify <c="em">{0}</c> against <c="sub">{1}</c>' # 'OrganizationalUnits', $parameters.Server
+	'Test-AdmfDC.Skipping.Test.NoConfiguration'			    = 'Skipping tests to verify <c="em">{0}</c> as there is no configuration data available' # 'OrganizationalUnits'
 	
 	'Test-AdmfDomain.Executing.Test'					    = 'Executing tests to verify <c="em">{0}</c> against <c="sub">{1}</c>' # 'OrganizationalUnits', $parameters.Server
 	'Test-AdmfDomain.Skipping.Test.NoConfiguration'		    = 'Skipping tests to verify <c="em">{0}</c> as there is no configuration data available' # 'OrganizationalUnits'

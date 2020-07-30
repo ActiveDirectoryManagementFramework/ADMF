@@ -73,10 +73,10 @@
 			{
 				if (Get-DCAccessRule)
 				{
-					Write-PSFMessage -Level Host -String 'Test-AdmfDC.Executing.Test' -StringValues 'Shares', $parameters.Server
+					Write-PSFMessage -Level Host -String 'Test-AdmfDC.Executing.Test' -StringValues 'FSAccessRules', $parameters.Server
 					Test-DCAccessRule @parameters
 				}
-				else { Write-PSFMessage -Level Host -String 'Test-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'Shares' }
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'FSAccessRules' }
 			}
 		}
 		catch { throw }

@@ -2,10 +2,10 @@
 {
 <#
 	.SYNOPSIS
-		A brief description of the Invoke-AdmfDC function.
+		Brings all DCs of the target domain into the desired/defined state.
 	
 	.DESCRIPTION
-		A detailed description of the Invoke-AdmfDC function.
+		Brings all DCs of the target domain into the desired/defined state.
 	
 	.PARAMETER Server
 		The server / domain to work with.
@@ -28,7 +28,9 @@
 		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
 	
 	.EXAMPLE
-		PS C:\> Invoke-AdmfDC
+		PS C:\> Invoke-AdmfDC -Server corp.contoso.com
+	
+		Brings all DCs of the domain corp.contoso.com into the desired/defined state.
 #>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
