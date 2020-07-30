@@ -26,6 +26,9 @@
 	.PARAMETER Credential
 		The credentials to use for this operation.
 	
+	.PARAMETER NoDomain
+		If used against a target without a domain, it will skip AD connect and instead use the server name for Context caching purposes.
+	
 	.PARAMETER EnableException
 		This parameters disables user-friendly warnings and enables the throwing of exceptions.
 		This is less user friendly, but allows catching exceptions in calling scripts.
@@ -65,6 +68,10 @@
 		
 		[System.Management.Automation.PSCredential]
 		$Credential,
+		
+		[Parameter(DontShow = $true)]
+		[switch]
+		$NoDomain,
 		
 		[switch]
 		$EnableException
@@ -467,6 +474,11 @@
 			Continue        = $true
 		}
 		
+		if ($NoDomain)
+		{
+			$domain = [pscustomobject]@{ DNSRoot = $Server }
+			return # Ends the current block and moves on to process
+		}
 		$adParameters = $parameters.Clone()
 		if (-not $adParameters.Credential) { $adParameters.Remove('Credential') }
 		try { $domain = Get-ADDomain @adParameters -ErrorAction Stop }

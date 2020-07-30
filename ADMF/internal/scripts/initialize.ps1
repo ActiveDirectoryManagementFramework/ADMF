@@ -34,7 +34,7 @@ $callbackScript2 = {
 	$parameters = $Data.Data | ConvertTo-PSFHashtable -Include Server, Credential
 	if ($parameters.Server -eq '<Default Domain>') { $parameters.Server = $env:USERDNSDOMAIN }
 	if (-not $parameters.Server) { $parameters.Server = $env:USERDNSDOMAIN }
-	Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+	Set-AdmfContext @parameters -Interactive -ReUse -EnableException -NoDomain:($Data.Data.IsDCInstall -as [bool])
 }
 Register-PSFCallback -Name 'ADMF.ContextPrompt' -ModuleName DCManagement -CommandName '*' -ScriptBlock $callbackScript2
 
