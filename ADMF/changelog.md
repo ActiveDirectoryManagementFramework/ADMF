@@ -6,6 +6,8 @@
 - Upd: Invoke-AdmfForest - added confirm-impact high
 - Upd: Get-AdmfContext - added -DomainTable switch parameter to get a list of which server/domain has what Contexts assigned.
 - Upd: Set-AdmfContext - storing Context selection per domain, not per server.
+- Upd: Configuration - added setting 'ADMF.DCInstall.Context.Prompt.Enable' to allow disabling Context prompts for Install commands in DCManagement
+- Upd: Set-AdmfContext - add support for file system accesss rules Component
 
 ## 1.1.27 (2020-06-21)
 

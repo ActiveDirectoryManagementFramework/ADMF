@@ -27,6 +27,10 @@ $callbackScript2 = {
 		[Hashtable]
 		$Data
 	)
+	
+	# If this is a DC Installation command from DC Management and we disabled the prompt in configuration, stop
+	if ($Data.Data.IsDCInstall -and -not (Get-PSFConfigValue -FullName 'ADMF.DCInstall.Context.Prompt.Enable')) { return }
+	
 	$parameters = $Data.Data | ConvertTo-PSFHashtable -Include Server, Credential
 	if ($parameters.Server -eq '<Default Domain>') { $parameters.Server = $env:USERDNSDOMAIN }
 	if (-not $parameters.Server) { $parameters.Server = $env:USERDNSDOMAIN }

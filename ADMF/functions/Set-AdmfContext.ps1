@@ -409,6 +409,7 @@
 			
 			$dcFields = @{
 				'shares' = Get-Command Register-DCShare
+				'fsaccessrules' = Get-Command Register-DCAccessRule
 			}
 			
 			foreach ($key in $dcFields.Keys)
