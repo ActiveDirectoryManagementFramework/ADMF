@@ -2,6 +2,8 @@
 
 ## ???
 
+- New: Invoke-AdmfDC - new command to apply DC configuration entries on DCs
+- New: Test-AdmfDC - new command to test DC configuration entries
 - Upd: Invoke-AdmfDomain - added confirm-impact high
 - Upd: Invoke-AdmfForest - added confirm-impact high
 - Upd: Get-AdmfContext - added -DomainTable switch parameter to get a list of which server/domain has what Contexts assigned.

@@ -39,6 +39,7 @@ $callbackScript2 = {
 Register-PSFCallback -Name 'ADMF.ContextPrompt' -ModuleName DCManagement -CommandName '*' -ScriptBlock $callbackScript2
 
 Set-PSFTypeAlias -Mapping @{
+	'UpdateDCOptions'	  = 'ADMF.UpdateDCOptions'
 	'UpdateDomainOptions' = 'ADMF.UpdateDomainOptions'
 	'UpdateForestOptions' = 'ADMF.UpdateForestOptions'
 }
