@@ -17,6 +17,12 @@
 		The type of DC to resolve to.
 		Governed by the 'ADMF.DCSelectionMode' configuration setting.
 	
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+	
 	.EXAMPLE
 		PS C:\> Resolve-DomainController @parameters
 
@@ -24,7 +30,7 @@
 	#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
 	[OutputType([string])]
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
 	param (
 		[PSFComputer]
 		$Server,

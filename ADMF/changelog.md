@@ -10,6 +10,7 @@
 - Upd: Set-AdmfContext - storing Context selection per domain, not per server.
 - Upd: Configuration - added setting 'ADMF.DCInstall.Context.Prompt.Enable' to allow disabling Context prompts for Install commands in DCManagement
 - Upd: Set-AdmfContext - add support for file system accesss rules Component
+- Fix: Invoke-Admf*, Test-Admf* - will no longer prompt for confirmation when resolving domain controller to use.
 
 ## 1.1.27 (2020-06-21)
 
