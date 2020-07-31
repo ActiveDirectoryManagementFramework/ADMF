@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.2.36 (2020-07-31)
 
 - New: Invoke-AdmfDC - new command to apply DC configuration entries on DCs
 - New: Test-AdmfDC - new command to test DC configuration entries
