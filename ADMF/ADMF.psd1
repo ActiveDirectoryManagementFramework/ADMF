@@ -27,8 +27,8 @@
 	# this module
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
-		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.1.7' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.70' }
+		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.16' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.76' }
 		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.1.17' }
 	)
 	
