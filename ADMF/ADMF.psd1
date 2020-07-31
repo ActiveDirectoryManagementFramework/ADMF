@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.1.27'
+	ModuleVersion = '1.2.36'
 	
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -27,8 +27,8 @@
 	# this module
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
-		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.1.7' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.70' }
+		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.16' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.76' }
 		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.1.17' }
 	)
 	
@@ -49,12 +49,14 @@
 		'Export-AdmfGpo'
 		'Get-AdmfContext'
 		'Get-AdmfContextStore'
+		'Invoke-AdmfDC'
 		'Invoke-AdmfDomain'
 		'Invoke-AdmfForest'
 		'New-AdmfContext'
 		'New-AdmfContextStore'
 		'Register-AdmfCredentialProvider'
 		'Set-AdmfContext'
+		'Test-AdmfDC'
 		'Test-AdmfDomain'
 		'Test-AdmfForest'
 	)

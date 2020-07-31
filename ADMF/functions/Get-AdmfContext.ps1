@@ -25,6 +25,9 @@
 		Use this to react from within your context's scriptblocks to any other context that is selected.
 		This parameter only has meaning when used within a context's scriptblocks.
 	
+	.PARAMETER DomainTable
+		Return a list of which target domain has which contexts assigned in cache.
+	
 	.EXAMPLE
 		PS C:\> Get-AdmfContext
 	
@@ -50,7 +53,11 @@
 
 		[Parameter(ParameterSetName = 'Importing')]
 		[switch]
-		$Importing
+		$Importing,
+		
+		[Parameter(ParameterSetName = 'Server')]
+		[switch]
+		$DomainTable
 	)
 	
 	process
@@ -58,6 +65,10 @@
 		if ($Current)
 		{
 			return $script:loadedContexts
+		}
+		if ($DomainTable)
+		{
+			return $script:assignedContexts.Clone()
 		}
 		if ($Importing)
 		{

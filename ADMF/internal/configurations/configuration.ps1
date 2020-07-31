@@ -28,3 +28,4 @@ Set-PSFConfig -Module 'ADMF' -Name 'VerboseExecution' -Value $true -Initialize -
 } -Description 'Enabling this will cause the ADMF module to be more verbose by default'
 
 Set-PSFConfig -Module 'ADMF' -Name 'Context.Store.Default' -Value "$(Get-PSFPath -Name AppData)\ADMF\Contexts" -Initialize -Validation string -Description 'The default path in which ADMF will look for configuration contexts. Add additional such paths by declaring additional settings labeled "ADMF.Context.Store.*"'
+Set-PSFConfig -Module 'ADMF' -Name 'DCInstall.Context.Prompt.Enable' -Value $true -Initialize -Validation 'bool' -Description "Whether the DC installation commands should generate Context selection prompts."

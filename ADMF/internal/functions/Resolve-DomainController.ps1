@@ -17,6 +17,12 @@
 		The type of DC to resolve to.
 		Governed by the 'ADMF.DCSelectionMode' configuration setting.
 	
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+	
 	.EXAMPLE
 		PS C:\> Resolve-DomainController @parameters
 
@@ -24,7 +30,7 @@
 	#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
 	[OutputType([string])]
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess = $true)]
 	param (
 		[PSFComputer]
 		$Server,
@@ -48,7 +54,7 @@
 		if (-not $targetString) { $targetString = $env:USERDNSNAME }
 		$null = Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $targetString -Target $targetString -ScriptBlock {
 			$domainController = Get-ADDomainController @parameters -ErrorAction Stop
-		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2
+		} -PSCmdlet $PSCmdlet -EnableException $true -RetryCount 5 -RetryWait 2 -Confirm:$false
 		
 		if ($domainController.HostName -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName

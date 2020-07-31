@@ -62,7 +62,7 @@
 		Brings the current domain into compliance with the desired state.
 	#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
-	[CmdletBinding(SupportsShouldProcess = $true)]
+	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
 	Param (
 		[PSFComputer]
 		$Server,
@@ -81,8 +81,9 @@
 	{
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
-		try { $dcServer = Resolve-DomainController @parameters }
-		catch {
+		try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
+		catch
+		{
 			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
 			throw
 		}

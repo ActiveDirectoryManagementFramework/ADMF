@@ -27,14 +27,19 @@ $callbackScript2 = {
 		[Hashtable]
 		$Data
 	)
+	
+	# If this is a DC Installation command from DC Management and we disabled the prompt in configuration, stop
+	if ($Data.Data.IsDCInstall -and -not (Get-PSFConfigValue -FullName 'ADMF.DCInstall.Context.Prompt.Enable')) { return }
+	
 	$parameters = $Data.Data | ConvertTo-PSFHashtable -Include Server, Credential
 	if ($parameters.Server -eq '<Default Domain>') { $parameters.Server = $env:USERDNSDOMAIN }
 	if (-not $parameters.Server) { $parameters.Server = $env:USERDNSDOMAIN }
-	Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+	Set-AdmfContext @parameters -Interactive -ReUse -EnableException -NoDomain:($Data.Data.IsDCInstall -as [bool])
 }
 Register-PSFCallback -Name 'ADMF.ContextPrompt' -ModuleName DCManagement -CommandName '*' -ScriptBlock $callbackScript2
 
 Set-PSFTypeAlias -Mapping @{
+	'UpdateDCOptions'	  = 'ADMF.UpdateDCOptions'
 	'UpdateDomainOptions' = 'ADMF.UpdateDomainOptions'
 	'UpdateForestOptions' = 'ADMF.UpdateForestOptions'
 }
