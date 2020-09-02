@@ -152,6 +152,15 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks' }
 			}
+			if ($newOptions -band [UpdateDomainOptions]::DomainLevel)
+			{
+				if (Get-DMDomainLevel)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'DomainLevel', $parameters.Server
+					Test-DMDomainLevel @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
+			}
 		}
 		catch { throw }
 		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }

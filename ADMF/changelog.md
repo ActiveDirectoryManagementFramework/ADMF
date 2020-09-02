@@ -2,6 +2,7 @@
 
 ## ???
 
+- New: New Component - Domain Level
 - Upd: Set-AdmfContext - changed UI form title to always show domain name
 - Upd: Opted into the 'PSFramework.Stop-PSFFunction.ShowWarning' feature, ensuring warnings will ALWAYS be written on context selection failure
 

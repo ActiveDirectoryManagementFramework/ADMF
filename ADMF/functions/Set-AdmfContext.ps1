@@ -361,6 +361,26 @@
 				}
 			}
 			
+			# Domain Level
+			if (Test-Path "$($ContextObject.Path)\domain\domain_level.json")
+			{
+				$file = Get-Item "$($ContextObject.Path)\domain\content_mode.json"
+				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName
+				try
+				{
+					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
+					Register-DMDomainLevel -Level $dataSet.Level -ContextName $ContextObject.Name
+				}
+				catch
+				{
+					Clear-DCConfiguration
+					Clear-DMConfiguration
+					Clear-FMConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+			
 			# Content Mode
 			if (Test-Path "$($ContextObject.Path)\domain\content_mode.json") {
 				$file = Get-Item "$($ContextObject.Path)\domain\content_mode.json"
