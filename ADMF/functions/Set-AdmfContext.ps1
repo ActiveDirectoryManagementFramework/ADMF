@@ -214,6 +214,26 @@
 				#endregion Process Ldif Files without configuration
 			}
 			
+			# Forest Level
+			if (Test-Path "$($ContextObject.Path)\forest\forest_level.json")
+			{
+				$file = Get-Item "$($ContextObject.Path)\forest\forest_level.json"
+				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName
+				try
+				{
+					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
+					Register-FMForestLevel -Level $dataSet.Level -ContextName $ContextObject.Name
+				}
+				catch
+				{
+					Clear-DCConfiguration
+					Clear-DMConfiguration
+					Clear-FMConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+			
 			#region NTAuthStore
 			if (Test-Path "$($ContextObject.Path)\forest\ntAuthStore")
 			{
@@ -364,7 +384,7 @@
 			# Domain Level
 			if (Test-Path "$($ContextObject.Path)\domain\domain_level.json")
 			{
-				$file = Get-Item "$($ContextObject.Path)\domain\content_mode.json"
+				$file = Get-Item "$($ContextObject.Path)\domain\domain_level.json"
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName
 				try
 				{
