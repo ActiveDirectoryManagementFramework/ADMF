@@ -129,7 +129,10 @@
 				if (Get-DMGroupPolicy)
 				{
 					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicies', $parameters.Server
-					Test-DMGroupPolicy @parameters
+					Test-DMGroupPolicy @parameters | Where-Object {
+						($newOptions -band [UpdateDomainOptions]::GroupPolicyDelete) -or
+						($_.Type -ne 'Delete')
+					}
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies' }
 			}
