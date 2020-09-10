@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.6.49 (2020-09-11)
 
 - New: Component - Domain Level
 - New: Component - Forest Level

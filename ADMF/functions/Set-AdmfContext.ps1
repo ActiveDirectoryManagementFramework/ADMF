@@ -118,9 +118,7 @@
 				try { $null = & "$($ContextObject.Path)\preImport.ps1" @parameters }
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PreImport' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
 				}
@@ -152,9 +150,7 @@
 					}
 					catch
 					{
-						Clear-DCConfiguration
-						Clear-DMConfiguration
-						Clear-FMConfiguration
+						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
 					}
@@ -174,9 +170,7 @@
 						try { $ldifItem = Get-Item -Path $targetPath -ErrorAction Stop -Force }
 						catch
 						{
-							Clear-DCConfiguration
-							Clear-DMConfiguration
-							Clear-FMConfiguration
+							Clear-AdcConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Schema (ldif)', $file.FullName -ErrorRecord $_
 							return
 						}
@@ -195,9 +189,7 @@
 						}
 						catch
 						{
-							Clear-DCConfiguration
-							Clear-DMConfiguration
-							Clear-FMConfiguration
+							Clear-AdcConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
 							return
 						}
@@ -213,9 +205,7 @@
 					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ContextName $ContextObject.Name -ErrorAction Stop }
 					catch
 					{
-						Clear-DCConfiguration
-						Clear-DMConfiguration
-						Clear-FMConfiguration
+						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
 						return
 					}
@@ -235,9 +225,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -263,9 +251,7 @@
 							}
 							catch
 							{
-								Clear-DCConfiguration
-								Clear-DMConfiguration
-								Clear-FMConfiguration
+								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
 								return
 							}
@@ -280,9 +266,7 @@
 							}
 							catch
 							{
-								Clear-DCConfiguration
-								Clear-DMConfiguration
-								Clear-FMConfiguration
+								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
 								return
 							}
@@ -327,9 +311,7 @@
 					}
 					catch
 					{
-						Clear-DCConfiguration
-						Clear-DMConfiguration
-						Clear-FMConfiguration
+						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
 					}
@@ -348,9 +330,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -365,9 +345,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Object Categories', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -382,9 +360,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Domain Data', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -402,9 +378,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -435,9 +409,7 @@
 				}
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName -ErrorRecord $_
 					return
 				}
@@ -449,9 +421,7 @@
 				try { $dcData = Get-Content "$($ContextObject.Path)\dc\dc_config.json" -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop }
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DCConfig' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
 				}
@@ -488,9 +458,7 @@
 					}
 					catch
 					{
-						Clear-DCConfiguration
-						Clear-DMConfiguration
-						Clear-FMConfiguration
+						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
 					}
@@ -503,9 +471,7 @@
 				try { $null = & "$($ContextObject.Path)\postImport.ps1" @parameters }
 				catch
 				{
-					Clear-DCConfiguration
-					Clear-DMConfiguration
-					Clear-FMConfiguration
+					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PostImport' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
 				}
@@ -614,9 +580,7 @@
 		
 		# Kill previous configuration
 		$script:loadedContexts = @()
-		Clear-DCConfiguration
-		Clear-DMConfiguration
-		Clear-FMConfiguration
+		Clear-AdcConfiguration
 		
 		Set-PSFTaskEngineCache -Module ADMF -Name currentlyImportingContexts -Value $selectedContexts.Values
 		

@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.2.36'
+	ModuleVersion = '1.6.49'
 	
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -26,10 +26,13 @@
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules = @(
-		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.1.59' }
-		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.16' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.3.76' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.1.17' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.4.149' }
+		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
+		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
+		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.0.0' }
+		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.17' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.4.84' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.4.22' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
@@ -62,19 +65,19 @@
 	)
 	
 	# Cmdlets to export from this module
-	CmdletsToExport = ''
+	# CmdletsToExport = ''
 	
 	# Variables to export from this module
-	VariablesToExport = ''
+	# VariablesToExport = ''
 	
 	# Aliases to export from this module
-	AliasesToExport = ''
+	# AliasesToExport = ''
 	
 	# List of all modules packaged with this module
-	ModuleList = @()
+	# ModuleList = @()
 	
 	# List of all files packaged with this module
-	FileList = @()
+	# FileList = @()
 	
 	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 	PrivateData = @{
