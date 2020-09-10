@@ -28,6 +28,9 @@
 	.PARAMETER CredentialProvider
 		The credential provider to use to resolve the input credentials.
 		See help on Register-AdmfCredentialProvider for details.
+	
+	.PARAMETER ContextPrompt
+		Force displaying the Context selection User Interface.
 
 	.PARAMETER Confirm
 		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
@@ -53,7 +56,11 @@
 		$Options = 'Default',
 
 		[string]
-		$CredentialProvider = 'default'
+		$CredentialProvider = 'default',
+		
+		[Alias('Ctx')]
+		[switch]
+		$ContextPrompt
 	)
 	
 	begin
@@ -67,7 +74,7 @@
 		}
 		$parameters.Server = $dcServer
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
 		$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
 		$parameters.Server = $dcServer
 		[ADMF.UpdateForestOptions]$newOptions = $Options
@@ -117,6 +124,15 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Custom)' }
 			}
+			if ($newOptions -band [UpdateForestOptions]::SchemaDefaultPermissions)
+			{
+				if (Get-FMSchemaDefaultPermission)
+				{
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Schema Default Permissions', $parameters.Server
+					Invoke-FMSchemaDefaultPermission @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema Default Permissions' }
+			}
 			if ($newOptions -band [UpdateForestOptions]::SchemaLdif)
 			{
 				if (Get-FMSchemaLdif)
@@ -143,6 +159,15 @@
 					Invoke-FMForestLevel @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ForestLevel' }
+			}
+			if ($newOptions -band [UpdateForestOptions]::ExchangeSchema)
+			{
+				if (Get-FMExchangeSchema)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Invoke' -StringValues 'ExchangeSchema', $parameters.Server
+					Invoke-FMExchangeSchema @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
 			}
 		}
 		catch { throw }

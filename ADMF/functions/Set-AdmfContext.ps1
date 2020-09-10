@@ -1,5 +1,5 @@
 ﻿function Set-AdmfContext {
-	<#
+<#
 	.SYNOPSIS
 		Applies a set of configuration contexts.
 	
@@ -19,6 +19,10 @@
 		ADMF remembers the last contexts assigned to a specific server/domain.
 		By setting this parameter, it will re-use those contexts, rather than show the prompt again.
 		This parameter is used by the system to prevent prompting automatically on each call.
+	
+	.PARAMETER DefineOnly
+		Do not actually switch configuration sets.
+		Just register the selected Contexts to the target domain, after validating the selection.
 	
 	.PARAMETER Server
 		The server / domain to work with.
@@ -62,6 +66,9 @@
 		
 		[switch]
 		$ReUse,
+		
+		[switch]
+		$DefineOnly,
 		
 		[PSFComputer]
 		$Server = $env:USERDNSDOMAIN,
@@ -122,7 +129,9 @@
 			
 			#region Forest
 			$forestFields = @{
-				'schema'    = Get-Command Register-FMSchema
+				'exchangeschema' = Get-Command Register-FMExchangeSchema
+				'schema'		 = Get-Command Register-FMSchema
+				'schemaDefaultPermissions' = Get-Command Register-FMSchemaDefaultPermission
 				'sitelinks' = Get-Command Register-FMSiteLink
 				'sites'     = Get-Command Register-FMSite
 				'subnets'   = Get-Command Register-FMSubnet
@@ -593,6 +602,13 @@
 			# When switching from one domain to a new one, make sure that the selection is cached, even if it is the same selection.
 			# Otherwise, the second domain will keep reprompting for contexts
 			if (-not $script:assignedContexts["$($domain.DNSRoot)"]) { $script:assignedContexts["$($domain.DNSRoot)"] = $selectedContexts.Values }
+			return
+		}
+		
+		# In Define Only Mode: Register Context to domain and terminate peacefully
+		if ($DefineOnly)
+		{
+			$script:assignedContexts["$($domain.DNSRoot)"] = $selectedContexts.Values | Sort-Object Weight
 			return
 		}
 		

@@ -20,6 +20,9 @@
 	.PARAMETER CredentialProvider
 		The credential provider to use to resolve the input credentials.
 		See help on Register-AdmfCredentialProvider for details.
+	
+	.PARAMETER ContextPrompt
+		Force displaying the Context selection User Interface.
 
 	.PARAMETER Confirm
 		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
@@ -45,7 +48,11 @@
 		$Options = 'Default',
 		
 		[string]
-		$CredentialProvider = 'default'
+		$CredentialProvider = 'default',
+		
+		[Alias('Ctx')]
+		[switch]
+		$ContextPrompt
 	)
 	
 	begin
@@ -60,7 +67,7 @@
 		}
 		$parameters.Server = $dcServer
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
 		$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
 		$parameters.Server = $dcServer
 		[ADMF.UpdateDCOptions]$newOptions = $Options

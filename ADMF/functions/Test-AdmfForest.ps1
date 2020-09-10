@@ -1,31 +1,34 @@
 ﻿function Test-AdmfForest
 {
-	<#
-		.SYNOPSIS
-			Tests whether a forest is configured according to baseline configuration
-		
-		.DESCRIPTION
-			Tests whether a forest is configured according to baseline configuration
-		
-		.PARAMETER Server
-			The server / domain to work with.
-		
-		.PARAMETER Credential
-			The credentials to use for this operation.
-		
-		.PARAMETER Options
-			What tests to execute.
-			Defaults to all tests.
+<#
+	.SYNOPSIS
+		Tests whether a forest is configured according to baseline configuration
+	
+	.DESCRIPTION
+		Tests whether a forest is configured according to baseline configuration
+	
+	.PARAMETER Server
+		The server / domain to work with.
+	
+	.PARAMETER Credential
+		The credentials to use for this operation.
+	
+	.PARAMETER Options
+		What tests to execute.
+		Defaults to all tests.
 
-		.PARAMETER CredentialProvider
-			The credential provider to use to resolve the input credentials.
-			See help on Register-AdmfCredentialProvider for details.
-		
-		.EXAMPLE
-			PS C:\> Test-AdmfForest
+	.PARAMETER CredentialProvider
+		The credential provider to use to resolve the input credentials.
+		See help on Register-AdmfCredentialProvider for details.
 
-			Test the current forest for baseline compliance.
-	#>
+	.PARAMETER ContextPrompt
+		Force displaying the Context selection User Interface.
+	
+	.EXAMPLE
+		PS C:\> Test-AdmfForest
+
+		Test the current forest for baseline compliance.
+#>
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding()]
 	Param (
@@ -39,7 +42,11 @@
 		$Options = 'All',
 
 		[string]
-		$CredentialProvider = 'default'
+		$CredentialProvider = 'default',
+		
+		[Alias('Ctx')]
+		[switch]
+		$ContextPrompt
 	)
 	
 	begin
@@ -52,7 +59,7 @@
 			throw
 		}
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
 		[UpdateForestOptions]$newOptions = $Options
 	}
 	process
@@ -96,6 +103,15 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Custom)' }
 			}
+			if ($newOptions -band [UpdateForestOptions]::SchemaDefaultPermissions)
+			{
+				if (Get-FMSchemaDefaultPermission)
+				{
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Test' -StringValues 'Schema Default Permissions', $parameters.Server
+					Test-FMSchemaDefaultPermission @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema Default Permissions' }
+			}
 			if ($newOptions -band [UpdateForestOptions]::SchemaLdif) {
 				if (Get-FMSchemaLdif)
 				{
@@ -121,6 +137,15 @@
 					Test-FMForestLevel @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ForestLevel' }
+			}
+			if ($newOptions -band [UpdateForestOptions]::ExchangeSchema)
+			{
+				if (Get-FMExchangeSchema)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'ExchangeSchema', $parameters.Server
+					Test-FMExchangeSchema @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
 			}
 		}
 		catch { throw }
