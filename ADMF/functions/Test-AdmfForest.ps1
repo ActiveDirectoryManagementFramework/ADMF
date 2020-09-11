@@ -107,7 +107,7 @@
 			{
 				if (Get-FMSchemaDefaultPermission)
 				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Test' -StringValues 'Schema Default Permissions', $parameters.Server
+					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema Default Permissions', $parameters.Server
 					Test-FMSchemaDefaultPermission @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema Default Permissions' }

@@ -164,10 +164,10 @@
 			{
 				if (Get-FMExchangeSchema)
 				{
-					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Invoke' -StringValues 'ExchangeSchema', $parameters.Server
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'ExchangeSchema', $parameters.Server
 					Invoke-FMExchangeSchema @parameters
 				}
-				else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
 			}
 		}
 		catch { throw }

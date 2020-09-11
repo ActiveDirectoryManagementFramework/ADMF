@@ -37,9 +37,9 @@ This setting will add the group "S-GpoAdmins" of the forest root domain to the d
 
 ```json
 [
-	{
+    {
         "ClassName":  "Group-Policy-Container",
-        "Identity":  "%RootDomainName%\S-GpoAdmins",
+        "Identity":  "%RootDomainName%\\S-GpoAdmins",
         "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, DeleteTree, Delete, GenericRead, WriteDacl, WriteOwner",
         "AccessControlType":  "Allow",
         "InheritanceType":  "All",
@@ -86,6 +86,7 @@ Used for extended properties.
 ### Mode
 
 How access rules are actually applied:
+
 - Additive: Only add new access rules, but do not touch existing ones
 - Defined: Add new access rules, remove access rules not defined in configuration that apply to a principal that has access rules defined.
 - Constrained: Add new access rules, remove all access rules not defined in configuration
