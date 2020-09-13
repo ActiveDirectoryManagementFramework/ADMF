@@ -50,3 +50,5 @@ Register-AdmfCredentialProvider -Name default -PreScript {
 	)
 	$Data.Credential
 }
+
+Set-PSFFeature -Name PSFramework.Stop-PSFFunction.ShowWarning -Value $true -ModuleName ADMF

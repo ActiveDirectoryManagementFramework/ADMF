@@ -21,6 +21,9 @@
 		The credential provider to use to resolve the input credentials.
 		See help on Register-AdmfCredentialProvider for details.
 	
+	.PARAMETER ContextPrompt
+		Force displaying the Context selection User Interface.
+	
 	.EXAMPLE
 		PS C:\> Test-AdmfDC
 	
@@ -39,7 +42,11 @@
 		$Options = 'All',
 		
 		[string]
-		$CredentialProvider = 'default'
+		$CredentialProvider = 'default',
+		
+		[Alias('Ctx')]
+		[switch]
+		$ContextPrompt
 	)
 	
 	begin
@@ -53,7 +60,7 @@
 			throw
 		}
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
 		[UpdateDCOptions]$newOptions = $Options
 	}
 	process

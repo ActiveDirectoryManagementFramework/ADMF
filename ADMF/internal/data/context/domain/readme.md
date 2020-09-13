@@ -58,3 +58,22 @@ Example content:
 	"UserExcludePattern":  []
 }
 ```
+
+## Domain Level
+
+You can define the functional level of the domain in configuration.
+To do so, place a file named `domain_level.json` straight in the domain folder.
+
+This file should be a simple json object with a single property: Level.
+
+Example content:
+
+```json
+{
+    "Level":  "2016"
+}
+```
+
+Supported values: 2008R2, 2012, 2012R2 or 2016
+
+> It is impossible to downgrade a domain functional level, so even if you define a low level, it will not be applied if the domain is already at a higher level.

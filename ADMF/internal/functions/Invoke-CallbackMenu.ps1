@@ -172,12 +172,15 @@
 		}
 		#endregion Utility Functions
 		
+		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+		
 		#region Form
 		[System.Windows.Forms.Application]::EnableVisualStyles()
 		
 		$form = New-Form
 		$group_Server = New-GroupBox -Text "Selected Domain / Server" -Height 50 -Form $form
-		New-Label -Text $Server -Parent $group_Server
+		$domain = Get-ADDomain @parameters
+		New-Label -Text $domain.DNSRoot -Parent $group_Server
 		
 		#region Contexts
 		$allContexts = Get-AdmfContext
@@ -193,7 +196,6 @@
 			}
 		}
 		
-		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		if ($parameters.Server -eq '<Default Domain>') { $parameters.Server = $env:USERDNSDOMAIN }
 		foreach ($context in $allContexts | Sort-Object Weight)
 		{
