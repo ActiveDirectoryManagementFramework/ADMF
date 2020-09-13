@@ -23,6 +23,9 @@
 		The credential provider to use to resolve the input credentials.
 		See help on Register-AdmfCredentialProvider for details.
 	
+	.PARAMETER ContextPrompt
+		Force displaying the Context selection User Interface.
+	
 	.EXAMPLE
 		PS C:\> Test-AdmfDomain -Server corp.fabrikam.com
 
@@ -41,7 +44,11 @@
 		$Options = 'All',
 
 		[string]
-		$CredentialProvider = 'default'
+		$CredentialProvider = 'default',
+		
+		[Alias('Ctx')]
+		[switch]
+		$ContextPrompt
 	)
 	
 	begin
@@ -54,7 +61,7 @@
 			throw
 		}
 		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse -EnableException
+		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
 		[UpdateDomainOptions]$newOptions = $Options
 	}
 	process
@@ -129,7 +136,10 @@
 				if (Get-DMGroupPolicy)
 				{
 					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'GroupPolicies', $parameters.Server
-					Test-DMGroupPolicy @parameters
+					Test-DMGroupPolicy @parameters | Where-Object {
+						($newOptions -band [UpdateDomainOptions]::GroupPolicyDelete) -or
+						($_.Type -ne 'Delete')
+					}
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies' }
 			}
@@ -148,6 +158,15 @@
 					Test-DMGPLink @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks' }
+			}
+			if ($newOptions -band [UpdateDomainOptions]::DomainLevel)
+			{
+				if (Get-DMDomainLevel)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'DomainLevel', $parameters.Server
+					Test-DMDomainLevel @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
 			}
 		}
 		catch { throw }

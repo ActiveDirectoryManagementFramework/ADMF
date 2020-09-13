@@ -1,5 +1,21 @@
 ﻿# Changelog
 
+## 1.6.49 (2020-09-11)
+
+- New: Component - Domain Level
+- New: Component - Forest Level
+- New: Component - ExchangeSchema
+- New: Component - SchemaDefaultPermissions
+- Upd: Set-AdmfContext - changed UI form title to always show domain name
+- Upd: Set-AdmfContext - added `-DefineOnly` parameter to only map domain to Contexts selected, making it easier to bulk-define associations.
+- Upd: Invoke-AdmfDC - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Invoke-AdmfDomain - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Invoke-AdmfForest - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Test-AdmfDC - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Test-AdmfDomain - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Test-AdmfForest - added `-ContextPrompt` parameter to force displaying the Context selection menu.
+- Upd: Opted into the 'PSFramework.Stop-PSFFunction.ShowWarning' feature, ensuring warnings will ALWAYS be written on context selection failure
+
 ## 1.2.36 (2020-07-31)
 
 - New: Invoke-AdmfDC - new command to apply DC configuration entries on DCs

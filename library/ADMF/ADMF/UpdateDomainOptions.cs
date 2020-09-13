@@ -19,12 +19,13 @@ namespace ADMF
         GPLinkDisable = 2048,
         GroupPolicyDelete = 4096,
         Object = 8192,
+        DomainLevel = 16384,
 
         AllGP = GPLink | GPPermission | GroupPolicy | GPLinkDisable | GroupPolicyDelete,
         Security = AccessRule | Acl | PSO,
         AllLinks = AccessRule | Acl | GPLink | GPPermission | GroupMembership | PSO | GPLinkDisable,
         AllContent = GroupMembership | Group | OUSoft | OUHard | User | Group,
         Default = Acl | GPLink | GPPermission | GroupPolicy | GroupMembership | Group | OUSoft | OUHard | PSO | User | GPLinkDisable | GroupPolicyDelete | Object,
-        All = AccessRule | Default
+        All = AccessRule | DomainLevel | Default
     }
 }
