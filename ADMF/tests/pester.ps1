@@ -20,7 +20,6 @@ $global:testroot = $PSScriptRoot
 $global:__pester_data = @{ }
 
 Remove-Module ADMF -ErrorAction Ignore
-Import-Module DomainManagement
 Import-Module "$PSScriptRoot\..\ADMF.psd1"
 Import-Module "$PSScriptRoot\..\ADMF.psm1" -Force
 

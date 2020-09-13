@@ -32,7 +32,7 @@
 		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.17' }
 		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.4.84' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.4.22' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.4.23' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
