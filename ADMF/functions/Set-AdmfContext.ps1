@@ -416,6 +416,30 @@
 			}
 			#endregion Domain
 			
+			#region WinRMMode 
+
+
+			if (Test-Path "$($ContextObject.Path)\domain\WinRM_mode.json") {
+				$file = Get-Item "$($ContextObject.Path)\domain\WinRM_mode.json"
+				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'WinRMMode', $file.FullName
+				try {
+					$dataSet = Get-Content $file.FullName -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include ([string[]](Get-Command Set-DMWinRMMode).Parameters.Keys)
+					Set-DMWinRMMode @dataSet
+				}
+				catch
+				{
+					# TODO review below 3 cmdlets are no longer needed.
+					#Clear-DCConfiguration
+					#Clear-DMConfiguration
+					#Clear-FMConfiguration
+					Clear-AdcConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'WinRMMode', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+			
+			#endregon WinRMMode	
+
 			#region DC
 			if (Test-Path "$($ContextObject.Path)\dc\dc_config.json") {
 				try { $dcData = Get-Content "$($ContextObject.Path)\dc\dc_config.json" -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop }
