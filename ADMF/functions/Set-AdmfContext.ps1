@@ -428,10 +428,6 @@
 				}
 				catch
 				{
-					# TODO review below 3 cmdlets are no longer needed.
-					#Clear-DCConfiguration
-					#Clear-DMConfiguration
-					#Clear-FMConfiguration
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'WinRMMode', $file.FullName -ErrorRecord $_
 					return
