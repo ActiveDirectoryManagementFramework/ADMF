@@ -15,9 +15,10 @@ namespace ADMF
         ForestLevel = 128,
         ExchangeSchema = 256,
         SchemaDefaultPermissions = 512,
+        Certificates = 1024,
 
-        Default = Sites | Subnets | SiteLinks | NTAuthStore,
-        All = Sites | Subnets | SiteLinks | ServerRelocate | Schema | SchemaLdif | NTAuthStore | ForestLevel | ExchangeSchema | SchemaDefaultPermissions,
+        Default = Sites | Subnets | SiteLinks | NTAuthStore | Certificates,
+        All = Default | ServerRelocate | ForestLevel | AllSchema,
         Topology = Sites | Subnets | SiteLinks,
         AllSchema = Schema | SchemaLdif | ExchangeSchema | SchemaDefaultPermissions
     }

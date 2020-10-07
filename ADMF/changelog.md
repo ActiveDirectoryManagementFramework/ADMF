@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## ???
+
+- New: Component - Certificates
+- Upd: Set-AdmfContext - removed -IncludeTemplate parameter, as unpractical to maintain.
+- Fix: Label processing error for non-domain Context prompts fails (e.g. in scenarios where you deploy new domains)
+
 ## 1.6.49 (2020-09-11)
 
 - New: Component - Domain Level

@@ -275,6 +275,60 @@
 				}
 			}
 			#endregion NTAuthStore
+			
+			#region Certificates
+			if (Test-Path "$($ContextObject.Path)\forest\certificates")
+			{
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\certificates" -Recurse -File))
+				{
+					switch ($file.Extension)
+					{
+						'.json'
+						{
+							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
+							try
+							{
+								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
+								foreach ($deletion in $jsonData.Delete) { Register-FMCertificate -Remove $deletion.Thumbprint -Type $deletion.Type }
+								foreach ($addition in $jsonData.Add) { Register-FMCertificate -Certificate ($addition.Certificate | ConvertFrom-PSFClixml) -Type $addition.Type }
+								foreach ($authority in $jsonData.Authority) { Register-FMCertificate -Type $authority.Type -Authorative $authority.Authorative }
+							}
+							catch
+							{
+								Clear-AdcConfiguration
+								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Certificates', $file.FullName -ErrorRecord $_
+								return
+							}
+						}
+						'.cer'
+						{
+							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
+							try
+							{
+								switch -regex ($file.Name)
+								{
+									'^NTAuthCA' { $type = 'NTAuthCA' }
+									'^RootCA' { $type = 'RootCA' }
+									'^SubCA' { $type = 'SubCA' }
+									'^CrossCA' { $type = 'CrossCA' }
+									'^KRA' { $type = 'KRA' }
+									default { throw "Bad filename, cannot divine certificate type: $($file.Name)" }
+								}
+								$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::CreateFromCertFile($file.FullName)
+								Register-FMCertificate -Certificate $cert -Type $type
+							}
+							catch
+							{
+								Clear-AdcConfiguration
+								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Certificates', $file.FullName -ErrorRecord $_
+								return
+							}
+						}
+					}
+				}
+			}
+			#endregion Certificates
+			
 			#endregion Forest
 			
 			#region Domain
