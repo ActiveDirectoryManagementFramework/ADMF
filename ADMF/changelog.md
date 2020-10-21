@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.7.52 (2020-10-21)
 
 - New: Component - Certificates
 - Upd: Set-AdmfContext - removed -IncludeTemplate parameter, as unpractical to maintain.
