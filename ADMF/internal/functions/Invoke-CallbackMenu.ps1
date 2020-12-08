@@ -179,8 +179,12 @@
 		
 		$form = New-Form
 		$group_Server = New-GroupBox -Text "Selected Domain / Server" -Height 50 -Form $form
-		$domain = Get-ADDomain @parameters
-		New-Label -Text $domain.DNSRoot -Parent $group_Server
+		try
+		{
+			$domain = Get-ADDomain @parameters -ErrorAction Stop
+			New-Label -Text $domain.DNSRoot -Parent $group_Server
+		}
+		catch { New-Label -Text $Server -Parent $group_Server }
 		
 		#region Contexts
 		$allContexts = Get-AdmfContext

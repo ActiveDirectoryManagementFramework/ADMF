@@ -55,10 +55,6 @@
 		When deploying a restrictive domain content mode, where these objects fall under management, it becomes necessary to also configure these delegations, lest they be removed.
 		Setting this switch will include all the default delegations in your new context.
 	
-	.PARAMETER IncludeTemplate
-		Whether to include example configuration files in the context.
-		These must all be corrected or removed later on, but offer some initial guidance in how a configuration set for a given setting type might look like.
-	
 	.PARAMETER Force
 		This command refuses to replace an existing context by default.
 		Using force, it is a bit more brutish and will kill any previously existing context with the same name in the target store.
@@ -123,9 +119,6 @@
 		$DefaultAccessRules,
 		
 		[switch]
-		$IncludeTemplate,
-		
-		[switch]
 		$Force,
 		
 		[switch]
@@ -167,8 +160,7 @@
 		
 		$contextFolder = New-Item -Path $resolvedPath -Name $Name -ItemType Directory
 		$contextVersionFolder = New-Item -Path $contextFolder.FullName -Name '1.0.0' -ItemType Directory
-		if ($IncludeTemplate) { Copy-Item -Path "$script:ModuleRoot\internal\data\contextTemplate\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse }
-		else { Copy-Item -Path "$script:ModuleRoot\internal\data\context\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse }
+		Copy-Item -Path "$script:ModuleRoot\internal\data\context\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse
 		
 		#region Default Access Rules
 		if ($DefaultAccessRules){
