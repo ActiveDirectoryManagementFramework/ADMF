@@ -32,7 +32,7 @@
 		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.18' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.4.85' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.4.97' }
 		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.5.26' }
 	)
 	
