@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## 1.8.55 (2021-01-15)
+
+- New: Component - Service Accounts
+- Fix: Test-AdmfDomain - Generates error when executing with Acl included but none defined
+- Fix: Invoke-AdmfDomain - Generates error when executing with Acl included but none defined
+
 ## 1.7.52 (2020-10-21)
 
 - New: Component - Certificates

@@ -348,6 +348,7 @@
 				'organizationalunits' = (Get-Command Register-DMOrganizationalUnit)
 				'psos'                = (Get-Command Register-DMPasswordPolicy)
 				'users'               = (Get-Command Register-DMUser)
+				'serviceaccounts'     = (Get-Command Register-DMServiceAccount)
 			}
 			
 			foreach ($key in $domainFields.Keys) {
