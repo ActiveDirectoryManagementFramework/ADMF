@@ -92,6 +92,14 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Users' }
 			}
+			if ($newOptions -band [UpdateDomainOptions]::ServiceAccount) {
+				if (Get-DMServiceAccount)
+				{
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'ServiceAccounts', $parameters.Server
+					Test-DMServiceAccount @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'ServiceAccounts' }
+			}
 			if ($newOptions -band [UpdateDomainOptions]::GroupMembership) {
 				if (Get-DMGroupMembership)
 				{
@@ -101,7 +109,7 @@
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupMembership' }
 			}
 			if ($newOptions -band [UpdateDomainOptions]::Acl) {
-				if (Get-DMAcl)
+				if (Get-DMAcl | Remove-PSFNull)
 				{
 					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Acls', $parameters.Server
 					Test-DMAcl @parameters
