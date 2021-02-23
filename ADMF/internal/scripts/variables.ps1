@@ -6,3 +6,6 @@ $script:assignedContexts = @{ }
 
 # The list of registered credentials providers
 $script:credentialProviders = @{ }
+
+# Currently resolved domain controller
+$script:resolvedDomainController = $null

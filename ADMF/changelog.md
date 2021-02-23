@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Added caching to domain controller resolution so that credential providers may use the same resolution results.
+
 ## 1.8.55 (2021-01-15)
 
 - New: Component - Service Accounts

@@ -65,6 +65,7 @@
 	
 	begin
 	{
+		Reset-DomainControllerCache
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }

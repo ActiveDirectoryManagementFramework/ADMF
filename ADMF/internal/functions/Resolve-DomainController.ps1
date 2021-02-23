@@ -50,6 +50,7 @@
 	}
 	process
 	{
+		if ($script:resolvedDomainController) { return $script:resolvedDomainController }
 		$targetString = $Server
 		if (-not $targetString) { $targetString = $env:USERDNSNAME }
 		$null = Invoke-PSFProtectedCommand -ActionString 'Resolve-DomainController.Connecting' -ActionStringValues $targetString -Target $targetString -ScriptBlock {
@@ -58,21 +59,25 @@
 		
 		if ($domainController.HostName -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName
+			$script:resolvedDomainController = $domainController.HostName
 			return $domainController.HostName
 		}
 		if ($domainController.Name -eq $Server) {
 			Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.Name
+			$script:resolvedDomainController = $domainController.Name
 			return $domainController.Name
 		}
 
 		switch ($Type) {
 			'Random' {
 				Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domainController.HostName
+				$script:resolvedDomainController = $domainController.HostName
 				return $domainController.HostName
 			}
 			default {
 				$domain = Get-ADDomain @parameters
 				Write-PSFMessage -Level Host -String 'Resolve-DomainController.Resolved' -StringValues $domain.PDCEmulator
+				$script:resolvedDomainController = $domain.PDCEmulator
 				$domain.PDCEmulator
 			}
 		}
