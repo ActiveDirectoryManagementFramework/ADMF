@@ -21,12 +21,13 @@ namespace ADMF
         Object = 8192,
         DomainLevel = 16384,
         ServiceAccount = 32768,
+        Exchange = 65536,
 
         AllGP = GPLink | GPPermission | GroupPolicy | GPLinkDisable | GroupPolicyDelete,
         Security = AccessRule | Acl | PSO,
         AllLinks = AccessRule | Acl | GPLink | GPPermission | GroupMembership | PSO | GPLinkDisable,
-        AllContent = GroupMembership | Group | OUSoft | OUHard | User | Group | ServiceAccount,
-        Default = Acl | GPLink | GPPermission | GroupPolicy | GroupMembership | Group | OUSoft | OUHard | PSO | User | GPLinkDisable | GroupPolicyDelete | Object | ServiceAccount,
+        AllContent = GroupMembership | Group | OUSoft | OUHard | User | Group | ServiceAccount | Object,
+        Default = Acl | PSO | AllGP | AllContent,
         All = AccessRule | DomainLevel | Default
     }
 }

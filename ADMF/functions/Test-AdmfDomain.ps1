@@ -168,14 +168,19 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks' }
 			}
-			if ($newOptions -band [UpdateDomainOptions]::DomainLevel)
-			{
-				if (Get-DMDomainLevel)
-				{
+			if ($newOptions -band [UpdateDomainOptions]::DomainLevel) {
+				if (Get-DMDomainLevel) {
 					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'DomainLevel', $parameters.Server
 					Test-DMDomainLevel @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
+			}
+			if ($newOptions -band [UpdateDomainOptions]::Exchange) {
+				if (Get-DMExchange) {
+					Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Executing.Test' -StringValues 'Exchange System Objects', $parameters.Server
+					Test-DMExchange @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Test-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Exchange System Objects' }
 			}
 		}
 		catch { throw }

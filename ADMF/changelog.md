@@ -2,6 +2,8 @@
 
 ## ???
 
+- New: Component - Exchange System Objects (at the domain level)
+- Upd: DC Resolution - Added new option to select DC by site, rather than just PDC or random.
 - Upd: Added caching to domain controller resolution so that credential providers may use the same resolution results.
 
 ## 1.8.55 (2021-01-15)
