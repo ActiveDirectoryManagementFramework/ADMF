@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.9.58 (2021-03-04)
 
 - New: Component - Exchange System Objects (at the domain level)
 - Upd: DC Resolution - Added new option to select DC by site, rather than just PDC or random.
