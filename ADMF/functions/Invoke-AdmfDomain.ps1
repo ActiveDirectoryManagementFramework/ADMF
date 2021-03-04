@@ -86,6 +86,7 @@
 	
 	begin
 	{
+		Reset-DomainControllerCache
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
@@ -240,14 +241,19 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
 			}
-			if ($newOptions -band [UpdateDomainOptions]::DomainLevel)
-			{
-				if (Get-DMDomainLevel)
-				{
+			if ($newOptions -band [UpdateDomainOptions]::DomainLevel) {
+				if (Get-DMDomainLevel) {
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'DomainLevel', $parameters.Server
 					Invoke-DMDomainLevel @parameters
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
+			}
+			if ($newOptions -band [UpdateDomainOptions]::Exchange) {
+				if (Get-DMExchange) {
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Exchange System Objects', $parameters.Server
+					Invoke-DMExchange @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Exchange System Objects' }
 			}
 		}
 		catch { throw }

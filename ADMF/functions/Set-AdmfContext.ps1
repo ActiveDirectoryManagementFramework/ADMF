@@ -108,16 +108,15 @@
 			$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 			$stopParam = @{
 				EnableException = $EnableException
-				Cmdlet          = $Cmdlet
-				Target          = $ContextObject
-				StepsUpward     = 1
+				Cmdlet		    = $Cmdlet
+				Target		    = $ContextObject
+				StepsUpward	    = 1
 			}
 			
 			#region PreImport
 			if (Test-Path "$($ContextObject.Path)\preImport.ps1") {
 				try { $null = & "$($ContextObject.Path)\preImport.ps1" @parameters }
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PreImport' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
@@ -130,9 +129,9 @@
 				'exchangeschema' = Get-Command Register-FMExchangeSchema
 				'schema'		 = Get-Command Register-FMSchema
 				'schemaDefaultPermissions' = Get-Command Register-FMSchemaDefaultPermission
-				'sitelinks' = Get-Command Register-FMSiteLink
-				'sites'     = Get-Command Register-FMSite
-				'subnets'   = Get-Command Register-FMSubnet
+				'sitelinks'	     = Get-Command Register-FMSiteLink
+				'sites'		     = Get-Command Register-FMSite
+				'subnets'	     = Get-Command Register-FMSubnet
 			}
 			
 			foreach ($key in $forestFields.Keys) {
@@ -148,8 +147,7 @@
 							& $forestFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
-					catch
-					{
+					catch {
 						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
@@ -159,25 +157,24 @@
 			
 			if (Test-Path "$($ContextObject.Path)\forest\schemaldif") {
 				$filesProcessed = @()
-
+				
 				#region Process Ldif Configuration
 				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.json")) {
 					$jsonData = Get-Content $file.FullName | ConvertFrom-Json
 					foreach ($jsonEntry in $jsonData) {
 						$targetPath = Join-Path "$($ContextObject.Path)\forest\schemaldif" $jsonEntry.Path
 						if ($filesProcessed -contains $targetPath) { continue }
-
+						
 						try { $ldifItem = Get-Item -Path $targetPath -ErrorAction Stop -Force }
-						catch
-						{
+						catch {
 							Clear-AdcConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Schema (ldif)', $file.FullName -ErrorRecord $_
 							return
 						}
-
+						
 						$ldifParam = @{
-							Path        = $ldifItem.FullName
-							Name        = $ldifItem.BaseName
+							Path = $ldifItem.FullName
+							Name = $ldifItem.BaseName
 							ContextName = $ContextObject.Name
 						}
 						if ($jsonEntry.Name) { $ldifParam.Name = $jsonEntry.Name }
@@ -187,8 +184,7 @@
 							Register-FMSchemaLdif @ldifParam -ErrorAction Stop
 							$filesProcessed += $ldifItem.FullName
 						}
-						catch
-						{
+						catch {
 							Clear-AdcConfiguration
 							Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
 							return
@@ -196,15 +192,14 @@
 					}
 				}
 				#endregion Process Ldif Configuration
-
+				
 				#region Process Ldif Files without configuration
 				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.ldf")) {
 					# Skip files already defined in json
 					if ($filesProcessed -contains $file.FullName) { continue }
 					
 					try { Register-FMSchemaLdif -Name $file.BaseName -Path $file.FullName -ContextName $ContextObject.Name -ErrorAction Stop }
-					catch
-					{
+					catch {
 						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'schemaldif', $file.FullName -ErrorRecord $_
 						return
@@ -214,17 +209,14 @@
 			}
 			
 			# Forest Level
-			if (Test-Path "$($ContextObject.Path)\forest\forest_level.json")
-			{
+			if (Test-Path "$($ContextObject.Path)\forest\forest_level.json") {
 				$file = Get-Item "$($ContextObject.Path)\forest\forest_level.json"
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName
-				try
-				{
+				try {
 					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
 					Register-FMForestLevel -Level $dataSet.Level -ContextName $ContextObject.Name
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName -ErrorRecord $_
 					return
@@ -232,25 +224,19 @@
 			}
 			
 			#region NTAuthStore
-			if (Test-Path "$($ContextObject.Path)\forest\ntAuthStore")
-			{
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\ntAuthStore" -Recurse -File))
-				{
-					switch ($file.Extension)
-					{
+			if (Test-Path "$($ContextObject.Path)\forest\ntAuthStore") {
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\ntAuthStore" -Recurse -File)) {
+					switch ($file.Extension) {
 						'.json'
 						{
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName
-							try
-							{
+							try {
 								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
-								if ($jsonData.PSObject.Properties.Name -eq 'Authorative')
-								{
+								if ($jsonData.PSObject.Properties.Name -eq 'Authorative') {
 									Register-FMNTAuthStore -Authorative:$jsonData.Authorative
 								}
 							}
-							catch
-							{
+							catch {
 								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
 								return
@@ -259,13 +245,11 @@
 						'.cer'
 						{
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName
-							try
-							{
+							try {
 								$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::CreateFromCertFile($file.FullName)
 								Register-FMNTAuthStore -Certificate $cert
 							}
-							catch
-							{
+							catch {
 								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName -ErrorRecord $_
 								return
@@ -277,24 +261,19 @@
 			#endregion NTAuthStore
 			
 			#region Certificates
-			if (Test-Path "$($ContextObject.Path)\forest\certificates")
-			{
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\certificates" -Recurse -File))
-				{
-					switch ($file.Extension)
-					{
+			if (Test-Path "$($ContextObject.Path)\forest\certificates") {
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\certificates" -Recurse -File)) {
+					switch ($file.Extension) {
 						'.json'
 						{
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
-							try
-							{
+							try {
 								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
 								foreach ($deletion in $jsonData.Delete) { Register-FMCertificate -Remove $deletion.Thumbprint -Type $deletion.Type }
 								foreach ($addition in $jsonData.Add) { Register-FMCertificate -Certificate ($addition.Certificate | ConvertFrom-PSFClixml) -Type $addition.Type }
 								foreach ($authority in $jsonData.Authority) { Register-FMCertificate -Type $authority.Type -Authorative $authority.Authorative }
 							}
-							catch
-							{
+							catch {
 								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Certificates', $file.FullName -ErrorRecord $_
 								return
@@ -303,10 +282,8 @@
 						'.cer'
 						{
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
-							try
-							{
-								switch -regex ($file.Name)
-								{
+							try {
+								switch -regex ($file.Name) {
 									'^NTAuthCA' { $type = 'NTAuthCA' }
 									'^RootCA' { $type = 'RootCA' }
 									'^SubCA' { $type = 'SubCA' }
@@ -317,8 +294,7 @@
 								$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::CreateFromCertFile($file.FullName)
 								Register-FMCertificate -Certificate $cert -Type $type
 							}
-							catch
-							{
+							catch {
 								Clear-AdcConfiguration
 								Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Certificates', $file.FullName -ErrorRecord $_
 								return
@@ -333,22 +309,23 @@
 			
 			#region Domain
 			$domainFields = @{
-				'accessrules'         = (Get-Command Register-DMAccessRule)
-				'accessrulemodes'     = (Get-Command Register-DMAccessRuleMode)
-				'acls'                = (Get-Command Register-DMAcl)
-				'builtinsids'         = (Get-Command Register-DMBuiltInSID)
-				'gplinks'             = (Get-Command Register-DMGPLink)
-				'gppermissions'       = (Get-Command Register-DMGPPermission)
-				'gppermissionfilters' = (Get-Command Register-DMGPPermissionFilter)
-				'gpregistrysettings'  = (Get-Command Register-DMGPRegistrySetting)
-				'groups'              = (Get-Command Register-DMGroup)
-				'groupmemberships'    = (Get-Command Register-DMGroupMembership)
-				'names'               = (Get-Command Register-DMNameMapping)
-				'objects'             = (Get-Command Register-DMObject)
-				'organizationalunits' = (Get-Command Register-DMOrganizationalUnit)
-				'psos'                = (Get-Command Register-DMPasswordPolicy)
-				'users'               = (Get-Command Register-DMUser)
-				'serviceaccounts'     = (Get-Command Register-DMServiceAccount)
+				'organizationalunits' = Get-Command Register-DMOrganizationalUnit
+				'accessrules'		  = Get-Command Register-DMAccessRule
+				'accessrulemodes'	  = Get-Command Register-DMAccessRuleMode
+				'acls'			      = Get-Command Register-DMAcl
+				'builtinsids'		  = Get-Command Register-DMBuiltInSID
+				'exchange'		      = Get-Command Register-DMExchange
+				'gplinks'			  = Get-Command Register-DMGPLink
+				'gppermissions'	      = Get-Command Register-DMGPPermission
+				'gppermissionfilters' = Get-Command Register-DMGPPermissionFilter
+				'gpregistrysettings'  = Get-Command Register-DMGPRegistrySetting
+				'groups'			  = Get-Command Register-DMGroup
+				'groupmemberships'    = Get-Command Register-DMGroupMembership
+				'names'			      = Get-Command Register-DMNameMapping
+				'objects'			  = Get-Command Register-DMObject
+				'psos'			      = Get-Command Register-DMPasswordPolicy
+				'serviceaccounts'	  = Get-Command Register-DMServiceAccount
+				'users'			      = Get-Command Register-DMUser
 			}
 			
 			foreach ($key in $domainFields.Keys) {
@@ -364,15 +341,14 @@
 							& $domainFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
-					catch
-					{
+					catch {
 						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
 					}
 				}
 			}
-
+			
 			# Group Policy
 			if (Test-Path "$($ContextObject.Path)\domain\grouppolicies\exportData.json") {
 				$file = Get-Item "$($ContextObject.Path)\domain\grouppolicies\exportData.json"
@@ -383,14 +359,13 @@
 						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)"
 					}
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName -ErrorRecord $_
 					return
 				}
 			}
-
+			
 			# Object Categories
 			foreach ($file in (Get-ChildItem "$($ContextObject.Path)\domain\objectcategories" -Filter '*.psd1' -ErrorAction Ignore)) {
 				try {
@@ -398,14 +373,13 @@
 					$dataSet.TestScript = $dataSet.TestScript.Invoke() | Write-Output # Remove automatic scriptblock nesting
 					Register-DMObjectCategory @dataSet
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Object Categories', $file.FullName -ErrorRecord $_
 					return
 				}
 			}
-
+			
 			# Domain Data
 			foreach ($file in (Get-ChildItem "$($ContextObject.Path)\domain\domaindata" -Filter '*.psd1' -ErrorAction Ignore)) {
 				try {
@@ -413,8 +387,7 @@
 					$dataSet.Scriptblock = $dataSet.Scriptblock.Invoke() | Write-Output # Remove automatic scriptblock nesting
 					Register-DMDomainData @dataSet
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'Domain Data', $file.FullName -ErrorRecord $_
 					return
@@ -422,17 +395,14 @@
 			}
 			
 			# Domain Level
-			if (Test-Path "$($ContextObject.Path)\domain\domain_level.json")
-			{
+			if (Test-Path "$($ContextObject.Path)\domain\domain_level.json") {
 				$file = Get-Item "$($ContextObject.Path)\domain\domain_level.json"
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName
-				try
-				{
+				try {
 					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
 					Register-DMDomainLevel -Level $dataSet.Level -ContextName $ContextObject.Name
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName -ErrorRecord $_
 					return
@@ -462,8 +432,7 @@
 						Set-DMContentMode -UserExcludePattern $userExcludePatterns
 					}
 				}
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DomainConfig' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName -ErrorRecord $_
 					return
@@ -474,8 +443,7 @@
 			#region DC
 			if (Test-Path "$($ContextObject.Path)\dc\dc_config.json") {
 				try { $dcData = Get-Content "$($ContextObject.Path)\dc\dc_config.json" -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop }
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DCConfig' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
@@ -493,26 +461,20 @@
 				'fsaccessrules' = Get-Command Register-DCAccessRule
 			}
 			
-			foreach ($key in $dcFields.Keys)
-			{
+			foreach ($key in $dcFields.Keys) {
 				if (-not (Test-Path "$($ContextObject.Path)\dc\$key")) { continue }
 				
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\dc\$key\" -Recurse -Filter "*.json"))
-				{
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\dc\$key\" -Recurse -Filter "*.json")) {
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
-					try
-					{
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($dcFields[$key].Parameters.Keys)))
-						{
-							if ($dcFields[$key].Parameters.Keys -contains 'ContextName')
-							{
+					try {
+						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($dcFields[$key].Parameters.Keys))) {
+							if ($dcFields[$key].Parameters.Keys -contains 'ContextName') {
 								$dataSet['ContextName'] = $ContextObject.Name
 							}
 							& $dcFields[$key] @dataSet -ErrorAction Stop
 						}
 					}
-					catch
-					{
+					catch {
 						Clear-AdcConfiguration
 						Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, $key, $file.FullName -ErrorRecord $_
 						return
@@ -524,8 +486,7 @@
 			#region PostImport
 			if (Test-Path "$($ContextObject.Path)\postImport.ps1") {
 				try { $null = & "$($ContextObject.Path)\postImport.ps1" @parameters }
-				catch
-				{
+				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.PostImport' -StringValues $ContextObject.Name -ErrorRecord $_
 					return
@@ -541,25 +502,23 @@
 		# Common parameters for Stop-PSFFunction
 		$commonParam = @{
 			EnableException = $EnableException
-			Continue        = $true
+			Continue	    = $true
+			Cmdlet		    = $PSCmdlet
 		}
 		
-		if ($NoDomain)
-		{
+		if ($NoDomain) {
 			$domain = [pscustomobject]@{ DNSRoot = $Server }
 			return # Ends the current block and moves on to process
 		}
 		$adParameters = $parameters.Clone()
 		if (-not $adParameters.Credential) { $adParameters.Remove('Credential') }
 		try { $domain = Get-ADDomain @adParameters -ErrorAction Stop }
-		catch
-		{
-			Stop-PSFFunction -String 'Set-AdmfContext.Domain.AccessError' -StringValues $Server -EnableException $EnableException -ErrorRecord $_
+		catch {
+			Stop-PSFFunction -String 'Set-AdmfContext.Domain.AccessError' -StringValues $Server -EnableException $EnableException -ErrorRecord $_ -Cmdlet $PSCmdlet
 			return
 		}
 	}
-	process
-	{
+	process {
 		if (Test-PSFFunctionInterrupt) { return }
 		
 		#region Explicitly specified contexts
@@ -627,8 +586,7 @@
 		}
 		
 		# In Define Only Mode: Register Context to domain and terminate peacefully
-		if ($DefineOnly)
-		{
+		if ($DefineOnly) {
 			$script:assignedContexts["$($domain.DNSRoot)"] = $selectedContexts.Values | Sort-Object Weight
 			return
 		}

@@ -49,7 +49,7 @@ E.g. 2016CU6
 We map Exchange versions to their respective identifiers in AD:
 RangeUpper in schema and ObjectVersion in configuration.
 This parameter is to help avoiding to have to look up those values.
-If your version is not supported by us yet, look up those numbers and explicitly bind it to -RangeUpper and -ObjectVersion isntead.
+If your version is not supported by us yet, look up those numbers and explicitly bind it to -RangeUpper and -ObjectVersion instead.
 
 ### RangeUpper
 
