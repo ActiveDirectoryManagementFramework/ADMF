@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Invoke-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
+- Upd: Test-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
+
 ## 1.9.58 (2021-03-04)
 
 - New: Component - Exchange System Objects (at the domain level)

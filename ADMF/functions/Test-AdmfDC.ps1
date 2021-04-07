@@ -37,6 +37,9 @@
 		
 		[PSCredential]
 		$Credential,
+
+        [string[]]
+        $TargetServer = @(),
 		
 		[UpdateDCOptions[]]
 		$Options = 'All',
@@ -53,6 +56,9 @@
 	{
 		Reset-DomainControllerCache
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+        if (-not $Server -and $TargetServer) {
+            $parameters.Server = $TargetServer | Select-Object -First 1
+        }
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $parameters.Server = Resolve-DomainController @parameters -ErrorAction Stop -Confirm:$false }
 		catch
@@ -73,7 +79,7 @@
 				if (Get-DCShare)
 				{
 					Write-PSFMessage -Level Host -String 'Test-AdmfDC.Executing.Test' -StringValues 'Shares', $parameters.Server
-					Test-DCShare @parameters
+					Test-DCShare @parameters -TargetServer $TargetServer
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'Shares' }
 			}
@@ -82,7 +88,7 @@
 				if (Get-DCAccessRule)
 				{
 					Write-PSFMessage -Level Host -String 'Test-AdmfDC.Executing.Test' -StringValues 'FSAccessRules', $parameters.Server
-					Test-DCAccessRule @parameters
+					Test-DCAccessRule @parameters -TargetServer $TargetServer
 				}
 				else { Write-PSFMessage -Level Host -String 'Test-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'FSAccessRules' }
 			}
