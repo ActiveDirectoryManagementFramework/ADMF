@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 1.9.62 (2021-03-23)
+## 1.9.62 (2021-04-23)
 
 - Upd: Invoke-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
 - Upd: Test-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
