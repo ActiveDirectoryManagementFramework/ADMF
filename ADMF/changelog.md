@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## 1.9.62 (2021-04-23)
+
+- Upd: Invoke-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
+- Upd: Test-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
+- Upd: Contexts now process the `servers` node
+- Upd: Newly created Contexts with default access rules now also contain the default assignments to the AdminSDHolder object.
+
 ## 1.9.58 (2021-03-04)
 
 - New: Component - Exchange System Objects (at the domain level)
