@@ -12,6 +12,11 @@
 	
 	.PARAMETER Credential
 		The credentials to use for this operation.
+
+    .PARAMETER TargetServer
+        The specific server(s) to process.
+        If specified, only listed domain controllers will be affected.
+        Specify the full FQDN of the server.
 	
 	.PARAMETER Options
 		Which aspects to actually update.
@@ -43,6 +48,9 @@
 		
 		[PSCredential]
 		$Credential,
+
+        [string[]]
+        $TargetServer = @(),
 		
 		[ADMF.UpdateDCOptions[]]
 		$Options = 'Default',
@@ -59,6 +67,9 @@
 	{
 		Reset-DomainControllerCache
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
+        if (-not $Server -and $TargetServer) {
+            $parameters.Server = $TargetServer | Select-Object -First 1
+        }
 		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 		try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
 		catch
@@ -82,7 +93,7 @@
 				if (Get-DCShare)
 				{
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfDC.Executing.Invoke' -StringValues 'Shares', $parameters.Server
-					Invoke-DCShare @parameters
+					Invoke-DCShare @parameters -TargetServer $TargetServer
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'Shares' }
 			}
@@ -91,7 +102,7 @@
 				if (Get-DCAccessRule)
 				{
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfDC.Executing.Invoke' -StringValues 'FSAccessRules', $parameters.Server
-					Invoke-DCAccessRule @parameters
+					Invoke-DCAccessRule @parameters -TargetServer $TargetServer
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDC.Skipping.Test.NoConfiguration' -StringValues 'FSAccessRules' }
 			}
