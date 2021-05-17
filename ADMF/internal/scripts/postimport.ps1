@@ -1,5 +1,10 @@
 ﻿# Add all things you want to run after importing the main code
 
+# Load Configuration Validations
+foreach ($file in (Get-ChildItem "$($script:ModuleRoot)\internal\configurationValidation\*.ps1" -ErrorAction Ignore)) {
+	. Import-ModuleFile -Path $file.FullName
+}
+
 # Load Configurations
 foreach ($file in (Get-ChildItem "$($script:ModuleRoot)\internal\configurations\*.ps1" -ErrorAction Ignore)) {
 	. Import-ModuleFile -Path $file.FullName
