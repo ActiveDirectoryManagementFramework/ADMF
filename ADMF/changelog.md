@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.9.65 (2021-05-18)
+
+- Upd: Set-AdmfContext - added `-DnsDomain` parameter, disabling domain lookup & accelerating Context pre-assignment.
+- Upd: DC Resolution - added 'Site' option to the `ADMF.DCSelectionMode` configuration setting. Allows picking the sites in which we look for DCs first.
+
 ## 1.9.62 (2021-04-23)
 
 - Upd: Invoke-AdmfDC - added `-TargetServer` parameter to allow processing specific servers only
