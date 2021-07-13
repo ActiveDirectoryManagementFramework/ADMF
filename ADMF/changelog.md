@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 1.9.66 (2021-07-13)
+
+- Upd: Updated dependency version to install/update to latest versions of DCManagement and DomainManagement
+
 ## 1.9.65 (2021-05-18)
 
 - Upd: Set-AdmfContext - added `-DnsDomain` parameter, disabling domain lookup & accelerating Context pre-assignment.
