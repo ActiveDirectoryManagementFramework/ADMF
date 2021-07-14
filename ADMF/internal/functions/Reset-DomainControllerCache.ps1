@@ -12,6 +12,7 @@
 
 		Resets the cached domain controller resolution.
 	#>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
 	[CmdletBinding()]
 	param (
 

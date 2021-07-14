@@ -29,6 +29,10 @@
 	
 	.PARAMETER Credential
 		The credentials to use for this operation.
+
+    .PARAMETER DnsDomain
+        The DNS Name of the domain to target.
+        Removes the need for AD Resolution of the domain, potentially speeding up the -DefineOnly workflow.
 	
 	.PARAMETER NoDomain
 		If used against a target without a domain, it will skip AD connect and instead use the server name for Context caching purposes.
@@ -75,6 +79,9 @@
 		
         [System.Management.Automation.PSCredential]
         $Credential,
+
+        [string]
+        $DnsDomain,
 		
         [Parameter(DontShow = $true)]
         [switch]
@@ -505,6 +512,10 @@
 		
         if ($NoDomain) {
             $domain = [pscustomobject]@{ DNSRoot = $Server }
+            return # Ends the current block and moves on to process
+        }
+        if ($DnsDomain) {
+            $domain = [pscustomobject]@{ DNSRoot = $DnsDomain }
             return # Ends the current block and moves on to process
         }
         $adParameters = $parameters.Clone()
