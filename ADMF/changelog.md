@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## ???
+
+- New: Component "Group Policy Ownership"
+
 ## 1.9.66 (2021-07-13)
 
 - Upd: Updated dependency version to install/update to latest versions of DCManagement and DomainManagement
