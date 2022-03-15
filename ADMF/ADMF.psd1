@@ -28,6 +28,7 @@
 	RequiredModules = @(
 		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.6.198' }
 		@{ ModuleName = 'ADSec'; ModuleVersion = '0.2.1' }
+		@{ ModuleName = 'string'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.1.3' }

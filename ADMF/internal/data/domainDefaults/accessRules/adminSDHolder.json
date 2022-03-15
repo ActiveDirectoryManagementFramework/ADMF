@@ -1,24 +1,6 @@
 ﻿[
     {
         "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
-        "ActiveDirectoryRights":  "GenericRead",
-        "InheritanceType":  "None",
-        "ObjectType":  "<All>",
-        "InheritedObjectType":  "<All>",
-        "AccessControlType":  "Allow",
-        "Identity":  "S-1-5-11"
-    },
-    {
-        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
-        "ActiveDirectoryRights":  "GenericAll",
-        "InheritanceType":  "None",
-        "ObjectType":  "<All>",
-        "InheritedObjectType":  "<All>",
-        "AccessControlType":  "Allow",
-        "Identity":  "S-1-5-18"
-    },
-    {
-        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
         "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, Delete, GenericRead, WriteDacl, WriteOwner",
         "InheritanceType":  "None",
         "ObjectType":  "<All>",
@@ -37,6 +19,16 @@
     },
     {
         "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
         "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
         "InheritanceType":  "None",
         "ObjectType":  "<All>",
@@ -48,10 +40,10 @@
         "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
         "ActiveDirectoryRights":  "ExtendedRight",
         "InheritanceType":  "None",
-        "ObjectType":  "User-Change-Password",
-        "InheritedObjectType":  "<All>",
+        "ObjectType":  "ab721a53-1e2f-11d0-9819-00aa0040529b",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "S-1-5-0"
+        "Identity":  "S-1-1-0"
     },
     {
         "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
