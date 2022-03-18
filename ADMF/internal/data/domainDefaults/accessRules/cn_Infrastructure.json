@@ -1,0 +1,40 @@
+﻿[
+    
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "268435456",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM",
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=Infrastructure,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    }
+]

@@ -22,8 +22,9 @@ namespace ADMF
         DomainLevel = 16384,
         ServiceAccount = 32768,
         Exchange = 65536,
+        GPOwner = 131072,
 
-        AllGP = GPLink | GPPermission | GroupPolicy | GPLinkDisable | GroupPolicyDelete,
+        AllGP = GPLink | GPPermission | GPOwner | GroupPolicy | GPLinkDisable | GroupPolicyDelete,
         Security = AccessRule | Acl | PSO,
         AllLinks = AccessRule | Acl | GPLink | GPPermission | GroupMembership | PSO | GPLinkDisable,
         AllContent = GroupMembership | Group | OUSoft | OUHard | User | Group | ServiceAccount | Object,

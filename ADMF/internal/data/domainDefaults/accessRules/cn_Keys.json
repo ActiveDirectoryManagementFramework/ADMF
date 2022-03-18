@@ -22,12 +22,34 @@
     {
         "Path":  "CN=Keys,%DomainDN%",
         "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "none",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM",
+        "Optional":  true,
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
         "InheritanceType":  "All",
         "ObjectType":  "<All>",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins",
+        "Identity":  "%DomainSID%-512",
         "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Optional":  true,
+        "Present":  "false"
     },
     {
         "Path":  "CN=Keys,%DomainDN%",
@@ -68,5 +90,16 @@
         "AccessControlType":  "Allow",
         "Identity":  "%RootDomainName%\\Enterprise Key Admins",
         "Optional":  true
+    },
+    {
+        "Path":  "CN=Keys,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-11",
+        "Optional":  true,
+        "Present":  "false"
     }
 ]

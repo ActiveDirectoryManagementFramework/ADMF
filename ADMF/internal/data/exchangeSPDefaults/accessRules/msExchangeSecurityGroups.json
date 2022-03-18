@@ -1,0 +1,38 @@
+[
+    {
+        "Path":  "OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "Delete",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "Group",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "Group",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Member",
+        "InheritedObjectType":  "Group",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    }
+]

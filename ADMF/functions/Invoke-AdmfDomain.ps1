@@ -178,6 +178,15 @@
 				}
 				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyPermissions' }
 			}
+			if ($newOptions -band [UpdateDomainOptions]::GPOwner)
+			{
+				if (Get-DMGPOwner)
+				{
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyOwners', $parameters.Server
+					Invoke-DMGPOwner @parameters
+				}
+				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyOwners' }
+			}
 			if ($newOptions -band [UpdateDomainOptions]::GPLinkDisable)
 			{
 				if (Get-DMGPLink)

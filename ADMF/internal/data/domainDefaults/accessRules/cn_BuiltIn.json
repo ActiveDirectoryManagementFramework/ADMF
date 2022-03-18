@@ -51,7 +51,17 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Builtin,%DomainDN%",
