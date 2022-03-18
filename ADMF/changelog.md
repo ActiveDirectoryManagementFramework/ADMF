@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.10.68 (2022-03-18)
+
+- New: Component - "Group Policy Ownership"
+- Upd: Context (default permissions) - Removed default permission for adminSDHolder to "S-1-5-0" to change the password
+
 ## 1.9.66 (2021-07-13)
 
 - Upd: Updated dependency version to install/update to latest versions of DCManagement and DomainManagement

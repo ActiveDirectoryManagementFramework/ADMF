@@ -1,0 +1,623 @@
+[
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteTree",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Deny",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadControl",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, GenericExecute",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\NETWORK SERVICE"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteTree, GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Modify-Time-Stamp",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Admin-Display-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Garbage-Coll-Period",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Show-In-Address-Book",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Personal-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Legacy-Exchange-DN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "RDN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Common-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Proxy-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-DS-Phonetic-Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "User",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Garbage-Coll-Period",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name-Printable",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-Exch-System-Mailbox",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-Public-Delegates",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "E-mail-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "ms-Exch-System-Mailbox",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-PF-Contacts",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Text-Encoded-OR-Address",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "RDN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Text-Encoded-OR-Address",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Show-In-Address-Book",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-PF-Contacts",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "E-mail-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Personal-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-Public-Delegates",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name-Printable",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Common-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Garbage-Coll-Period",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Proxy-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Legacy-Exchange-DN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-DS-Phonetic-Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Public Folder Management"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "User-Force-Change-Password",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "User-Change-Password",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "ms-Exch-System-Mailbox",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "User",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-Exch-Public-Folder",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-Exch-System-Mailbox",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Servers"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Garbage-Coll-Period",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "User",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-Public-Delegates",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Legacy-Exchange-DN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "ms-Exch-System-Mailbox",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-Exch-PF-Contacts",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ms-DS-Phonetic-Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Text-Encoded-OR-Address",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "E-mail-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name-Printable",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Display-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Common-Name",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Exchange-Personal-Information",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Show-In-Address-Book",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "RDN",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "CN=Microsoft Exchange System Objects,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "Proxy-Addresses",
+        "InheritedObjectType":  "ms-Exch-Public-Folder",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    }
+]

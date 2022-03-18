@@ -6,34 +6,7 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
-    },
-    {
-        "Path":  "CN=Infrastructure,%DomainDN%",
-        "ActiveDirectoryRights":  "GenericRead",
-        "InheritanceType":  "None",
-        "ObjectType":  "00000000-0000-0000-0000-000000000000",
-        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
-        "AccessControlType":  "Allow",
-        "Identity":  "NT AUTHORITY\\Authenticated Users"
-    },
-    {
-        "Path":  "CN=Infrastructure,%DomainDN%",
-        "ActiveDirectoryRights":  "GenericAll",
-        "InheritanceType":  "None",
-        "ObjectType":  "00000000-0000-0000-0000-000000000000",
-        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
-        "AccessControlType":  "Allow",
-        "Identity":  "NT AUTHORITY\\SYSTEM"
-    },
-    {
-        "Path":  "CN=Infrastructure,%DomainDN%",
-        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
-        "InheritanceType":  "None",
-        "ObjectType":  "00000000-0000-0000-0000-000000000000",
-        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
-        "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "Path":  "CN=LostAndFound,%DomainDN%",
@@ -42,7 +15,17 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=LostAndFound,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Managed Service Accounts,%DomainDN%",
@@ -51,7 +34,17 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=Managed Service Accounts,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Managed Service Accounts,%DomainDN%",
@@ -87,7 +80,17 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Users,%DomainDN%",
@@ -96,7 +99,17 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=Users,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Users,%DomainDN%",
@@ -141,7 +154,17 @@
         "ObjectType":  "<All>",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=Policies,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=Policies,CN=System,%DomainDN%",
@@ -173,11 +196,31 @@
     {
         "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
         "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users",
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
         "InheritanceType":  "All",
         "ObjectType":  "<All>",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
         "Identity":  "NT AUTHORITY\\SYSTEM"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SYSTEM",
+        "Present":  "false"
     },
     {
         "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
@@ -195,7 +238,17 @@
         "ObjectType":  "<All>",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
     },
     {
         "Path":  "CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%",

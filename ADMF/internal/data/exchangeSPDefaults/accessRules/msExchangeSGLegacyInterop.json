@@ -1,0 +1,9 @@
+{
+    "Path":  "CN=ExchangeLegacyInterop,OU=Microsoft Exchange Security Groups,%DomainDN%",
+    "ActiveDirectoryRights":  "GenericAll",
+    "InheritanceType":  "All",
+    "ObjectType":  "<All>",
+    "InheritedObjectType":  "<All>",
+    "AccessControlType":  "Allow",
+    "Identity":  "%DomainNetBIOSName%\\Organization Management"
+}

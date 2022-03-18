@@ -25,5 +25,14 @@
         "InheritedObjectType":  "\u003cAll\u003e",
         "AccessControlType":  "Allow",
         "Identity":  "%RootDomainName%\\Enterprise Key Admins"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteChild",
+        "InheritanceType":  "none",
+        "ObjectType":  "<all>",
+        "InheritedObjectType":  "<all>",
+        "AccessControlType":  "Deny",
+        "Identity":  "S-1-1-0"
     }
 ]
