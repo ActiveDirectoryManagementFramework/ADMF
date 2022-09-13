@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: New-AdmfContext - added support for default exchange permissions (default and split permissions)
+
 ## 1.10.68 (2022-03-18)
 
 - New: Component - "Group Policy Ownership"

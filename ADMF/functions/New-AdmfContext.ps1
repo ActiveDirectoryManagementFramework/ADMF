@@ -55,6 +55,9 @@
 		When deploying a restrictive domain content mode, where these objects fall under management, it becomes necessary to also configure these delegations, lest they be removed.
 		Setting this switch will include all the default delegations in your new context.
 	
+	.PARAMETER ExchangeAccessRules
+		Whether to include the default permissions installing Exchange into an Active Directory domain brings.
+
 	.PARAMETER Force
 		This command refuses to replace an existing context by default.
 		Using force, it is a bit more brutish and will kill any previously existing context with the same name in the target store.
@@ -117,6 +120,10 @@
 		
 		[switch]
 		$DefaultAccessRules,
+
+		[ValidateSet('None', 'Default', 'SplitPermission')]
+		[string]
+		$ExchangeAccessRules = 'None',
 		
 		[switch]
 		$Force,
@@ -172,6 +179,17 @@
 			Copy-Item -Path "$script:ModuleRoot\internal\data\forestDefaults\schemaDefaultPermissions\*.json" -Destination "$($contextVersionFolder.FullName)\forest\schemaDefaultPermissions\"
 		}
 		#endregion Default Access Rules
+
+		#region Exchange Access Rules
+		switch ($ExchangeAccessRules) {
+			'Default' {
+				Copy-Item -Path "$script:ModuleRoot\internal\data\exchangeDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
+			}
+			'SplitPermission' {
+				Copy-Item -Path "$script:ModuleRoot\internal\data\exchangeSPDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
+			}
+		}
+		#endregion Exchange Access Rules
 		
 		$contextJson = [pscustomobject]@{
 			Version	      = '1.0.0'
