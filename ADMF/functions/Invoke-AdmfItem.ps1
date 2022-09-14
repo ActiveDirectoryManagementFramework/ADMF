@@ -109,10 +109,10 @@
 			try {
 				$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters
 				Invoke-PSFCallback -Data $parameters -EnableException $true
-				Set-AdmfContext @parameters -Interactive -EnableException
+				Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 			}
 			catch {
-				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PrepareContext' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException
+				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PrepareContext' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true
 				if ($originalArgument) {
 					try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential }
 					catch { Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PostCredentialProvider' -StringValues $CredentialProvider, $resultGroup.Name, $resultGroup.Count -ErrorRecord $_ -Target $resultGroup }
@@ -137,7 +137,7 @@
 
 			#region Post Processing
 			catch {
-				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.Execute' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException
+				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.Execute' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true
 			}
 			finally {
 				try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential }
