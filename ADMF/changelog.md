@@ -2,7 +2,10 @@
 
 ## ???
 
+- New: Invoke-AdmfItem - Apply individual changes found by Test-AdmfDc, Test-AdmfDomain or Test-AdmfForest.
 - Upd: New-AdmfContext - added support for default exchange permissions (default and split permissions)
+- Fix: Object Categories - context name would not be added to configuration entries
+- Fix: Domain Data - context name would not be added to configuration entries
 
 ## 1.10.68 (2022-03-18)
 

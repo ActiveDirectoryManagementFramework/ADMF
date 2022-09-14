@@ -57,6 +57,7 @@
 		'Invoke-AdmfDC'
 		'Invoke-AdmfDomain'
 		'Invoke-AdmfForest'
+		'Invoke-AdmfItem'
 		'New-AdmfContext'
 		'New-AdmfContextStore'
 		'Register-AdmfCredentialProvider'
