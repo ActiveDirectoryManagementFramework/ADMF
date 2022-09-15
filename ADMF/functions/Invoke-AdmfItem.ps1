@@ -103,6 +103,8 @@
 		$resultGroups = $testResults | Group-Object Server
 		foreach ($resultGroup in $resultGroups) {
 			#region Prepare Credential Stuff
+			Reset-DomainControllerCache
+
 			$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Credential
 			$parameters.Server = $resultGroup.Name
 

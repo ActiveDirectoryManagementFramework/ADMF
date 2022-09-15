@@ -1,5 +1,4 @@
-﻿function Invoke-AdmfDomain
-{
+﻿function Invoke-AdmfDomain {
 	<#
 	.SYNOPSIS
 		Brings a domain into compliance with the desired state.
@@ -67,7 +66,7 @@
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
 	Param (
-		[PSFComputer]
+		[PSFComputer[]]
 		$Server,
 
 		[PSCredential]
@@ -84,188 +83,159 @@
 		$ContextPrompt
 	)
 	
-	begin
-	{
-		Reset-DomainControllerCache
-		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
-		$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
-		try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
-		catch
-		{
-			Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
-			throw
-		}
-		$parameters.Server = $dcServer
-		Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
-		Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
-		$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
-		$parameters.Server = $dcServer
+	begin {
 		[ADMF.UpdateDomainOptions]$newOptions = $Options
 	}
-	process
-	{
-		try
-		{
-			if ($newOptions -band [UpdateDomainOptions]::OUSoft)
-			{
-				if (Get-DMOrganizationalUnit)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'OrganizationalUnits - Create & Modify', $parameters.Server
-					Invoke-DMOrganizationalUnit @parameters
-				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'OrganizationalUnits - Create & Modify' }
+	process {
+		foreach ($computer in $Server) {
+			Reset-DomainControllerCache
+			$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Credential
+			$parameters.Server = $Server
+			$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
+			try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
+			catch {
+				Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet
+				Write-Error $_
+				continue
 			}
-			if ($newOptions -band [UpdateDomainOptions]::Group)
-			{
-				if (Get-DMGroup)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Groups', $parameters.Server
-					Invoke-DMGroup @parameters
+			$parameters.Server = $dcServer
+			Invoke-PSFCallback -Data $parameters -EnableException $true -PSCmdlet $PSCmdlet
+			Set-AdmfContext @parameters -Interactive -ReUse:$(-not $ContextPrompt) -EnableException
+			$parameters += $PSBoundParameters | ConvertTo-PSFHashtable -Include WhatIf, Confirm, Verbose, Debug
+			$parameters.Server = $dcServer
+			try {
+				if ($newOptions -band [UpdateDomainOptions]::OUSoft) {
+					if (Get-DMOrganizationalUnit) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'OrganizationalUnits - Create & Modify', $parameters.Server
+						Invoke-DMOrganizationalUnit @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'OrganizationalUnits - Create & Modify' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Groups' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::User)
-			{
-				if (Get-DMUser)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Users', $parameters.Server
-					Invoke-DMUser @parameters
+				if ($newOptions -band [UpdateDomainOptions]::Group) {
+					if (Get-DMGroup) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Groups', $parameters.Server
+						Invoke-DMGroup @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Groups' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Users' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::ServiceAccount)
-			{
-				if (Get-DMServiceAccount)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'ServiceAccounts', $parameters.Server
-					Invoke-DMServiceAccount @parameters
+				if ($newOptions -band [UpdateDomainOptions]::User) {
+					if (Get-DMUser) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Users', $parameters.Server
+						Invoke-DMUser @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Users' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'ServiceAccounts' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GroupMembership)
-			{
-				if (Get-DMGroupMembership)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupMembership', $parameters.Server
-					Invoke-DMGroupMembership @parameters
+				if ($newOptions -band [UpdateDomainOptions]::ServiceAccount) {
+					if (Get-DMServiceAccount) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'ServiceAccounts', $parameters.Server
+						Invoke-DMServiceAccount @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'ServiceAccounts' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupMembership' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::PSO)
-			{
-				if (Get-DMPasswordPolicy)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'PasswordPolicies', $parameters.Server
-					Invoke-DMPasswordPolicy @parameters
+				if ($newOptions -band [UpdateDomainOptions]::GroupMembership) {
+					if (Get-DMGroupMembership) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupMembership', $parameters.Server
+						Invoke-DMGroupMembership @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupMembership' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'PasswordPolicies' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GroupPolicy)
-			{
-				if (Get-DMGroupPolicy)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicies - Create & Modify', $parameters.Server
-					Invoke-DMGroupPolicy @parameters
+				if ($newOptions -band [UpdateDomainOptions]::PSO) {
+					if (Get-DMPasswordPolicy) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'PasswordPolicies', $parameters.Server
+						Invoke-DMPasswordPolicy @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'PasswordPolicies' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies - Create & Modify' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GPPermission)
-			{
-				if (Get-DMGPPermission)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyPermissions', $parameters.Server
-					Invoke-DMGPPermission @parameters
+				if ($newOptions -band [UpdateDomainOptions]::GroupPolicy) {
+					if (Get-DMGroupPolicy) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicies - Create & Modify', $parameters.Server
+						Invoke-DMGroupPolicy @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies - Create & Modify' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyPermissions' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GPOwner)
-			{
-				if (Get-DMGPOwner)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyOwners', $parameters.Server
-					Invoke-DMGPOwner @parameters
+				if ($newOptions -band [UpdateDomainOptions]::GPPermission) {
+					if (Get-DMGPPermission) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyPermissions', $parameters.Server
+						Invoke-DMGPPermission @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyPermissions' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyOwners' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GPLinkDisable)
-			{
-				if (Get-DMGPLink)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyLinks - Create, Update & Disable unwanted Links', $parameters.Server
-					Invoke-DMGPLink @parameters -Disable
+				if ($newOptions -band [UpdateDomainOptions]::GPOwner) {
+					if (Get-DMGPOwner) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyOwners', $parameters.Server
+						Invoke-DMGPOwner @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyOwners' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks - Create, Update & Disable unwanted Links' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GroupPolicyDelete)
-			{
-				if (Get-DMGroupPolicy)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicies - Delete', $parameters.Server
-					Invoke-DMGroupPolicy @parameters -Delete
+				if ($newOptions -band [UpdateDomainOptions]::GPLinkDisable) {
+					if (Get-DMGPLink) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyLinks - Create, Update & Disable unwanted Links', $parameters.Server
+						Invoke-DMGPLink @parameters -Disable
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks - Create, Update & Disable unwanted Links' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies - Delete' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::GPLink)
-			{
-				if (Get-DMGPLink)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyLinks - Delete unwanted Links', $parameters.Server
-					Invoke-DMGPLink @parameters
+				if ($newOptions -band [UpdateDomainOptions]::GroupPolicyDelete) {
+					if (Get-DMGroupPolicy) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicies - Delete', $parameters.Server
+						Invoke-DMGroupPolicy @parameters -Delete
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicies - Delete' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks - Delete unwanted Links' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::OUHard)
-			{
-				if (Get-DMOrganizationalUnit)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'OrganizationalUnits - Delete', $parameters.Server
-					Invoke-DMOrganizationalUnit @parameters -Delete
+				if ($newOptions -band [UpdateDomainOptions]::GPLink) {
+					if (Get-DMGPLink) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'GroupPolicyLinks - Delete unwanted Links', $parameters.Server
+						Invoke-DMGPLink @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'GroupPolicyLinks - Delete unwanted Links' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'OrganizationalUnits - Delete' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::Object)
-			{
-				if (Get-DMObject)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Objects', $parameters.Server
-					Invoke-DMObject @parameters
+				if ($newOptions -band [UpdateDomainOptions]::OUHard) {
+					if (Get-DMOrganizationalUnit) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'OrganizationalUnits - Delete', $parameters.Server
+						Invoke-DMOrganizationalUnit @parameters -Delete
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'OrganizationalUnits - Delete' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Objects' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::Acl)
-			{
-				if (Get-DMAcl | Remove-PSFNull)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Acls', $parameters.Server
-					Invoke-DMAcl @parameters
+				if ($newOptions -band [UpdateDomainOptions]::Object) {
+					if (Get-DMObject) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Objects', $parameters.Server
+						Invoke-DMObject @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Objects' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Acls' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::AccessRule)
-			{
-				if (Get-DMAccessRule)
-				{
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'AccessRules', $parameters.Server
-					Invoke-DMAccessRule @parameters
+				if ($newOptions -band [UpdateDomainOptions]::Acl) {
+					if (Get-DMAcl | Remove-PSFNull) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Acls', $parameters.Server
+						Invoke-DMAcl @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Acls' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::DomainLevel) {
-				if (Get-DMDomainLevel) {
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'DomainLevel', $parameters.Server
-					Invoke-DMDomainLevel @parameters
+				if ($newOptions -band [UpdateDomainOptions]::AccessRule) {
+					if (Get-DMAccessRule) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'AccessRules', $parameters.Server
+						Invoke-DMAccessRule @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
-			}
-			if ($newOptions -band [UpdateDomainOptions]::Exchange) {
-				if (Get-DMExchange) {
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Exchange System Objects', $parameters.Server
-					Invoke-DMExchange @parameters
+				if ($newOptions -band [UpdateDomainOptions]::DomainLevel) {
+					if (Get-DMDomainLevel) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'DomainLevel', $parameters.Server
+						Invoke-DMDomainLevel @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'DomainLevel' }
 				}
-				else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Exchange System Objects' }
+				if ($newOptions -band [UpdateDomainOptions]::Exchange) {
+					if (Get-DMExchange) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'Exchange System Objects', $parameters.Server
+						Invoke-DMExchange @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'Exchange System Objects' }
+				}
 			}
+			catch {
+				Write-Error $_
+				continue
+			}
+			finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 		}
-		catch { throw }
-		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
 	}
 }
