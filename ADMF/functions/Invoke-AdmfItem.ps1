@@ -112,10 +112,10 @@
 				Set-AdmfContext @parameters -Interactive -ReUse -EnableException
 			}
 			catch {
-				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PrepareContext' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true
+				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PrepareContext' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true -PSCmdlet $PSCmdlet
 				if ($originalArgument) {
 					try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential }
-					catch { Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PostCredentialProvider' -StringValues $CredentialProvider, $resultGroup.Name, $resultGroup.Count -ErrorRecord $_ -Target $resultGroup }
+					catch { Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PostCredentialProvider' -StringValues $CredentialProvider, $resultGroup.Name, $resultGroup.Count -ErrorRecord $_ -Target $resultGroup -PSCmdlet $PSCmdlet }
 				}
 				continue
 			}
@@ -129,7 +129,7 @@
 					if (-not (Test-PSFShouldProcess -Target $resultItem -ActionString 'Invoke-AdmfItem.Processing.ShouldProcess' -ActionStringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity -PSCmdlet $PSCmdlet)) {
 						continue
 					}
-					Write-PSFMessage -Level Host -String 'Invoke-AdmfItem.Processing' -Target $resultItem -StringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity
+					Write-PSFMessage -Level Host -String 'Invoke-AdmfItem.Processing' -Target $resultItem -StringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity -PSCmdlet $PSCmdlet
 					Invoke-TestResult -TestResult $resultItem -Parameters $parameters
 				}
 			}
@@ -137,7 +137,7 @@
 
 			#region Post Processing
 			catch {
-				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.Execute' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true
+				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.Execute' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true -PSCmdlet $PSCmdlet
 			}
 			finally {
 				try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential }
