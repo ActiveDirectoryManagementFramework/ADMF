@@ -7,3 +7,4 @@ Register-PSFTeppArgumentCompleter -Command Test-AdmfDomain -Parameter Credential
 Register-PSFTeppArgumentCompleter -Command Invoke-AdmfDomain -Parameter CredentialProvider -Name 'ADMF.CredentialProvider'
 Register-PSFTeppArgumentCompleter -Command Test-AdmfForest -Parameter CredentialProvider -Name 'ADMF.CredentialProvider'
 Register-PSFTeppArgumentCompleter -Command Invoke-AdmfForest -Parameter CredentialProvider -Name 'ADMF.CredentialProvider'
+Register-PSFTeppArgumentCompleter -Command Invoke-AdmfItem -Parameter CredentialProvider -Name 'ADMF.CredentialProvider'

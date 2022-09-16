@@ -37,7 +37,7 @@
         $Credential,
 
         [System.Management.Automation.PSCmdlet]
-        $Cmdlet
+        $Cmdlet = $PSCmdlet
     )
 
     if (-not $script:credentialProviders[$ProviderName]) {
