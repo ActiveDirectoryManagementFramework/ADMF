@@ -1,5 +1,16 @@
 ﻿# Changelog
 
+## 1.11.76 (2022-09-16)
+
+- New: Invoke-AdmfItem - Apply individual changes found by Test-AdmfDc, Test-AdmfDomain or Test-AdmfForest.
+- Upd: New-AdmfContext - added support for default exchange permissions (default and split permissions)
+- Upd: Test-AdmfDomain - can now process multiple domains in one call
+- Upd: Invoke-AdmfDomain - can now process multiple domains in one call
+- Upd: Test-AdmfForest - can now process multiple domains in one call
+- Upd: Invoke-AdmfForest - can now process multiple domains in one call
+- Fix: Object Categories - context name would not be added to configuration entries
+- Fix: Domain Data - context name would not be added to configuration entries
+
 ## 1.10.68 (2022-03-18)
 
 - New: Component - "Group Policy Ownership"

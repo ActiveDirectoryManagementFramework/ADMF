@@ -376,7 +376,7 @@
 				try {
 					$dataSet = Import-PSFPowerShellDataFile -Path $file.FullName
 					$dataSet.TestScript = $dataSet.TestScript.Invoke() | Write-Output # Remove automatic scriptblock nesting
-					Register-DMObjectCategory @dataSet
+					Register-DMObjectCategory @dataSet -ContextName $ContextObject.Name
 				}
 				catch {
 					Clear-AdcConfiguration
@@ -390,7 +390,7 @@
 				try {
 					$dataSet = Import-PSFPowerShellDataFile -Path $file.FullName
 					$dataSet.Scriptblock = $dataSet.Scriptblock.Invoke() | Write-Output # Remove automatic scriptblock nesting
-					Register-DMDomainData @dataSet
+					Register-DMDomainData @dataSet -ContextName $ContextObject.Name
 				}
 				catch {
 					Clear-AdcConfiguration
