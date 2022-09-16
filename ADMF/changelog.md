@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.11.76 (2022-09-16)
 
 - New: Invoke-AdmfItem - Apply individual changes found by Test-AdmfDc, Test-AdmfDomain or Test-AdmfForest.
 - Upd: New-AdmfContext - added support for default exchange permissions (default and split permissions)
