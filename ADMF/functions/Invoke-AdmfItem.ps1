@@ -21,6 +21,12 @@
 		The credential provider to use to resolve the input credentials.
 		See help on Register-AdmfCredentialProvider for details.
 	
+	.PARAMETER Confirm
+		If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+	
+	.PARAMETER WhatIf
+		If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+	
 	.EXAMPLE
 		PS C:\> Test-AdmfDomain -Server contoso.com | Where-Object ObjectType -in User, Group | Where-Object ObjectType -eq Create | Invoke-AdmfItem
 
