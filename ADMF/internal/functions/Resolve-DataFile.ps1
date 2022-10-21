@@ -17,6 +17,7 @@
 
 		Will resolve to either ".\config.json" or ".\config.psd1", depending on which is available.
 	#>
+	[OutputType([string])]
 	[CmdletBinding()]
 	param (
 		[Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
