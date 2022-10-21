@@ -108,6 +108,10 @@
 			}
 		}
 		catch { throw }
-		finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
+		finally {
+			Disable-PSFConsoleInterrupt
+			try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
+			finally { Enable-PSFConsoleInterrupt }
+		}
 	}
 }

@@ -90,7 +90,7 @@
 		foreach ($computer in $Server) {
 			Reset-DomainControllerCache
 			$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Credential
-			$parameters.Server = $Server
+			$parameters.Server = $computer
 			$originalArgument = Invoke-PreCredentialProvider @parameters -ProviderName $CredentialProvider -Parameter $parameters -Cmdlet $PSCmdlet
 			try { $dcServer = Resolve-DomainController @parameters -Confirm:$false }
 			catch {
@@ -145,6 +145,13 @@
 						Invoke-DMPasswordPolicy @parameters
 					}
 					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'PasswordPolicies' }
+				}
+				if ($newOptions -band [UpdateDomainOptions]::WmiFilter) {
+					if (Get-DMWmiFilter) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Executing.Invoke' -StringValues 'WmiFilter', $parameters.Server
+						Invoke-DMWmiFilter @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfDomain.Skipping.Test.NoConfiguration' -StringValues 'WmiFilter' }
 				}
 				if ($newOptions -band [UpdateDomainOptions]::GroupPolicy) {
 					if (Get-DMGroupPolicy) {
@@ -235,7 +242,11 @@
 				Write-Error $_
 				continue
 			}
-			finally { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
+			finally {
+				Disable-PSFConsoleInterrupt
+				try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential -Cmdlet $PSCmdlet }
+				finally { Enable-PSFConsoleInterrupt }
+			}
 		}
 	}
 }

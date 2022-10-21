@@ -1,5 +1,21 @@
 ﻿# Changelog
 
+## 1.12.89 (2022-10-21)
+
+- New: All context json configuration files can now also be in the psd1 format
+- New: Component WmiFilter - manage WMI Filters through ADMF
+- Upd: Invoke-AdmfItem - disable CTRL+C while processing the post credential provider
+- Upd: Test-AdmfDomain - disable CTRL+C while processing the post credential provider
+- Upd: Invoke-AdmfDomain - disable CTRL+C while processing the post credential provider
+- Upd: Test-AdmfForest - disable CTRL+C while processing the post credential provider
+- Upd: Invoke-AdmfForest - disable CTRL+C while processing the post credential provider
+- Upd: Test-AdmfDc - disable CTRL+C while processing the post credential provider
+- Upd: Invoke-AdmfDc - disable CTRL+C while processing the post credential provider
+- Upd: Context processing - UserExcludePattern now also support %GUID% as placeholder for any kind of GUID
+- Upd: Context processing - content_mode now supports new flag: RemoveUnknownWmiFilter
+- Upd: Export-AdmfGpo - also exports WmiFilter assignments of GPOs.
+- Fix: Invoke-AdmfDomain - fails when processing multiple domains in one call
+
 ## 1.11.76 (2022-09-16)
 
 - New: Invoke-AdmfItem - Apply individual changes found by Test-AdmfDc, Test-AdmfDomain or Test-AdmfForest.

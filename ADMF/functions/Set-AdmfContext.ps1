@@ -145,10 +145,10 @@
 			foreach ($key in $forestFields.Keys) {
 				if (-not (Test-Path "$($ContextObject.Path)\forest\$key")) { continue }
 				
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\$key\" -Recurse -Filter "*.json")) {
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\$key\" -Recurse | Where-Object Extension -In ".json", '.psd1')) {
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try {
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($forestFields[$key].Parameters.Keys))) {
+						foreach ($dataSet in (Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($forestFields[$key].Parameters.Keys))) {
 							if ($forestFields[$key].Parameters.Keys -contains 'ContextName') {
 								$dataSet['ContextName'] = $ContextObject.Name
 							}
@@ -167,8 +167,8 @@
 				$filesProcessed = @()
 				
 				#region Process Ldif Configuration
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse -Filter "*.json")) {
-					$jsonData = Get-Content $file.FullName | ConvertFrom-Json
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\schemaldif\" -Recurse | Where-Object Extension -In ".json", '.psd1')) {
+					$jsonData = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe
 					foreach ($jsonEntry in $jsonData) {
 						$targetPath = Join-Path "$($ContextObject.Path)\forest\schemaldif" $jsonEntry.Path
 						if ($filesProcessed -contains $targetPath) { continue }
@@ -217,11 +217,12 @@
 			}
 			
 			# Forest Level
-			if (Test-Path "$($ContextObject.Path)\forest\forest_level.json") {
-				$file = Get-Item "$($ContextObject.Path)\forest\forest_level.json"
+			$forestLevelPath = Resolve-DataFile -Path "$($ContextObject.Path)\forest\forest_level"
+			if ($forestLevelPath) {
+				$file = Get-Item -Path $forestLevelPath
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'ForestLevel', $file.FullName
 				try {
-					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
 					Register-FMForestLevel -Level $dataSet.Level -ContextName $ContextObject.Name
 				}
 				catch {
@@ -235,10 +236,10 @@
 			if (Test-Path "$($ContextObject.Path)\forest\ntAuthStore") {
 				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\ntAuthStore" -Recurse -File)) {
 					switch ($file.Extension) {
-						'.json' {
+						{ $_ -in '.json', '.psd1' } {
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'NTAuthStore', $file.FullName
 							try {
-								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
+								$jsonData = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
 								if ($jsonData.PSObject.Properties.Name -eq 'Authorative') {
 									Register-FMNTAuthStore -Authorative:$jsonData.Authorative
 								}
@@ -270,10 +271,10 @@
 			if (Test-Path "$($ContextObject.Path)\forest\certificates") {
 				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\certificates" -Recurse -File)) {
 					switch ($file.Extension) {
-						'.json' {
+						{ $_ -in '.json', '.psd1' } {
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
 							try {
-								$jsonData = Get-Content -Path $file.FullName | ConvertFrom-Json -ErrorAction Stop
+								$jsonData = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
 								foreach ($deletion in $jsonData.Delete) { Register-FMCertificate -Remove $deletion.Thumbprint -Type $deletion.Type }
 								foreach ($addition in $jsonData.Add) { Register-FMCertificate -Certificate ($addition.Certificate | ConvertFrom-PSFClixml) -Type $addition.Type }
 								foreach ($authority in $jsonData.Authority) { Register-FMCertificate -Type $authority.Type -Authorative $authority.Authorative }
@@ -331,15 +332,16 @@
 				'psos'                = Get-Command Register-DMPasswordPolicy
 				'serviceaccounts'     = Get-Command Register-DMServiceAccount
 				'users'               = Get-Command Register-DMUser
+				'wmifilter'           = Get-Command Register-DMWmiFilter
 			}
 			
 			foreach ($key in $domainFields.Keys) {
 				if (-not (Test-Path "$($ContextObject.Path)\domain\$key")) { continue }
 				
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\domain\$key\" -Recurse -Filter "*.json")) {
+				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\domain\$key\" -Recurse | Where-Object Extension -In '.json', '.psd1')) {
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try {
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($domainFields[$key].Parameters.Keys))) {
+						foreach ($dataSet in (Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($domainFields[$key].Parameters.Keys))) {
 							if ($domainFields[$key].Parameters.Keys -contains 'ContextName') {
 								$dataSet['ContextName'] = $ContextObject.Name
 							}
@@ -355,13 +357,14 @@
 			}
 			
 			# Group Policy
-			if (Test-Path "$($ContextObject.Path)\domain\grouppolicies\exportData.json") {
-				$file = Get-Item "$($ContextObject.Path)\domain\grouppolicies\exportData.json"
+			$exportDataPath = Resolve-DataFile -Path "$($ContextObject.Path)\domain\grouppolicies\exportData"
+			if ($exportDataPath) {
+				$file = Get-Item $exportDataPath
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName
 				try {
-					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID, WMiFilter
 					foreach ($policyEntry in $dataSet) {
-						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)"
+						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)" -ContextName $ContextObject.Name
 					}
 				}
 				catch {
@@ -400,11 +403,12 @@
 			}
 			
 			# Domain Level
-			if (Test-Path "$($ContextObject.Path)\domain\domain_level.json") {
-				$file = Get-Item "$($ContextObject.Path)\domain\domain_level.json"
+			$domainLevelPath = Resolve-DataFile -Path "$($ContextObject.Path)\domain\domain_level"
+			if ($domainLevelPath) {
+				$file = Get-Item -Path $domainLevelPath
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'DomainLevel', $file.FullName
 				try {
-					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
 					Register-DMDomainLevel -Level $dataSet.Level -ContextName $ContextObject.Name
 				}
 				catch {
@@ -415,11 +419,12 @@
 			}
 			
 			# Content Mode
-			if (Test-Path "$($ContextObject.Path)\domain\content_mode.json") {
-				$file = Get-Item "$($ContextObject.Path)\domain\content_mode.json"
+			$contentModePath = Resolve-DataFile -Path "$($ContextObject.Path)\domain\content_mode"
+			if ($contentModePath) {
+				$file = Get-Item -Path $contentModePath
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName
 				try {
-					$dataSet = Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
 					if ($dataSet.Mode) { Set-DMContentMode -Mode $dataSet.Mode }
 					if ($dataSet.Include) {
 						$includes = @((Get-DMContentMode).Include)
@@ -433,8 +438,11 @@
 					}
 					if ($dataSet.UserExcludePattern) {
 						$userExcludePatterns = @((Get-DMContentMode).UserExcludePattern)
-						foreach ($entry in $dataSet.UserExcludePattern) { $userExcludePatterns += $entry }
+						foreach ($entry in $dataSet.UserExcludePattern) { $userExcludePatterns += $entry -replace '%GUID%', '(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})' }
 						Set-DMContentMode -UserExcludePattern $userExcludePatterns
+					}
+					if ($dataSet.Keys -contains 'RemoveUnknownWmiFilter') {
+						Set-DMContentMode -RemoveUnknownWmiFilter $dataSet.RemoveUnknownWmiFilter
 					}
 				}
 				catch {
@@ -446,8 +454,11 @@
 			#endregion Domain
 			
 			#region DC
-			if (Test-Path "$($ContextObject.Path)\dc\dc_config.json") {
-				try { $dcData = Get-Content "$($ContextObject.Path)\dc\dc_config.json" -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop }
+			$dcConfigPath = Resolve-DataFile -Path "$($ContextObject.Path)\dc\dc_config"
+			if ($dcConfigPath) {
+				try {
+					$dcData = Import-PSFPowerShellDataFile -LiteralPath $dcConfigPath -Unsafe -ErrorAction Stop
+				}
 				catch {
 					Clear-AdcConfiguration
 					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.DCConfig' -StringValues $ContextObject.Name -ErrorRecord $_
@@ -469,10 +480,10 @@
 			foreach ($key in $dcFields.Keys) {
 				if (-not (Test-Path "$($ContextObject.Path)\dc\$key")) { continue }
 				
-				foreach ($file in (Get-ChildItem "$($ContextObject.Path)\dc\$key\" -Recurse -Filter "*.json")) {
+				foreach ($file in Get-ChildItem "$($ContextObject.Path)\dc\$key\" -Recurse | Where-Object Extension -In ".json", '.psd1') {
 					Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, $key, $file.FullName
 					try {
-						foreach ($dataSet in (Get-Content $file.FullName | ConvertFrom-Json -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($dcFields[$key].Parameters.Keys))) {
+						foreach ($dataSet in (Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | Write-Output | ConvertTo-PSFHashtable -Include $($dcFields[$key].Parameters.Keys))) {
 							if ($dcFields[$key].Parameters.Keys -contains 'ContextName') {
 								$dataSet['ContextName'] = $ContextObject.Name
 							}
