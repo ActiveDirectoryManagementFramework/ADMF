@@ -76,6 +76,7 @@
 				'PSO' { $TestResult | Invoke-DMPasswordPolicy @Parameters }
 				'ServiceAccount' { $TestResult | Invoke-DMServiceAccount @Parameters }
 				'User' { $TestResult | Invoke-DMUser @Parameters }
+				'WmiFilter' { $TestResult | Invoke-DMWmiFilter @parameters }
 
 				# ForestManagement
 				'Certificate' { $TestResult | Invoke-FMCertificate @Parameters }
@@ -148,8 +149,14 @@
 				Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.Execute' -StringValues $resultGroup.Name, $resultGroup.Count -Target $resultGroup -ErrorRecord $_ -EnableException $true -PSCmdlet $PSCmdlet
 			}
 			finally {
-				try { Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential }
-				catch { Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PostCredentialProvider' -StringValues $CredentialProvider, $resultGroup.Name, $resultGroup.Count -ErrorRecord $_ -Target $resultGroup }
+				try {
+					Disable-PSFConsoleInterrupt
+					Invoke-PostCredentialProvider -ProviderName $CredentialProvider -Server $originalArgument.Server -Credential $originalArgument.Credential
+				}
+				catch {
+					Enable-PSFConsoleInterrupt
+					Write-PSFMessage -Level Warning -String 'Invoke-AdmfItem.Error.PostCredentialProvider' -StringValues $CredentialProvider, $resultGroup.Name, $resultGroup.Count -ErrorRecord $_ -Target $resultGroup
+				}
 			}
 			#endregion Post Processing
 		}

@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.11.76'
+	ModuleVersion = '1.12.89'
 	
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -21,19 +21,19 @@
 	Description = 'Central Management Component of the Active Directory Management Framework'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion = '5.0'
+	PowerShellVersion = '5.1'
 	
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules = @(
-		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.6.198' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.7.249' }
 		@{ ModuleName = 'ADSec'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'string'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.1.4' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.25' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.7.150' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.8.180' }
 		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.5.46' }
 	)
 	

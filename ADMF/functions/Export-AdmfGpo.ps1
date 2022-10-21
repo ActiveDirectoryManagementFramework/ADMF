@@ -17,6 +17,10 @@
 
 	.PARAMETER Domain
 		The domain to export from.
+
+	.PARAMETER ExcludeWmiFilter
+		Do not export WmiFilter assignments of GPOs
+		By default, when exporting GPOs, the associated WMi Filter-Name is also exported
 	
 	.EXAMPLE
 		PS C:\> Get-GPO -All | Where-Object DisplayName -like 'AD-D-SEC-T0*' | Export-AdmfGpo -Path .
@@ -36,7 +40,10 @@
 		$GpoObject,
 
 		[string]
-		$Domain = $env:USERDNSDOMAIN
+		$Domain = $env:USERDNSDOMAIN,
+
+		[switch]
+		$ExcludeWmiFilter
 	)
 	
 	begin
@@ -53,13 +60,16 @@
 	{
 		foreach ($gpoItem in $GpoObject) {
 			$exportData = $backupGPO.Process(($gpoItem | Select-PSFObject 'ID as GUID'))
-			$data = [PSCustomObject]@{
+			$data = @{
 				DisplayName = $gpoItem.DisplayName
 				Description = $gpoItem.Description
 				ID = "{$($exportData.ID.ToString().ToUpper())}"
 				ExportID = $exportID
 			}
-			$null = $gpoData.Add($data)
+			if (-not $ExcludeWmiFilter -and $gpoItem.WmiFilter.Name) {
+				$data.WmiFilter = $gpoItem.WmiFilter.Name
+			}
+			$null = $gpoData.Add([PSCustomObject]$data)
 		}
 	}
 	end

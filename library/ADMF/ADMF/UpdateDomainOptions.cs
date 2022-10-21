@@ -23,8 +23,9 @@ namespace ADMF
         ServiceAccount = 32768,
         Exchange = 65536,
         GPOwner = 131072,
+        WmiFilter = 262144,
 
-        AllGP = GPLink | GPPermission | GPOwner | GroupPolicy | GPLinkDisable | GroupPolicyDelete,
+        AllGP = GPLink | GPPermission | GPOwner | GroupPolicy | GPLinkDisable | GroupPolicyDelete | WmiFilter,
         Security = AccessRule | Acl | PSO,
         AllLinks = AccessRule | Acl | GPLink | GPPermission | GroupMembership | PSO | GPLinkDisable,
         AllContent = GroupMembership | Group | OUSoft | OUHard | User | Group | ServiceAccount | Object,
