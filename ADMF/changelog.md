@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.12.90 (2023-02-10)
 
 - Fix: Configuration DCSelectionMode - changing the setting will not apply the correct value due to a bug in the validator
 
