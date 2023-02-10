@@ -20,7 +20,7 @@
 		return $Result
 	}
 	
-	$Result.Value = $number -as [string]
+	$Result.Value = $Value -as [string]
 	
 	return $Result
 }

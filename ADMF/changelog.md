@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 1.12.90 (2023-02-10)
+
+- Fix: Configuration DCSelectionMode - changing the setting will not apply the correct value due to a bug in the validator
+
 ## 1.12.89 (2022-10-21)
 
 - New: All context json configuration files can now also be in the psd1 format
