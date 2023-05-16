@@ -51,7 +51,6 @@
 	
 	# Functions to export from this module
 	FunctionsToExport  = @(
-		'Build-AdmfContextModule'
 		'Export-AdmfGpo'
 		'Get-AdmfContext'
 		'Get-AdmfContextStore'
@@ -60,6 +59,7 @@
 		'Invoke-AdmfForest'
 		'Invoke-AdmfItem'
 		'New-AdmfContext'
+		'New-AdmfContextModule'
 		'New-AdmfContextStore'
 		'Publish-AdmfContext'
 		'Register-AdmfCredentialProvider'

@@ -2,7 +2,7 @@
 
 ## 1.13.97 (2023-05-16)
 
-- New: Command Build-AdmfContextModule - Create an ADMF Client PowerShell module.
+- New: Command New-AdmfContextModule - Create an ADMF Client PowerShell module.
 - New: Command Publish-AdmfContext - Publishes a Context as a PowerShell Package.
 - New: Alias iai - References Invoke-AdmfItem
 - New: Configuration Option: ADMF.PowerShellGet.UseV3 - Whether to use PowerShellGet V3 by default or not.

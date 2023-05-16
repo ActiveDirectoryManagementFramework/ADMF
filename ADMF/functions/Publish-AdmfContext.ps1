@@ -72,6 +72,7 @@
 
 	begin {
 		function ConvertTo-Prerequisite {
+			[OutputType([hashtable])]
 			[CmdletBinding()]
 			param (
 				[Parameter(ValueFromPipeline = $true)]

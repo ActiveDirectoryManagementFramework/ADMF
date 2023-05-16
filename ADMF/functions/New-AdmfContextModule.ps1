@@ -1,4 +1,4 @@
-﻿function Build-AdmfContextModule {
+﻿function New-AdmfContextModule {
     <#
     .SYNOPSIS
         Create an ADMF Client PowerShell module.
@@ -46,17 +46,21 @@
     .PARAMETER Credential
         Credentials to use for accessing the powershell repository.
 
+	.PARAMETER ModuleCode
+		Additional code to iunclude in the module generated
+
 	.PARAMETER GetV3
 		Use PowerShellGet V3 or later.
 		Defaults to the configuration setting of ADMF.PowerShellGet.UseV3.
     
     .EXAMPLE
-        PS C:\> Build-AdmfContextModule -Name Default -Repository Contoso -Path . -ModuleName Whatever -ModuleOption Confirm -AliasPrefix WE
+        PS C:\> New-AdmfContextModule -Name Default -Repository Contoso -Path . -ModuleName Whatever -ModuleOption Confirm -AliasPrefix WE
 
         Retrieves the "Default" context from the "Contoso" repository.
         It will then wrap it into a module named "Whatever", injecting a requirement to confirm all changes and include
         aliases for the common ADMF commands with the WE prefix (e.g. Test-WEDomain)
     #>
+	[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
