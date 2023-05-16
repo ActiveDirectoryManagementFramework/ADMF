@@ -3,8 +3,8 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.12.90'
-	
+	ModuleVersion = '1.13.97'
+
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
 	
@@ -31,10 +31,10 @@
 		@{ ModuleName = 'string'; ModuleVersion = '1.1.3' }
 		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.0' }
-		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.1.6' }
+		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.1.9' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.25' }
-		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.8.188' }
-		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.5.54' }
+		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.8.198' }
+		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.5.56' }
 	)
 	
 	# Assemblies that must be loaded prior to importing this module
@@ -59,7 +59,9 @@
 		'Invoke-AdmfForest'
 		'Invoke-AdmfItem'
 		'New-AdmfContext'
+		'New-AdmfContextModule'
 		'New-AdmfContextStore'
+		'Publish-AdmfContext'
 		'Register-AdmfCredentialProvider'
 		'Set-AdmfContext'
 		'Test-AdmfDC'
@@ -74,7 +76,9 @@
 	# VariablesToExport = ''
 	
 	# Aliases to export from this module
-	# AliasesToExport = ''
+	AliasesToExport = @(
+		'iai'
+	)
 	
 	# List of all modules packaged with this module
 	# ModuleList = @()

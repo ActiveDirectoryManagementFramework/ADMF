@@ -52,3 +52,5 @@ Register-AdmfCredentialProvider -Name default -PreScript {
 }
 
 Set-PSFFeature -Name PSFramework.Stop-PSFFunction.ShowWarning -Value $true -ModuleName ADMF
+
+$null = Get-Acl -Path $HOME -ErrorAction Ignore
