@@ -32,6 +32,7 @@
 
 		Apply all create actions for all users and groups in contoso.com.
 	#>
+	[Alias('iai')]
 	[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 	[CmdletBinding(SupportsShouldProcess = $true)]
 	Param (
