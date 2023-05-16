@@ -12,7 +12,10 @@ Set-PSFScriptblock -Name 'ADMF.ScriptBlockName' -Scriptblock {
 #>
 Set-PSFScriptblock -Name 'ADMF.Validate.Type.Gpo' -Scriptblock {
     foreach ($item in $_) {
-        if (-not ($item -is [Microsoft.GroupPolicy.Gpo])) { return $false }
+        if (
+			-not ($item -is [Microsoft.GroupPolicy.Gpo]) -or
+			($item.PSObject.TypeNames -contains 'Microsoft.GroupPolicy.Gpo')
+		) { return $false }
     }
     $true
 }

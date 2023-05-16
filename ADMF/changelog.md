@@ -1,5 +1,15 @@
 ﻿# Changelog
 
+## 1.13.97 (2023-05-16)
+
+- New: Command Build-AdmfContextModule - Create an ADMF Client PowerShell module.
+- New: Command Publish-AdmfContext - Publishes a Context as a PowerShell Package.
+- New: Alias iai - References Invoke-AdmfItem
+- New: Configuration Option: ADMF.PowerShellGet.UseV3 - Whether to use PowerShellGet V3 by default or not.
+- Upd: Export-AdmfGpo - Support for PowerShell 7
+- Upd: Export-AdmfGpo - Added handling for existing GPO backup folders in the export path.
+- Fix: Error on PowerShell 7 for all access rule related scans
+
 ## 1.12.90 (2023-02-10)
 
 - Fix: Configuration DCSelectionMode - changing the setting will not apply the correct value due to a bug in the validator

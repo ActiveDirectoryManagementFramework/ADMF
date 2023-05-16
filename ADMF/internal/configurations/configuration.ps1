@@ -31,3 +31,5 @@ Set-PSFConfig -Module 'ADMF' -Name 'VerboseExecution' -Value $true -Initialize -
 
 Set-PSFConfig -Module 'ADMF' -Name 'Context.Store.Default' -Value "$(Get-PSFPath -Name AppData)\ADMF\Contexts" -Initialize -Validation string -Description 'The default path in which ADMF will look for configuration contexts. Add additional such paths by declaring additional settings labeled "ADMF.Context.Store.*"'
 Set-PSFConfig -Module 'ADMF' -Name 'DCInstall.Context.Prompt.Enable' -Value $true -Initialize -Validation 'bool' -Description "Whether the DC installation commands should generate Context selection prompts."
+
+Set-PSFConfig -Module 'ADMF' -Name 'PowerShellGet.UseV3' -Value $false -Initialize -Validation bool -Description 'Whether to use PowerShellGet V3 by default or not.'
