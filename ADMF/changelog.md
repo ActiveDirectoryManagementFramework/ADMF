@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## 1.13.98 (2023-09-27)
+
+- Upd: Set-AdmfContext - added context name to Certificate component
+
 ## 1.13.97 (2023-05-16)
 
 - New: Command New-AdmfContextModule - Create an ADMF Client PowerShell module.
