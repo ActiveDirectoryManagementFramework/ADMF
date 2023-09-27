@@ -275,8 +275,8 @@
 							Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Certificates', $file.FullName
 							try {
 								$jsonData = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
-								foreach ($deletion in $jsonData.Delete) { Register-FMCertificate -Remove $deletion.Thumbprint -Type $deletion.Type }
-								foreach ($addition in $jsonData.Add) { Register-FMCertificate -Certificate ($addition.Certificate | ConvertFrom-PSFClixml) -Type $addition.Type }
+								foreach ($deletion in $jsonData.Delete) { Register-FMCertificate -Remove $deletion.Thumbprint -Type $deletion.Type -ContextName $ContextObject.Name }
+								foreach ($addition in $jsonData.Add) { Register-FMCertificate -Certificate ($addition.Certificate | ConvertFrom-PSFClixml) -Type $addition.Type -ContextName $ContextObject.Name }
 								foreach ($authority in $jsonData.Authority) { Register-FMCertificate -Type $authority.Type -Authorative $authority.Authorative }
 							}
 							catch {
@@ -297,7 +297,7 @@
 									default { throw "Bad filename, cannot divine certificate type: $($file.Name)" }
 								}
 								$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::CreateFromCertFile($file.FullName)
-								Register-FMCertificate -Certificate $cert -Type $type
+								Register-FMCertificate -Certificate $cert -Type $type -ContextName $ContextObject.Name
 							}
 							catch {
 								Clear-AdcConfiguration
