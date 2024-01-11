@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## ???
+
+- Fix: Group Policy - does not respect "MayModify"
+- Fix: Export-AdmfGpo - incorrect type validation
+
 ## 1.13.98 (2023-09-27)
 
 - Upd: Set-AdmfContext - added context name to Certificate component

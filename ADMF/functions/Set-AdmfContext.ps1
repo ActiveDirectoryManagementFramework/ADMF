@@ -362,7 +362,7 @@
 				$file = Get-Item $exportDataPath
 				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'Group Policy', $file.FullName
 				try {
-					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID, WMiFilter
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop | ConvertTo-PSFHashtable -Include DisplayName, Description, ID, ExportID, WMiFilter, MayModify
 					foreach ($policyEntry in $dataSet) {
 						Register-DMGroupPolicy @policyEntry -Path "$($ContextObject.Path)\domain\grouppolicies\$($policyEntry.ID)" -ContextName $ContextObject.Name
 					}
