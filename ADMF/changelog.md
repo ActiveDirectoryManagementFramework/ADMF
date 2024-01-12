@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## ???
+## 1.13.100 (2024-01-12)
 
 - Fix: Group Policy - does not respect "MayModify"
 - Fix: Export-AdmfGpo - incorrect type validation
