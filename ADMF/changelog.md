@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## 1.13.103 (2024-12-13)
+
+- Upd: New-AdmfContext - added `-Components` parameter for adding extra content to newly created Contexts.
+- Upd: New-AdmfContext - added the ability to include the schema default attributes in a new Context.
+- Upd: Set-AdmfContext - added ExcludeComponents property to content mode files
+
 ## 1.13.100 (2024-01-12)
 
 - Fix: Group Policy - does not respect "MayModify"

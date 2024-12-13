@@ -444,6 +444,9 @@
 					if ($dataSet.Keys -contains 'RemoveUnknownWmiFilter') {
 						Set-DMContentMode -RemoveUnknownWmiFilter $dataSet.RemoveUnknownWmiFilter
 					}
+					if ($dataSet.Keys -contains 'ExcludeComponents') {
+						Set-DMContentMode -ExcludeComponents $dataSet.ExcludeComponents
+					}
 				}
 				catch {
 					Clear-AdcConfiguration
