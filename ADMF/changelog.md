@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: DefaultExchangeSplitPermission - Updated Exchange Split Permission default permissions, to match Exchange 2019 CU 15
+- Upd: DefaultAccessRules - Added default rules for contents of the system container, removing the need to exempt it from the domain content mode.
+- Upd: DefaultAccessRules - Made domain root "everyone deny delete children" undefined, making it tolerated if present but no longer creating it.
+- Fix: Invoke-AdmfItem - Broken WhatIf & Confirm message
+
 ## 1.13.103 (2024-12-13)
 
 - Upd: New-AdmfContext - added `-Components` parameter for adding extra content to newly created Contexts.

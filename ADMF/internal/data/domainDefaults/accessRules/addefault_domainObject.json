@@ -33,6 +33,7 @@
         "ObjectType":  "<all>",
         "InheritedObjectType":  "<all>",
         "AccessControlType":  "Deny",
-        "Identity":  "S-1-1-0"
+        "Identity":  "S-1-1-0",
+		"Present": "Undefined"
     }
 ]
