@@ -40,7 +40,7 @@
 	'Set-AdmfContext.Context.Error.PreImport'               = 'Error executing pre-import script for context {0}' # $ContextObject.Name
 	'Set-AdmfContext.Context.InvalidInput'                  = 'Invalid context input: {0} of type {1}. Either provide a name (as string) or a context object returned by Get-AdmfContext' # $contextObject, $contextObject.GetType().FullName
 	'Set-AdmfContext.Context.Loading'                       = 'Processing configuration file | Context: {0} | Object Type: {1} | File: {2}' # $ContextObject.Name, $key, $file.FullName
-	'Set-AdmfContext.Context.NotFound'                      = 'Unable to find ccontext: {0}' # $contextObject
+	'Set-AdmfContext.Context.NotFound'                      = 'Unable to find context: {0}' # $contextObject
 	'Set-AdmfContext.Domain.AccessError'                    = 'Failed to connect to {0} via ADWS' # $Server
 	'Set-AdmfContext.Interactive.Cancel'                    = 'Interactive prompt cancelled by user' # 
 	'Set-AdmfContext.Resolution.ExclusionConflict'          = 'Unable to process contexts, as a conflict between contexts has been detected: {0}' # ($conflictingContexts.Name -join ", ")
