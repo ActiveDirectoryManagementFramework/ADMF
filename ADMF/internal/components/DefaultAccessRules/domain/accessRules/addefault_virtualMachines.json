@@ -1,0 +1,11 @@
+﻿[
+    {
+        "ObjectCategory":  "VirtualMachineObject",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "<Parent>"
+    }
+]
