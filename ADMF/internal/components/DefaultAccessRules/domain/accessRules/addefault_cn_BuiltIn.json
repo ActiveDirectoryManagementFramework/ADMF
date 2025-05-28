@@ -1,0 +1,444 @@
+﻿[
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "Everyone"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, Delete, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "All",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ListChildren",
+        "InheritanceType":  "All",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, ReadControl",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Admins"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "Self",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "9b026da6-0d3c-465c-8bee-5199d7165cba",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "CREATOR OWNER"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ac-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ab-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ae-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "89e95b76-444d-4c62-991a-0facbeda640c",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "ea1b7b93-5e48-46d5-bc6c-4df4fda78a35",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SELF"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "Self",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "9b026da6-0d3c-465c-8bee-5199d7165cba",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SELF"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty, ExtendedRight",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "91e647de-d96f-4b70-9557-d63ff4f3ccd8",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SELF"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "3f78c3e5-f79a-46bd-a0b8-9d18116ddc79",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\SELF"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "05c74c5e-4deb-43b4-bd9f-86664c2a7fd5",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "b8119fd0-04f6-4762-ab7a-4986c76b3f9a",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "280f369c-67c7-438e-ae98-1d46f3c6f541",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "NT AUTHORITY\\Authenticated Users"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ae-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ac-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "89e95b76-444d-4c62-991a-0facbeda640c",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ab-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Administrators"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "b8119fd0-04f6-4762-ab7a-4986c76b3f9a",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "5f202010-79a5-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "5f202010-79a5-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "c7407360-20bf-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "4c164200-20c0-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "037088f8-0ae1-11d2-b422-00a0c968f939",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "037088f8-0ae1-11d2-b422-00a0c968f939",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "59ba2f42-79a2-11d0-9020-00c04fc2d3cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "59ba2f42-79a2-11d0-9020-00c04fc2d3cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "bc0ac240-79a9-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "bc0ac240-79a9-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "4c164200-20c0-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Pre-Windows 2000 Compatible Access"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "e2a36dc9-ae17-47c3-b58b-be34c55ba633",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "BUILTIN\\Incoming Forest Trust Builders"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainName%\\Enterprise Read-only Domain Controllers"
+    },
+    {
+        "Path":  "CN=Builtin,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Controllers"
+    }
+]

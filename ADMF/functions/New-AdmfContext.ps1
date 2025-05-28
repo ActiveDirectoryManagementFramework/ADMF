@@ -121,14 +121,10 @@
 		[string[]]
 		$MutuallyExclusive = @(),
 
-		[ValidateSet(
-			'DefaultAccessRules',
-			'DefaultSchemaAttributes',
-			'ExchangeDefaultAccessRules',
-			'ExchangeSplitPermissionAccessRules'
-		)]
+		[PSFArgumentCompleter('ADMF.Components')]
+		[PsfValidateSet(TabCompletion = 'ADMF.Components')]
 		[string[]]
-		$Components,
+		$Components = @(),
 		
 		[switch]
 		$DefaultAccessRules,
@@ -169,6 +165,11 @@
 			}
 			$resolvedPath = Resolve-PSFPath -Provider FileSystem -Path $storeObject.Path -SingleItem
 		}
+
+		if ($DefaultAccessRules) { $Components += 'DefaultAccessRules' }
+		if ($ExchangeAccessRules -eq 'Default') { $Components += 'ExchangeDefaults' }
+		if ($ExchangeAccessRules -eq 'SplitPermission') { $Components += 'ExchangeSPDefaults' }
+		$Components = $Components | Remove-PSFNull -Enumerate | Sort-Object -Unique
 	}
 	process
 	{
@@ -180,32 +181,12 @@
 		$contextFolder = New-Item -Path $resolvedPath -Name $Name -ItemType Directory
 		$contextVersionFolder = New-Item -Path $contextFolder.FullName -Name '1.0.0' -ItemType Directory
 		Copy-Item -Path "$script:ModuleRoot\internal\data\context\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse
-		
-		#region Default Access Rules
-		if ($DefaultAccessRules -or $Components -contains 'DefaultAccessRules'){
-			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
-			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\objectCategories\*.psd1" -Destination "$($contextVersionFolder.FullName)\domain\objectcategories\"
-			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\gppermissions\*.json" -Destination "$($contextVersionFolder.FullName)\domain\gppermissions\"
-			Copy-Item -Path "$script:ModuleRoot\internal\data\domainDefaults\gppermissionfilters\*.json" -Destination "$($contextVersionFolder.FullName)\domain\gppermissionfilters\"
-			
-			Copy-Item -Path "$script:ModuleRoot\internal\data\forestDefaults\schemaDefaultPermissions\*.json" -Destination "$($contextVersionFolder.FullName)\forest\schemaDefaultPermissions\"
-		}
-		#endregion Default Access Rules
 
-		#region Default Schema Attributes
-		if ($Components -contains 'DefaultSchemaAttributes') {
-			Copy-Item -Path "$script:ModuleRoot\internal\data\forestDefaults\schema\*.json" -Destination "$($contextVersionFolder.FullName)\forest\schema\"
+		#region Process Components
+		foreach ($component in $Components) {
+			Copy-Item -Path "$script:ModuleRoot\internal\components\$component\*" -Destination "$($contextVersionFolder.FullName)" -Recurse -Force
 		}
-		#endregion Default Schema Attributes
-
-		#region Exchange Access Rules
-		if ($ExchangeAccessRules -eq 'SplitPermission' -or $Components -contains 'ExchangeSplitPermissionAccessRules') {
-			Copy-Item -Path "$script:ModuleRoot\internal\data\exchangeSPDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
-		}
-		elseif ($ExchangeAccessRules -eq 'Default' -or $Components -contains 'ExchangeDefaultAccessRules') {
-			Copy-Item -Path "$script:ModuleRoot\internal\data\exchangeDefaults\accessRules\*.json" -Destination "$($contextVersionFolder.FullName)\domain\accessrules\"
-		}
-		#endregion Exchange Access Rules
+		#endregion Process Components
 		
 		$contextJson = [pscustomobject]@{
 			Version	      = '1.0.0'

@@ -1,0 +1,20 @@
+[
+    {
+        "Path":  "CN=Exchange Servers,OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Organization Management"
+    },
+    {
+        "Path":  "CN=Exchange Servers,OU=Microsoft Exchange Security Groups,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Member",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512"
+    }
+]

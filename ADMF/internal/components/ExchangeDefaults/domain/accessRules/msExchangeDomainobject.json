@@ -574,5 +574,212 @@
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
         "Identity":  "%DomainNetBIOSName%\\Exchange Trusted Subsystem"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Pwd-Last-Set",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "User-Account-Control",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Managed-By",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete, WriteDacl",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete, WriteDacl",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "inetOrgPerson",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "Contact",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "Organizational-Unit",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "Group",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Country-Code",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "Contact",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "User",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "Organizational-Unit",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "Group",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "Computer",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild",
+        "InheritanceType":  "All",
+        "ObjectType":  "inetOrgPerson",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "WWW-Home-Page",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "Delete",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "Computer",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "Member",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "All",
+        "ObjectType":  "SAM-Account-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteTree",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "inetOrgPerson",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "DeleteTree",
+        "InheritanceType":  "All",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "All",
+        "ObjectType":  "User-Force-Change-Password",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
+    },
+    {
+        "Path":  "%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "All",
+        "ObjectType":  "User-Change-Password",
+        "InheritedObjectType":  "User",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainNetBIOSName%\\Exchange Windows Permissions"
     }
 ]

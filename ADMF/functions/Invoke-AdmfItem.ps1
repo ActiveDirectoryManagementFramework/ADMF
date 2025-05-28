@@ -136,7 +136,7 @@
 			#region Execute Test Results
 			try {
 				foreach ($resultItem in $resultGroup.Group) {
-					if (-not (Test-PSFShouldProcess -Target $resultItem -ActionString 'Invoke-AdmfItem.Processing.ShouldProcess' -ActionStringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity -PSCmdlet $PSCmdlet)) {
+					if (-not (Test-PSFShouldProcess -Target $resultItem -ActionString 'ADMF.Invoke-AdmfItem.Processing.ShouldProcess' -ActionStringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity -PSCmdlet $PSCmdlet)) {
 						continue
 					}
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfItem.Processing' -Target $resultItem -StringValues $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity -PSCmdlet $PSCmdlet
