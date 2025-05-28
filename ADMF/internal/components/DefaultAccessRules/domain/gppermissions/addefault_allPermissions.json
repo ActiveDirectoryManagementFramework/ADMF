@@ -1,0 +1,44 @@
+﻿[
+    {
+        "Filter":  "-not (DefaultDomainPolicy)",
+        "Identity":  "%DomainSID%-512",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoEditDeleteModifySecurity"
+    },
+    {
+        "Filter":  "-not (DefaultDomainPolicy)",
+        "Identity":  "%DomainSID%-519",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoEditDeleteModifySecurity"
+    },
+    {
+        "Filter":  "DefaultDomainPolicy",
+        "Identity":  "%DomainSID%-512",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoCustom"
+    },
+    {
+        "Filter":  "DefaultDomainPolicy",
+        "Identity":  "%DomainSID%-519",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoCustom"
+    },
+    {
+        "All":  true,
+        "Identity":  "S-1-5-9",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoRead"
+    },
+    {
+        "All":  true,
+        "Identity":  "S-1-5-11",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoApply"
+    },
+    {
+        "All":  true,
+        "Identity":  "S-1-5-18",
+        "ObjectClass":  "Group",
+        "Permission":  "GpoEditDeleteModifySecurity"
+    }
+]

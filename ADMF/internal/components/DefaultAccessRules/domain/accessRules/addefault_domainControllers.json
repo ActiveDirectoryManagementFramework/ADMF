@@ -1,0 +1,83 @@
+﻿[
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Account-Restrictions",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Display-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "Self",
+        "InheritanceType":  "None",
+        "ObjectType":  "Service-Principal-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "Self",
+        "InheritanceType":  "None",
+        "ObjectType":  "DNS-Host-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "SAM-Account-Name",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Description",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "DomainController",
+        "ActiveDirectoryRights":  "WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Logon",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainName%\\Domain Admins"
+    },
+    {
+        "ObjectCategory":  "msDFSR-LocalSettings",
+        "ActiveDirectoryRights":  "-1",
+        "InheritanceType":  "Descendents",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "<Parent>"
+    },
+    {
+        "ObjectCategory":  "msDFSR-LocalSettings",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "<Parent>"
+    }
+]

@@ -1,0 +1,22 @@
+﻿[
+    {
+        "ObjectCategory": "msDFSR-LocalSettings",
+        "Owner": "S-1-5-18",
+        "SearchBase": "OU=Domain Controllers,%DomainDN%"
+    },
+    {
+        "ObjectCategory": "VirtualMachineObject",
+        "Owner": "S-1-5-18",
+        "SearchBase": "OU=Domain Controllers,%DomainDN%"
+    },
+    {
+        "ObjectCategory": "sysvolSubscription",
+        "Owner": "S-1-5-18",
+        "SearchBase": "OU=Domain Controllers,%DomainDN%"
+    },
+    {
+        "ObjectCategory": "domainSystemVolume",
+        "Owner": "S-1-5-18",
+        "SearchBase": "OU=Domain Controllers,%DomainDN%"
+    }
+]

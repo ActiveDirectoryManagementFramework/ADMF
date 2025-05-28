@@ -1,0 +1,201 @@
+﻿[
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, Delete, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-544"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericAll",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-512",
+        "Present":  "false"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "CreateChild, DeleteChild, Self, WriteProperty, ExtendedRight, GenericRead, WriteDacl, WriteOwner",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%RootDomainSID%-519"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "ab721a53-1e2f-11d0-9819-00aa0040529b",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-1-0"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty, ExtendedRight",
+        "InheritanceType":  "All",
+        "ObjectType":  "Private-Information",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-10"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ExtendedRight",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Change-Password",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-10"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "RAS-Information",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "RAS-Information",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Account-Restrictions",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "General-Information",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Membership",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Membership",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "GenericRead",
+        "InheritanceType":  "None",
+        "ObjectType":  "<All>",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "General-Information",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Logon",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "User-Account-Restrictions",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-554"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Token-Groups-Global-And-Universal",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-560"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Terminal-Server",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-561"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "Terminal-Server-License-Server",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "S-1-5-32-561"
+    },
+    {
+        "Path":  "CN=AdminSDHolder,CN=System,%DomainDN%",
+        "ActiveDirectoryRights":  "ReadProperty, WriteProperty",
+        "InheritanceType":  "None",
+        "ObjectType":  "X509-Cert",
+        "InheritedObjectType":  "<All>",
+        "AccessControlType":  "Allow",
+        "Identity":  "%DomainSID%-517"
+    }
+]
