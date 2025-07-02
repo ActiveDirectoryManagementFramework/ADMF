@@ -108,7 +108,10 @@
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Server Site Assignment', $parameters.Server
 					Invoke-FMServer @parameters
 				}
-				if ($newOptions -band [UpdateForestOptions]::Schema) {
+				if (
+					($newOptions -band [UpdateForestOptions]::Schema) -or
+					($newOptions -band [UpdateForestOptions]::SchemaManage)
+				) {
 					if (Get-FMSchema) {
 						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Schema (Custom)', $parameters.Server
 						Invoke-FMSchema @parameters

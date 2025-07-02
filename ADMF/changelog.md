@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## ???
+
+- Upd: Test-AdmfForest - added "SchemaManage" option, to trigger additional test results for schema attributes that exist in schema but have no configuration.
+
 ## 1.13.108 (2025-05-28)
 
 - New: DefaultGroupMemberships - Added default groupmemberships as a Component
