@@ -92,10 +92,15 @@
 					Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Server Site Assignment', $parameters.Server
 					Test-FMServer @parameters
 				}
-				if ($newOptions -band [UpdateForestOptions]::Schema) {
+				if (
+					($newOptions -band [UpdateForestOptions]::Schema) -or
+					($newOptions -band [UpdateForestOptions]::SchemaManage)
+				) {
 					if (Get-FMSchema) {
+						$manageParam = @{}
+						if ($newOptions -band [UpdateForestOptions]::SchemaManage) { $manageParam.ReportUnconfigured = $true }
 						Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Schema (Custom)', $parameters.Server
-						Test-FMSchema @parameters
+						Test-FMSchema @parameters @manageParam
 					}
 					else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Custom)' }
 				}

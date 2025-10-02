@@ -16,6 +16,7 @@ namespace ADMF
         ExchangeSchema = 256,
         SchemaDefaultPermissions = 512,
         Certificates = 1024,
+        SchemaManage = 2048,
 
         Default = Sites | Subnets | SiteLinks | NTAuthStore | Certificates,
         All = Default | ServerRelocate | ForestLevel | AllSchema,

@@ -108,7 +108,31 @@
 					Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Server Site Assignment', $parameters.Server
 					Invoke-FMServer @parameters
 				}
-				if ($newOptions -band [UpdateForestOptions]::Schema) {
+				if ($newOptions -band [UpdateForestOptions]::ForestLevel) {
+					if (Get-FMForestLevel) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'ForestLevel', $parameters.Server
+						Invoke-FMForestLevel @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ForestLevel' }
+				}
+				if ($newOptions -band [UpdateForestOptions]::SchemaLdif) {
+					if (Get-FMSchemaLdif) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Schema (Ldif)', $parameters.Server
+						Invoke-FMSchemaLdif @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Ldif)' }
+				}
+				if ($newOptions -band [UpdateForestOptions]::ExchangeSchema) {
+					if (Get-FMExchangeSchema) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'ExchangeSchema', $parameters.Server
+						Invoke-FMExchangeSchema @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
+				}
+				if (
+					($newOptions -band [UpdateForestOptions]::Schema) -or
+					($newOptions -band [UpdateForestOptions]::SchemaManage)
+				) {
 					if (Get-FMSchema) {
 						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Schema (Custom)', $parameters.Server
 						Invoke-FMSchema @parameters
@@ -121,13 +145,6 @@
 						Invoke-FMSchemaDefaultPermission @parameters
 					}
 					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema Default Permissions' }
-				}
-				if ($newOptions -band [UpdateForestOptions]::SchemaLdif) {
-					if (Get-FMSchemaLdif) {
-						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Schema (Ldif)', $parameters.Server
-						Invoke-FMSchemaLdif @parameters
-					}
-					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Schema (Ldif)' }
 				}
 				if ($newOptions -band [UpdateForestOptions]::NTAuthStore) {
 					if (Get-FMNTAuthStore) {
@@ -142,20 +159,6 @@
 						Invoke-FMCertificate @parameters
 					}
 					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Certificate' }
-				}
-				if ($newOptions -band [UpdateForestOptions]::ForestLevel) {
-					if (Get-FMForestLevel) {
-						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'ForestLevel', $parameters.Server
-						Invoke-FMForestLevel @parameters
-					}
-					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ForestLevel' }
-				}
-				if ($newOptions -band [UpdateForestOptions]::ExchangeSchema) {
-					if (Get-FMExchangeSchema) {
-						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'ExchangeSchema', $parameters.Server
-						Invoke-FMExchangeSchema @parameters
-					}
-					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
 				}
 			}
 			catch {
