@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 1.14.112 (2025-10-31)
+
+- New: Remoting - all PS Remoting connections can now be configured with session options or to use SSH
+- Fix: New-AdmfContext - eror when creating without Components
+
 ## 1.13.110 (2025-10-02)
 
 - Upd: Invoke-AdmfForest - reordered sequence to prioritize formal schema updates over custom extensions.

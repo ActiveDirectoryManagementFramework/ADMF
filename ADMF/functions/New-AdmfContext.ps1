@@ -169,7 +169,7 @@
 		if ($DefaultAccessRules) { $Components += 'DefaultAccessRules' }
 		if ($ExchangeAccessRules -eq 'Default') { $Components += 'ExchangeDefaults' }
 		if ($ExchangeAccessRules -eq 'SplitPermission') { $Components += 'ExchangeSPDefaults' }
-		$Components = $Components | Remove-PSFNull -Enumerate | Sort-Object -Unique
+		$actualComponents = $Components | Remove-PSFNull -Enumerate | Sort-Object -Unique
 	}
 	process
 	{
@@ -183,7 +183,7 @@
 		Copy-Item -Path "$script:ModuleRoot\internal\data\context\*" -Destination "$($contextVersionFolder.FullName)\" -Recurse
 
 		#region Process Components
-		foreach ($component in $Components) {
+		foreach ($component in $actualComponents) {
 			Copy-Item -Path "$script:ModuleRoot\internal\components\$component\*" -Destination "$($contextVersionFolder.FullName)" -Recurse -Force
 		}
 		#endregion Process Components
