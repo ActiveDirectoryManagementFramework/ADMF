@@ -15,6 +15,7 @@
     AccessControlType     = 'Allow'
     ObjectType            = 'ms-DS-JetDB-Page-Size'
     InheritedObjectType   = 'NTDS-DSA'
+    Present               = 'Undefined' # 2025+ Domains only
 }
 @{
     Path                  = 'CN=Sites,%ConfigurationDN%'

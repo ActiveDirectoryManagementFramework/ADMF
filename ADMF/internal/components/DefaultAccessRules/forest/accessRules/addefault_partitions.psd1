@@ -80,6 +80,7 @@
     AccessControlType     = 'Allow'
     ObjectType            = 'ms-DS-JetDB-Page-Size'
     InheritedObjectType   = '<All>'
+    Present               = 'Undefined' # 2025+ Domains only
 }
 @{
     Path                  = 'CN=Partitions,%ConfigurationDN%'

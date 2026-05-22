@@ -395,6 +395,7 @@
     AccessControlType     = 'Allow'
     ObjectType            = '<All>'
     InheritedObjectType   = '<All>'
+    Optional              = $true
 }
 @{
     Path                  = 'CN=Database 32k Pages Feature,CN=Optional Features,CN=Directory Service,CN=Windows NT,CN=Services,%ConfigurationDN%'
@@ -405,6 +406,7 @@
     ObjectType            = '<All>'
     InheritedObjectType   = '<All>'
     Present               = 'false'
+    Optional              = $true
 }
 @{
     Path                  = 'CN=Query-Policies,CN=Directory Service,CN=Windows NT,CN=Services,%ConfigurationDN%'
