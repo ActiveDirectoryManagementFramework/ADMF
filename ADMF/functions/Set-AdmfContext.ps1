@@ -133,6 +133,9 @@
 			
 			#region Forest
 			$forestFields = @{
+				'accessrules'              = Get-Command Register-FMAccessRule
+				'accessrulemodes'          = Get-Command Register-AdcAccessRuleMode
+				'acls'                     = Get-Command Register-FMAcl
 				'exchangeschema'           = Get-Command Register-FMExchangeSchema
 				'schema'                   = Get-Command Register-FMSchema
 				'schemaDefaultPermissions' = Get-Command Register-FMSchemaDefaultPermission
@@ -163,6 +166,7 @@
 				}
 			}
 			
+			#region Schema Ldif
 			if (Test-Path "$($ContextObject.Path)\forest\schemaldif") {
 				$filesProcessed = @()
 				
@@ -215,7 +219,8 @@
 				}
 				#endregion Process Ldif Files without configuration
 			}
-			
+			#endregion Schema Ldif
+
 			# Forest Level
 			$forestLevelPath = Resolve-DataFile -Path "$($ContextObject.Path)\forest\forest_level"
 			if ($forestLevelPath) {
@@ -310,13 +315,58 @@
 			}
 			#endregion Certificates
 			
+			#region Object Categories
+			foreach ($file in (Get-ChildItem "$($ContextObject.Path)\forest\objectcategories" -Filter '*.psd1' -ErrorAction Ignore)) {
+				try {
+					$dataSet = Import-PSFPowerShellDataFile -Path $file.FullName
+					$dataSet.TestScript = $dataSet.TestScript.Invoke() | Write-Output # Remove automatic scriptblock nesting
+					Register-AdcObjectCategory @dataSet -ContextName $ContextObject.Name
+				}
+				catch {
+					Clear-AdcConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'Object Categories', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+			#endregion Object Categories
+
+			#region Content Mode
+			$forestContentModePath = Resolve-DataFile -Path "$($ContextObject.Path)\forest\content_mode"
+			if ($forestContentModePath) {
+				$file = Get-Item -Path $forestContentModePath
+				Write-PSFMessage -Level Debug -String 'Set-AdmfContext.Context.Loading' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName
+				try {
+					$dataSet = Import-PSFPowerShellDataFile -LiteralPath $file.FullName -Unsafe -ErrorAction Stop
+					if ($dataSet.Mode) { Set-FMContentMode -Mode $dataSet.Mode }
+					if ($dataSet.Include) {
+						$includes = @((Get-FMContentMode).Include)
+						foreach ($entry in $dataSet.Include) { $includes += $entry }
+						Set-FMContentMode -Include $includes
+					}
+					if ($dataSet.Exclude) {
+						$excludes = @((Get-FMContentMode).Exclude)
+						foreach ($entry in $dataSet.Exclude) { $excludes += $entry }
+						Set-FMContentMode -Exclude $excludes
+					}
+					if ($dataSet.Keys -contains 'ExcludeComponents') {
+						Set-FMContentMode -ExcludeComponents $dataSet.ExcludeComponents
+					}
+				}
+				catch {
+					Clear-AdcConfiguration
+					Stop-PSFFunction @stopParam -String 'Set-AdmfContext.Context.Error.ForestConfig' -StringValues $ContextObject.Name, 'ContentMode', $file.FullName -ErrorRecord $_
+					return
+				}
+			}
+			#endregion Content Mode
+
 			#endregion Forest
 			
 			#region Domain
 			$domainFields = @{
 				'organizationalunits' = Get-Command Register-DMOrganizationalUnit
 				'accessrules'         = Get-Command Register-DMAccessRule
-				'accessrulemodes'     = Get-Command Register-DMAccessRuleMode
+				'accessrulemodes'     = Get-Command Register-AdcAccessRuleMode
 				'acls'                = Get-Command Register-DMAcl
 				'builtinsids'         = Get-Command Register-DMBuiltInSID
 				'exchange'            = Get-Command Register-DMExchange
@@ -379,7 +429,7 @@
 				try {
 					$dataSet = Import-PSFPowerShellDataFile -Path $file.FullName
 					$dataSet.TestScript = $dataSet.TestScript.Invoke() | Write-Output # Remove automatic scriptblock nesting
-					Register-DMObjectCategory @dataSet -ContextName $ContextObject.Name
+					Register-AdcObjectCategory @dataSet -ContextName $ContextObject.Name
 				}
 				catch {
 					Clear-AdcConfiguration

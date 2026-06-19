@@ -17,10 +17,13 @@ namespace ADMF
         SchemaDefaultPermissions = 512,
         Certificates = 1024,
         SchemaManage = 2048,
+        AccessRule = 4096,
+        Acl = 8192,
 
         Default = Sites | Subnets | SiteLinks | NTAuthStore | Certificates,
-        All = Default | ServerRelocate | ForestLevel | AllSchema,
+        All = Default | ServerRelocate | ForestLevel | AllSchema | AllAccess,
         Topology = Sites | Subnets | SiteLinks,
-        AllSchema = Schema | SchemaLdif | ExchangeSchema | SchemaDefaultPermissions
+        AllSchema = Schema | SchemaLdif | ExchangeSchema | SchemaDefaultPermissions,
+        AllAccess = AccessRule | Acl
     }
 }

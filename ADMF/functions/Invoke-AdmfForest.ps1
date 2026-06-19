@@ -160,6 +160,20 @@
 					}
 					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Certificate' }
 				}
+				if ($newOptions -band [UpdateForestOptions]::Acl) {
+					if (Get-FMAcl | Remove-PSFNull) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'Acls', $parameters.Server
+						Invoke-FMAcl @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Acls' }
+				}
+				if ($newOptions -band [UpdateForestOptions]::AccessRule) {
+					if (Get-FMAccessRule) {
+						Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Executing.Invoke' -StringValues 'AccessRules', $parameters.Server
+						Invoke-FMAccessRule @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Invoke-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
+				}
 			}
 			catch {
 				Write-Error $_
