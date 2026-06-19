@@ -146,6 +146,20 @@
 					}
 					else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'ExchangeSchema' }
 				}
+				if ($newOptions -band [UpdateForestOptions]::Acl) {
+					if (Get-FMAcl | Remove-PSFNull) {
+						Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'Acls', $parameters.Server
+						Test-FMAcl @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'Acls' }
+				}
+				if ($newOptions -band [UpdateForestOptions]::AccessRule) {
+					if (Get-FMAccessRule) {
+						Write-PSFMessage -Level Host -String 'Test-AdmfForest.Executing.Test' -StringValues 'AccessRules', $parameters.Server
+						Test-FMAccessRule @parameters
+					}
+					else { Write-PSFMessage -Level Host -String 'Test-AdmfForest.Skipping.Test.NoConfiguration' -StringValues 'AccessRules' }
+				}
 			}
 			catch {
 				Write-Error $_

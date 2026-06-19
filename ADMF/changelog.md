@@ -1,5 +1,16 @@
 ﻿# Changelog
 
+## 1.15.120 (2026-06-19)
+
+- Upd: Components - Added support for Access Rules in Configuration and Schema Naming Contexts
+- Upd: Components - Added support for Access Rule Modes in Configuration and Schema Naming Contexts
+- Upd: Components - Added support for ACLs in Configuration and Schema Naming Contexts
+- Upd: Components - Added support for Object Categories in Configuration and Schema Naming Contexts
+- Upd: Components - Added support for Object Categories in Configuration and Schema Naming Contexts
+- Upd: Components - Added support for Forest Content Modes, defining what part of the Configuration and Schema Naming Contexts are considered "under management"
+- Upd: DefaultAccessRules - Added defaults definition for ACLs and AccessRules for the Configuration and Schema Naming Contexts
+- Upd: Dependencies - PSFramework minimum version raised to 1.14.449
+
 ## 1.14.112 (2025-10-31)
 
 - New: Remoting - all PS Remoting connections can now be configured with session options or to use SSH
