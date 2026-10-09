@@ -3,7 +3,7 @@
 	RootModule = 'ADMF.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.15.120'
+	ModuleVersion = '1.15.125'
 
 	# ID used to uniquely identify this module
 	GUID = '43f2a890-942f-4dd7-bad0-b774b44ea849'
@@ -31,7 +31,7 @@
 		@{ ModuleName = 'string'; ModuleVersion = '1.2.13' }
 		@{ ModuleName = 'ResolveString'; ModuleVersion = '1.0.0' }
 		@{ ModuleName = 'Principal'; ModuleVersion = '1.0.1' }
-		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.4.20' }
+		@{ ModuleName = 'ADMF.Core'; ModuleVersion = '1.4.23' }
 		@{ ModuleName = 'DCManagement'; ModuleVersion = '1.2.26' }
 		@{ ModuleName = 'DomainManagement'; ModuleVersion = '1.10.257' }
 		@{ ModuleName = 'ForestManagement'; ModuleVersion = '1.6.85' }

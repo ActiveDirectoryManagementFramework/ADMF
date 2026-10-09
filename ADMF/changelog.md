@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 1.15.125 (2026-10-09)
+
+- Upd: Component DefaultAccess - Added partial content for RODCs
+- Fix: Context Picker - Fails directly when called from within a remoting session, informing the user about how to assign Contexts directly.
+- Fix: Component DefaultAccess - Virtual Machine objects parent GenericAll changed to undefined, as it might exist or not.
+- Fix: Component DefaultAccess - Domain Controllers access defaults switched from name-based to SID-based..
+- Fix: Component DefaultAccess - Domain Update objects: GenericAll for Domain Admins moved to undefined, to prevent accidental deletion of sole Domain Admins permissions.
+
 ## 1.15.120 (2026-06-19)
 
 - Upd: Components - Added support for Access Rules in Configuration and Schema Naming Contexts
