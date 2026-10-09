@@ -18,6 +18,7 @@
 	'Invoke-AdmfItem.Processing.ShouldProcess'              = '[{0}] Processing {1}, performing "{2}" against "{3}"' # $resultItem.Server, $resultItem.ObjectType, $resultItem.Type, $resultItem.Identity
 	
 	'Invoke-CallbackMenu.Context.Checked.Error'             = 'Unexpected error when checking whether context {0} should be checked by default' # $context.Name
+	'Invoke-CallbackMenu.Error.RemoteSession'               = 'No Contexts assigned to {0}. Interactive Context selection impossible from within remoting session, use Set-AdmfContext to assign Contexts to {0} before executing against it.' # $domainName
 	
 	'Invoke-PostCredentialProvider.Provider.ExecutionError' = 'An error happened when executing the post-script of credential provider {0}' # $ProviderName
 	'Invoke-PostCredentialProvider.Provider.NotFound'       = 'Credential Provider {0} could not be found!' # $ProviderName

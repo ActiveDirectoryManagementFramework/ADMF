@@ -6,7 +6,7 @@
         "ObjectType":  "User-Account-Restrictions",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -15,7 +15,7 @@
         "ObjectType":  "Display-Name",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -24,7 +24,7 @@
         "ObjectType":  "Service-Principal-Name",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -33,7 +33,7 @@
         "ObjectType":  "DNS-Host-Name",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -42,7 +42,7 @@
         "ObjectType":  "SAM-Account-Name",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -51,7 +51,7 @@
         "ObjectType":  "Description",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "DomainController",
@@ -60,7 +60,7 @@
         "ObjectType":  "User-Logon",
         "InheritedObjectType":  "<All>",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     },
     {
         "ObjectCategory":  "msDFSR-LocalSettings",

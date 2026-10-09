@@ -18,7 +18,7 @@ A simple share could look like this:
     "Name":  "Scripts$",
     "Path":  "C:\\Scripts",
     "Description":  "Backup location for all Tier 0 admin code. Signed code only.",
-    "FullAccess":  [ "%DomainName%\\Domain Admins" ],
+    "FullAccess":  [ "%DomainSID%-512" ],
     "WriteAccess":  [ "%DomainName%\\Tier 0 Admins" ],
     "ReadAccess":  [ "%DomainName%\\Tier 0 Operators" ]
 }
