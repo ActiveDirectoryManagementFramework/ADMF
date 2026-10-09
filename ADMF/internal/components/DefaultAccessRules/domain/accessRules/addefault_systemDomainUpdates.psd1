@@ -6,7 +6,7 @@
     InheritedObjectType   = "<All>"
     AccessControlType     = "Allow"
     Identity              = "%DomainSID%-512"
-    Present               = 'false'
+    Present               = 'undefined'
 }
 @{
     ObjectCategory        = 'systemDomainUpdates'

@@ -592,3 +592,12 @@
     ObjectType            = 'Proxy-Addresses'
     InheritedObjectType   = '<All>'
 }
+@{
+    Path                  = '%DomainDN%'
+    Identity              = '%DomainNetBIOSName%\Exchange Windows Permissions'
+    ActiveDirectoryRights = 'WriteProperty'
+    InheritanceType       = 'All'
+    AccessControlType     = 'Deny'
+    ObjectType            = 'Managed-By'
+    InheritedObjectType   = 'Computer'
+}

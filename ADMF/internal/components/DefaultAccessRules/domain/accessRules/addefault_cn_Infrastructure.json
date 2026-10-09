@@ -35,6 +35,6 @@
         "ObjectType":  "00000000-0000-0000-0000-000000000000",
         "InheritedObjectType":  "00000000-0000-0000-0000-000000000000",
         "AccessControlType":  "Allow",
-        "Identity":  "%DomainName%\\Domain Admins"
+        "Identity":  "%DomainSID%-512"
     }
 ]

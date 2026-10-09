@@ -172,6 +172,19 @@
 		}
 		#endregion Utility Functions
 		
+		# Resolve Domain
+		try
+		{
+			$domain = Get-ADDomain @parameters -ErrorAction Stop
+			$domainName = $domain.DNSRoot
+		}
+		catch { $domainName = $Server }
+
+		# Terminate in Remoting Session, as we can't show a UI window
+		if ($PSSenderInfo) {
+			Stop-PSFFunction -String 'Invoke-CallbackMenu.Error.RemoteSession' -StringValues $domainName -Cmdlet $PSCmdlet -Category InvalidOperation
+		}
+
 		$parameters = $PSBoundParameters | ConvertTo-PSFHashtable -Include Server, Credential
 		
 		#region Form
@@ -179,12 +192,7 @@
 		
 		$form = New-Form
 		$group_Server = New-GroupBox -Text "Selected Domain / Server" -Height 50 -Form $form
-		try
-		{
-			$domain = Get-ADDomain @parameters -ErrorAction Stop
-			New-Label -Text $domain.DNSRoot -Parent $group_Server
-		}
-		catch { New-Label -Text $Server -Parent $group_Server }
+		New-Label -Text $domainName -Parent $group_Server
 		
 		#region Contexts
 		$allContexts = Get-AdmfContext
