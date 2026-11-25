@@ -1,60 +1,61 @@
 ﻿@{
-    Path          = 'CN=AdminSDHolder,CN=System,%DomainDN%'
-    Owner         = '%DomainSID%-512'
-    NoInheritance = $True
+	Path          = 'CN=AdminSDHolder,CN=System,%DomainDN%'
+	Owner         = '%DomainSID%-512'
+	NoInheritance = $True
 }
 @{
-    Path  = 'CN=DFSR-GlobalSettings,CN=System,%DomainDN%'
-    Owner = 'S-1-5-18'
+	Path  = 'CN=DFSR-GlobalSettings,CN=System,%DomainDN%'
+	Owner = 'S-1-5-18'
 }
 @{
-    Path  = 'CN=MicrosoftDNS,CN=System,%DomainDN%'
-    Owner = 'S-1-5-18'
-    Optional = $true
+	Path     = 'CN=MicrosoftDNS,CN=System,%DomainDN%'
+	Owner    = 'S-1-5-18'
+	Optional = $true
 }
 @{
-    Path  = 'CN=Server,CN=System,%DomainDN%'
-    Owner = 'S-1-5-32-544'
+	Path  = 'CN=Server,CN=System,%DomainDN%'
+	Owner = 'S-1-5-32-544'
 }
 @{
-    Path          = 'CN=SOA-Policies,CN=System,%DomainDN%'
-    Owner         = '%RootDomainSID%-519'
-    NoInheritance = $True
+	Path          = 'CN=SOA-Policies,CN=System,%DomainDN%'
+	Owner         = '%RootDomainSID%-519'
+	NoInheritance = $True
+	Optional      = $true
 }
 @{
-    Path          = 'CN=WMIPolicy,CN=System,%DomainDN%'
-    Owner         = '%DomainSID%-512'
-    NoInheritance = $True
+	Path          = 'CN=WMIPolicy,CN=System,%DomainDN%'
+	Owner         = '%DomainSID%-512'
+	NoInheritance = $True
 }
 @{
-    Path  = 'CN=Guest,CN=Users,%DomainDN%'
-    Owner = 'S-1-5-32-544'
+	Path  = 'CN=Guest,CN=Users,%DomainDN%'
+	Owner = 'S-1-5-32-544'
 }
 @{
-    Path  = 'CN=DnsAdmins,CN=Users,%DomainDN%'
-    Owner = 'S-1-5-18'
-    Optional = $true
+	Path     = 'CN=DnsAdmins,CN=Users,%DomainDN%'
+	Owner    = 'S-1-5-18'
+	Optional = $true
 }
 @{
-    Path  = 'CN=DnsUpdateProxy,CN=Users,%DomainDN%'
-    Owner = 'S-1-5-18'
-    Optional = $true
+	Path     = 'CN=DnsUpdateProxy,CN=Users,%DomainDN%'
+	Owner    = 'S-1-5-18'
+	Optional = $true
 }
 @{
-    Path     = 'DC=RootDNSServers,CN=MicrosoftDNS,CN=System,%DomainDN%'
-    Owner    = 'S-1-5-18'
-    Optional = $true
+	Path     = 'DC=RootDNSServers,CN=MicrosoftDNS,CN=System,%DomainDN%'
+	Owner    = 'S-1-5-18'
+	Optional = $true
 }
 @{
-    ObjectCategory = 'DnsNode'
-    Owner          = 'S-1-5-18'
+	ObjectCategory = 'DnsNode'
+	Owner          = 'S-1-5-18'
 }
 @{
-    Path          = 'CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%'
-    Owner         = '%DomainSID%-512'
-    NoInheritance = $True
+	Path          = 'CN=SOM,CN=WMIPolicy,CN=System,%DomainDN%'
+	Owner         = '%DomainSID%-512'
+	NoInheritance = $True
 }
 @{
-    ObjectCategory = 'WMIFilters'
-    Owner          = '%DomainSID%-512'
+	ObjectCategory = 'WMIFilters'
+	Owner          = '%DomainSID%-512'
 }
