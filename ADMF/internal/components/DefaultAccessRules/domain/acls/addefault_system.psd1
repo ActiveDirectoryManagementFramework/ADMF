@@ -10,6 +10,7 @@
 @{
     Path  = 'CN=MicrosoftDNS,CN=System,%DomainDN%'
     Owner = 'S-1-5-18'
+    Optional = $true
 }
 @{
     Path  = 'CN=Server,CN=System,%DomainDN%'
@@ -32,10 +33,12 @@
 @{
     Path  = 'CN=DnsAdmins,CN=Users,%DomainDN%'
     Owner = 'S-1-5-18'
+    Optional = $true
 }
 @{
     Path  = 'CN=DnsUpdateProxy,CN=Users,%DomainDN%'
     Owner = 'S-1-5-18'
+    Optional = $true
 }
 @{
     Path     = 'DC=RootDNSServers,CN=MicrosoftDNS,CN=System,%DomainDN%'
