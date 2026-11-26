@@ -59,3 +59,7 @@
 	ObjectCategory = 'WMIFilters'
 	Owner          = '%DomainSID%-512'
 }
+@{
+	ObjectCategory = 'systemDomainUpdates'
+	Owner          = '__DomainAdminsEx__'
+}
