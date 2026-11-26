@@ -28,20 +28,6 @@
 	NoInheritance = $True
 }
 @{
-	Path  = 'CN=Guest,CN=Users,%DomainDN%'
-	Owner = 'S-1-5-32-544'
-}
-@{
-	Path     = 'CN=DnsAdmins,CN=Users,%DomainDN%'
-	Owner    = 'S-1-5-18'
-	Optional = $true
-}
-@{
-	Path     = 'CN=DnsUpdateProxy,CN=Users,%DomainDN%'
-	Owner    = 'S-1-5-18'
-	Optional = $true
-}
-@{
 	Path     = 'DC=RootDNSServers,CN=MicrosoftDNS,CN=System,%DomainDN%'
 	Owner    = 'S-1-5-18'
 	Optional = $true
